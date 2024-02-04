@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,14 @@ use Illuminate\Support\Facades\Route;
 // Landing Pages Pages
 Route::view('/', 'welcome');
 
+// Login,Resgiter,Logout (Authentication)
+Auth::routes();
+
 // Route Admin
 
 
 
 // Route Siswa
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
