@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Landgin Pages
+Route::view('/', 'landingPages');
+
+// Route Admin
+
+
+
+// Route Siswa
