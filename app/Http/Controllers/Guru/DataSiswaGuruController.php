@@ -12,6 +12,8 @@ class DataSiswaGuruController extends Controller
      */
     public function index()
     {
+
+        return view('guru.dataSiswa.index');
     }
 
     /**
@@ -19,7 +21,7 @@ class DataSiswaGuruController extends Controller
      */
     public function create()
     {
-        //
+        return view('guru.dataSiswa.create');
     }
 
     /**
@@ -27,7 +29,8 @@ class DataSiswaGuruController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        return redirect()->route('data-master.index')->with('success', 'Data murid berhasil ditambahkan');
     }
 
     /**
@@ -35,7 +38,8 @@ class DataSiswaGuruController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        return view('guru.dataSiswa.show');
     }
 
     /**
@@ -43,7 +47,8 @@ class DataSiswaGuruController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+        return view('guru.dataSiswa.edit');
     }
 
     /**
@@ -51,7 +56,7 @@ class DataSiswaGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return redirect()->route('data-master.index')->with('success', 'Data siswa berhasil diupdate');
     }
 
     /**
@@ -59,6 +64,7 @@ class DataSiswaGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+        return redirect()->route('data-master.index')->with('success', 'Data siswa berhasil dihapus');
     }
 }

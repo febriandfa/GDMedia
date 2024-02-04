@@ -12,7 +12,7 @@ class MateriMuridController extends Controller
      */
     public function index()
     {
-        //
+        return view('murid.materi.index');
     }
 
     /**

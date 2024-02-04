@@ -12,7 +12,7 @@ class TugasMuridController extends Controller
      */
     public function index()
     {
-        //
+        return view('murid.tugas.index');
     }
 
     /**
