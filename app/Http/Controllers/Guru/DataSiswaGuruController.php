@@ -12,7 +12,6 @@ class DataSiswaGuruController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**

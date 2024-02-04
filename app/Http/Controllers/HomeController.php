@@ -28,11 +28,11 @@ class HomeController extends Controller
 
     public function guru()
     {
-        return 'Dashboard Guru';
+        return view('guru.dashboard');
     }
 
     public function murid()
     {
-        return 'Dashboard Murid';
+        return view('murid.dashboard');
     }
 }
