@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+// Landing Pages Pages
+Route::view('/', 'welcome')->name('landing-pages');
+
+// Login,Resgiter,Logout (Authentication)
+Auth::routes();
+
+// Route Admin
+Route::group(['middleware' => 'role:guru'], function () {
+    Route::prefix('guru')->group(function () {
+        Route::get('/dashboard', [HomeController::class, 'guru'])->name('dashboard.guru');
+    });
 });
+
+
+// Route Siswa
+Route::group(['middleware' => 'role:murid'], function () {
+    Route::prefix('murid')->group(function () {
+        Route::get('/dashboard', [HomeController::class, 'murid'])->name('dashboard.murid');
+    });
+});
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
