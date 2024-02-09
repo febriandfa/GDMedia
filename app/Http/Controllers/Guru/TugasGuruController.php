@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tugas;
 use Illuminate\Http\Request;
 
 class TugasGuruController extends Controller
@@ -12,7 +13,9 @@ class TugasGuruController extends Controller
      */
     public function index()
     {
-        return view('guru.tugas.index');
+        $tugases = Tugas::all();
+
+        return view('guru.tugas.index', compact('tugases'));
     }
 
     /**
@@ -28,6 +31,10 @@ class TugasGuruController extends Controller
      */
     public function store(Request $request)
     {
+        Tugas::create([
+            'name' => $request->input('name'),
+        ]);
+
         return redirect()->route('tugas-guru.index')->with('success', 'Data tugas berhasil ditambahkan');
     }
 
@@ -36,7 +43,9 @@ class TugasGuruController extends Controller
      */
     public function show(string $id)
     {
-        return view('guru.tugas.show');
+        $tugases = Tugas::find($id);
+
+        return view('guru.tugas.show', compact('tugases'));
     }
 
     /**
@@ -44,7 +53,8 @@ class TugasGuruController extends Controller
      */
     public function edit(string $id)
     {
-        return view('guru.tugas.edit');
+        $tugases = Tugas::find($id);
+        return view('guru.tugas.edit', compact('tugases'));
     }
 
     /**
@@ -52,6 +62,10 @@ class TugasGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $tugases = Tugas::find($id);
+        $tugases->name = $request->name;
+        $tugases->save();
+
         return redirect()->route('tugas-guru.index')->with('success', 'Data tugas berhasil diupdate');
     }
 
@@ -60,6 +74,9 @@ class TugasGuruController extends Controller
      */
     public function destroy(string $id)
     {
+        $tugases = Tugas::find($id);
+        $tugases->delete();
+
         return redirect()->route('tugas-guru.index')->with('success', 'Data tugas berhasil dihapus');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tutorial;
 use Illuminate\Http\Request;
 
 class TutorialGuruController extends Controller
@@ -12,7 +13,9 @@ class TutorialGuruController extends Controller
      */
     public function index()
     {
-        //
+        $tutorials = Tutorial::all();
+
+        return view('guru.tutorial.index', compact('tutorials'));
     }
 
     /**
@@ -20,7 +23,7 @@ class TutorialGuruController extends Controller
      */
     public function create()
     {
-        //
+        return view('guru.tutorial.create');
     }
 
     /**
@@ -28,7 +31,11 @@ class TutorialGuruController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Tutorial::create([
+            'name' => $request->input('name'),
+        ]);
+
+        return redirect()->route('tutorial-guru.index')->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -36,7 +43,9 @@ class TutorialGuruController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $tutorials = Tutorial::find($id);
+
+        return view('guru.tutorial.show', compact('tutorials'));
     }
 
     /**
@@ -44,7 +53,9 @@ class TutorialGuruController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $tutorials = Tutorial::find($id);
+
+        return view('guru.tutorial.edit', compact('tutorials'));
     }
 
     /**
@@ -52,7 +63,11 @@ class TutorialGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $tutorials = Tutorial::find($id);
+        $tutorials->name = $request->name;
+        $tutorials->save();
+
+        return redirect()->route('tutorial-guru.index')->with('success', 'Data berhasil diupdate');
     }
 
     /**
@@ -60,6 +75,9 @@ class TutorialGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $tutorials = Tutorial::find($id);
+        $tutorials->delete();
+
+        return redirect()->route('tutorial-guru.index')->with('success', 'Data berhasil dihapus');
     }
 }
