@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\Materi;
 use Illuminate\Http\Request;
 
 class MateriGuruController extends Controller
@@ -12,8 +13,9 @@ class MateriGuruController extends Controller
      */
     public function index()
     {
+        $materis = Materi::all();
 
-        return view('guru.materi.index');
+        return view('guru.materi.index', compact('materis'));
     }
 
     /**
@@ -29,6 +31,10 @@ class MateriGuruController extends Controller
      */
     public function store(Request $request)
     {
+        Materi::create([
+            'nama' => $request->input('nama')
+        ]);
+
         return redirect()->route('materi-guru.index')->with('success', 'Data Materi berhasil ditambahkan');
     }
 
@@ -37,7 +43,10 @@ class MateriGuruController extends Controller
      */
     public function show(string $id)
     {
-        return view('materi.guru.show');
+        $materis = Materi::find($id)->firstOrFail();
+
+
+        return view('materi.guru.show', compact('materis'));
     }
 
     /**
@@ -45,7 +54,8 @@ class MateriGuruController extends Controller
      */
     public function edit(string $id)
     {
-        return view('materi.guru.edit');
+        $materis = Materi::find($id)->firstOrFail();
+        return view('materi.guru.edit', compact('materis'));
     }
 
     /**
@@ -53,6 +63,10 @@ class MateriGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $materis = Materi::find($id);
+        $materis->name = $request->name;
+        $materis->save();
+
         return redirect()->route('materi-guru.index')->with('success', 'Data Materi berhasil diupdate');
     }
 
@@ -61,6 +75,8 @@ class MateriGuruController extends Controller
      */
     public function destroy(string $id)
     {
+        $materis = Materi::find($id);
+        $materis->delete();
         return redirect()->route('materi-guru.index')->with('success', 'Data Materi berhasil dihapus');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class DataSiswaGuruController extends Controller
 {
@@ -12,8 +13,9 @@ class DataSiswaGuruController extends Controller
      */
     public function index()
     {
+        $users = User::all();
 
-        return view('guru.dataSiswa.index');
+        return view('guru.dataSiswa.index', compact('users'));
     }
 
     /**
@@ -29,6 +31,13 @@ class DataSiswaGuruController extends Controller
      */
     public function store(Request $request)
     {
+        $users = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+        ]);
+        $users->assignRole('murid');
+
 
         return redirect()->route('data-master.index')->with('success', 'Data murid berhasil ditambahkan');
     }
@@ -38,8 +47,9 @@ class DataSiswaGuruController extends Controller
      */
     public function show(string $id)
     {
+        $users = User::find($id)->firstOrFail();
 
-        return view('guru.dataSiswa.show');
+        return view('guru.dataSiswa.show', compact('users'));
     }
 
     /**
@@ -47,8 +57,9 @@ class DataSiswaGuruController extends Controller
      */
     public function edit(string $id)
     {
+        $users = User::find($id)->firstOrFail();
 
-        return view('guru.dataSiswa.edit');
+        return view('guru.dataSiswa.edit', compact('users'));
     }
 
     /**
@@ -56,6 +67,14 @@ class DataSiswaGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $users = User::find($id);
+        $users->name = $request->name;
+        $users->email = $request->email;
+        $users->password = bcrypt($request->password);
+        $users->assignRole('murid');
+        $users->save();
+
+
         return redirect()->route('data-master.index')->with('success', 'Data siswa berhasil diupdate');
     }
 
@@ -64,6 +83,8 @@ class DataSiswaGuruController extends Controller
      */
     public function destroy(string $id)
     {
+        $users = User::find($id);
+        $users->delete();
 
         return redirect()->route('data-master.index')->with('success', 'Data siswa berhasil dihapus');
     }
