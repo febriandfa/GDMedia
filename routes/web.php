@@ -28,6 +28,8 @@ use App\Http\Controllers\Murid\TutorialMuridController;
 
 // Landing Pages Pages
 Route::view('/', 'welcome')->name('landing-pages');
+Route::view('/layout-siswa', 'layouts\siswaLayout')->name('layout-siswa');
+Route::view('/layout-guru', 'layouts\guruLayout')->name('layout-guru');
 
 // Login,Resgiter,Logout (Authentication)
 Auth::routes();
