@@ -29,6 +29,7 @@
             <div class="flex flex-col justify-center min-h-screen px-16 py-16 bg-white">
                 <h1 class="text-5xl font-bold">Daftar</h1>
                 <form method="POST" action="{{ route('register') }}" class="w-full">
+                    @csrf
                     <div class="flex flex-col gap-5 my-6">
                         <div>
                             <label for="email" class="block mb-2 font-semibold">Alamat Email</label>
