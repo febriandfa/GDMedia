@@ -24,8 +24,10 @@
             <x-guru.sidebar />
         </aside>
 
-        <main class="w-screen min-h-screen bg-abu-100">
-            @yield('content')
+        <main class="w-screen min-h-screen px-8 bg-abu-100 py-9">
+            <div class="pl-72">
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>

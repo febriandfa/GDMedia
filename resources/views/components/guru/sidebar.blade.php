@@ -1,4 +1,4 @@
-<div class="!fixed w-64 h-screen bg-white py-10">
+<div class="!fixed w-[17.5rem] h-screen bg-white py-10">
     <img src="{{ asset('assets/logo.png') }}" alt="Logo GDMedia" class="w-48 mx-auto mb-10">
     <div class="h-full px-6">
         <ul class="*:text-lg *:font-semibold *:py-3 *:px-3 *:rounded-lg" style="height: calc(100% - 11rem);">
