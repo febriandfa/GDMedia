@@ -10,7 +10,7 @@
                     Dashboard
                 </a>
             </li>
-            <li class="my-3 hover:bg-hijau hover:text-white {{ Request::is('murid/materi') ? 'bg-hijau text-white' : '' }}">
+            <li class="my-3 hover:bg-hijau hover:text-white {{ Request::is('murid/materi') || Request::is('murid/submateri') ? 'bg-hijau text-white' : '' }}">
                 <a href="{{ route('materi.index') }}" class="flex items-center gap-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37" fill="none">
                         <path d="M15.5544 12.5975C15.5544 13.4259 14.8829 14.0975 14.0544 14.0975C13.226 14.0975 12.5544 13.4259 12.5544 12.5975C12.5544 11.7691 13.226 11.0975 14.0544 11.0975C14.8829 11.0975 15.5544 11.7691 15.5544 12.5975Z" fill="currentcolor"/>

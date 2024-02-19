@@ -31,11 +31,14 @@ class MateriGuruController extends Controller
      */
     public function store(Request $request)
     {
-        Materi::create([
-            'nama' => $request->input('nama')
+        $materis = Materi::create([
+            'nama' => $request->input('nama'),
+            'mata_pelajaran' => $request->input('mata_pelajaran'),
+            'deskripsi' => $request->input('deskripsi'),
+            'capaian' => $request->input('capaian'),
         ]);
 
-        return redirect()->route('materi-guru.index')->with('success', 'Data Materi berhasil ditambahkan');
+        return redirect()->route('guru.materi.index');
     }
 
     /**
@@ -45,7 +48,6 @@ class MateriGuruController extends Controller
     {
         $materis = Materi::find($id)->firstOrFail();
 
-
         return view('materi.guru.show', compact('materis'));
     }
 
@@ -54,8 +56,9 @@ class MateriGuruController extends Controller
      */
     public function edit(string $id)
     {
-        $materis = Materi::find($id)->firstOrFail();
-        return view('materi.guru.edit', compact('materis'));
+        $materis = Materi::find($id)->first();
+
+        return view('guru.materi.edit', compact('materis'));
     }
 
     /**
@@ -64,10 +67,12 @@ class MateriGuruController extends Controller
     public function update(Request $request, string $id)
     {
         $materis = Materi::find($id);
-        $materis->name = $request->name;
-        $materis->save();
 
-        return redirect()->route('materi-guru.index')->with('success', 'Data Materi berhasil diupdate');
+        $materisUpdate = $request->all();
+
+        $materis->update($materisUpdate);
+
+        return redirect()->route('guru.materi.index');
     }
 
     /**
@@ -76,7 +81,9 @@ class MateriGuruController extends Controller
     public function destroy(string $id)
     {
         $materis = Materi::find($id);
+
         $materis->delete();
+
         return redirect()->route('materi-guru.index')->with('success', 'Data Materi berhasil dihapus');
     }
 }

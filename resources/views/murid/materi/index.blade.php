@@ -5,5 +5,9 @@
     <x-title title="Materi" />
 </div>
 
-<x-siswa.materi.list-materi-card title="Elemen 1 - Prinsip Dasar Desain & Komunikasi" desc="Konsentrasi Keahlian Desain Grafis - XI DKV" />
+@foreach ($materis as $materi)
+<div class="mb-4">
+    <x-siswa.materi.list-materi-card :title="$materi->nama" :mapel="$materi->mata_pelajaran" :id="$materi->id" />
+</div>
+@endforeach
 @endsection

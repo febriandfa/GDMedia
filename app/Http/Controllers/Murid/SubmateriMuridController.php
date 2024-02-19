@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
-use App\Models\Materi;
+use App\Models\Submateri;
 use Illuminate\Http\Request;
 
-class MateriMuridController extends Controller
+class SubmateriMuridController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $materis = Materi::with(['submateri'])->get();
+        $submateris = Submateri::with(['materi'])->get();
 
-        return view('murid.materi.index', compact('materis'));
+        return view('murid.submateri.index', compact('submateris'));
     }
 
     /**
@@ -39,9 +39,7 @@ class MateriMuridController extends Controller
      */
     public function show(string $id)
     {
-        $materis = Materi::find($id)->first();
-
-        return view('murid.materi.show', compact('materis'));
+        //
     }
 
     /**

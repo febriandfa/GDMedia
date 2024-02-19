@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Siswa\Materi;
+namespace App\View\Components\Guru\Materi;
 
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -25,6 +25,6 @@ class ListMateriCard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.siswa.materi.list-materi-card');
+        return view('components.guru.materi.list-materi-card');
     }
 }
