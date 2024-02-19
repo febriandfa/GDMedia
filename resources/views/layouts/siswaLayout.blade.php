@@ -27,7 +27,6 @@
         <main class="w-screen min-h-screen px-8 bg-abu-100 py-9">
             <div class="pl-72">
                 @yield('content')
-                <h1>ahuhaiwdiawhd</h1>
             </div>
         </main>
     </div>
