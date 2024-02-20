@@ -39,7 +39,11 @@ class SubmateriMuridController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $submateris = Submateri::find($id)->with(['materi'])->first();
+
+        // dd($submateris);
+
+        return view('murid.submateri.show', compact('submateris'));
     }
 
     /**

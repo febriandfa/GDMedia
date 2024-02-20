@@ -1,4 +1,4 @@
-<div class="flex items-center justify-between p-8 bg-white rounded-xl">
+<div class="flex items-center justify-between p-8 bg-white rounded-xl border-b border-b-hijau">
     <div class="flex items-center gap-6">
         <h1 class="text-[2rem] text-hijau">{{ $index }}</h1>
         <div class="w-0.5 rounded-full h-16 bg-black"></div>
