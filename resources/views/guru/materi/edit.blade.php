@@ -24,15 +24,16 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form method="PATCH" action="{{ route('materi-guru.update', $materis->id) }}">
+            <form method="POST" action="{{ route('materi-guru.update', $materis->id) }}">
             @csrf
+            @method('PUT')
                 <div class="p-4 md:p-5 space-y-9">
                     <div class="flex flex-col gap-8">
                         <input type="text" id="id" name="id" value="{{ $materis->id }}">
                         <input type="text" id="nama" name="nama" value="{{ $materis->nama }}" placeholder="Masukkan Nama Elemen" required autofocus class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">
                         <input type="text" id="mata_pelajaran" name="mata_pelajaran" value="{{ $materis->mata_pelajaran }}" placeholder="Masukkan Mata Pelajaran" required class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">
-                        <textarea name="deskripsi" id="deskripsi" rows="6" value="{{ $materis->deskripsi }}" placeholder="Masukkan Deskripsi" class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2"></textarea>
-                        <textarea name="capaian" id="capaian" rows="6" value="{{ $materis->capaian }}" placeholder="Masukkan Capaian" class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2"></textarea>
+                        <textarea name="deskripsi" id="deskripsi" rows="6" value="{{ $materis->deskripsi }}" placeholder="Masukkan Deskripsi" class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">{{ $materis->deskripsi }}</textarea>
+                        <textarea name="capaian" id="capaian" rows="6" value="{{ $materis->capaian }}" placeholder="Masukkan Capaian" class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">{{ $materis->capaian }}</textarea>
                     </div>
                 </div>
                 <!-- Modal footer -->

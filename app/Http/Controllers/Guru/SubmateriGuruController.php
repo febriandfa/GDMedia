@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guru;
 use App\Http\Controllers\Controller;
 use App\Models\Submateri;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SubmateriGuruController extends Controller
 {
@@ -15,7 +16,8 @@ class SubmateriGuruController extends Controller
     {
         $submateris = Submateri::all();
 
-        return view('guru.submateri.index', compact('submateris'));
+        // return view('guru.submateri.index', compact('submateris'));
+        return response()->json(['success' => true, 'data' => $submateris, 'message' => 'Berhasil']);
     }
 
     /**
@@ -23,13 +25,13 @@ class SubmateriGuruController extends Controller
      */
     public function create()
     {
-        //
+        return view('guru.submateri.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $materi_id)
+    public function store(Request $request)
     {
         if ($request->hasFile('file')) {
             $file = $request->file('file');
@@ -39,11 +41,14 @@ class SubmateriGuruController extends Controller
         }
 
         $submateris = Submateri::create([
-            'materi_id' => $materi_id,
+            // 'materi_id' => $materi_id,
+            'materi_id' => $request->input('materi_id'),
             'nama' => $request->input('nama'),
             'deskripsi' => $request->input('deskripsi'),
             'file' => $fileName
         ]);
+
+        return response()->json(['success' => true, 'data' => $submateris, 'message' => 'Berhasil']);
     }
 
     /**
@@ -51,7 +56,10 @@ class SubmateriGuruController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $submateris = Submateri::where('id', $id)->with(['materi'])->first();
+
+        // return view('guru.submateri.show', compact('submateris'));
+        return response()->json(['success' => true, 'data' => $submateris, 'message' => 'Berhasil']);
     }
 
     /**
@@ -59,7 +67,9 @@ class SubmateriGuruController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $submateris = Submateri::where('id', $id)->first();
+
+        return view('guru.submateri.edit', compact('submateris'));
     }
 
     /**
@@ -67,7 +77,23 @@ class SubmateriGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $submateris = Submateri::find($id);
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $extension = $file->getClientOriginalName();
+            $fileName = date('YmdHis') . "." . $extension;
+            $file->move(storage_path('app/public/Materi/file/'), $fileName);
+        } else {
+            $fileName = $submateris->file;
+        }
+
+        $submaterisUpdate = $request->all();
+        $submaterisUpdate['file'] = $fileName;
+
+        $submateris->update($submaterisUpdate);
+
+        return response()->json(['success' => true, 'data' => $submateris, 'message' => 'Berhasil']);
     }
 
     /**
@@ -75,6 +101,10 @@ class SubmateriGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $submateris = Submateri::find($id);
+
+        $submateris->delete();
+
+        return redirect()->route('submateri-guru.index')->with('success', 'Data Materi berhasil dihapus');
     }
 }

@@ -48,8 +48,6 @@ class MateriGuruController extends Controller
     {
         $materis = Materi::where('id', $id)->with(['submateri'])->first();
 
-        // dd($materis);
-
         return view('guru.materi.show', compact('materis'));
     }
 
@@ -74,7 +72,7 @@ class MateriGuruController extends Controller
 
         $materis->update($materisUpdate);
 
-        return redirect()->route('guru.materi.index');
+        return redirect()->route('materi-guru.index');
     }
 
     /**
