@@ -13,7 +13,9 @@ class SubmateriGuruController extends Controller
      */
     public function index()
     {
-        return view('guru.submateri.index');
+        $submateris = Submateri::all();
+
+        return view('guru.submateri.index', compact('submateris'));
     }
 
     /**

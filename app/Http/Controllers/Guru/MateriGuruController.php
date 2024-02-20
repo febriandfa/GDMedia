@@ -38,7 +38,7 @@ class MateriGuruController extends Controller
             'capaian' => $request->input('capaian'),
         ]);
 
-        return redirect()->route('guru.materi.index');
+        return redirect()->route('materi-guru.index');
     }
 
     /**
@@ -46,9 +46,11 @@ class MateriGuruController extends Controller
      */
     public function show(string $id)
     {
-        $materis = Materi::find($id)->firstOrFail();
+        $materis = Materi::where('id', $id)->with(['submateri'])->first();
 
-        return view('materi.guru.show', compact('materis'));
+        // dd($materis);
+
+        return view('guru.materi.show', compact('materis'));
     }
 
     /**

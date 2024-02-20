@@ -15,7 +15,8 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite('resources/css/app.css')
+    {{-- @vite('resources/css/app.css') --}}
+    @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 
 <body>
@@ -24,7 +25,7 @@
             <x-guru.sidebar />
         </aside>
 
-        <main class="w-screen min-h-screen px-8 bg-abu-100 py-9">
+        <main class="max-w-screen min-h-screen px-8 bg-abu-100 py-9">
             <div class="pl-72">
                 @yield('content')
             </div>
