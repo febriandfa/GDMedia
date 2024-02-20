@@ -58,7 +58,7 @@ class MateriGuruController extends Controller
      */
     public function edit(string $id)
     {
-        $materis = Materi::find($id)->first();
+        $materis = Materi::where('id', $id)->first();
 
         return view('guru.materi.edit', compact('materis'));
     }

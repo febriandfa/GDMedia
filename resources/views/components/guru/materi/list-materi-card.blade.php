@@ -6,6 +6,8 @@
         <p>{{ $mapel }}</p>
     </div>
     
+    <a href="{{ route('materi-guru.edit', $id) }}">Edit</a>
+
     <a href="{{ route('materi-guru.show', $id) }}" class="flex items-center gap-1 px-4 py-2 text-lg font-semibold text-white rounded-xl bg-hijau">
         Selengkapnya
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
