@@ -31,8 +31,16 @@ class ReferensiGuruController extends Controller
      */
     public function store(Request $request)
     {
-        Referensi::create([
-            'name' => $request->input('name'),
+        if ($request->hasFile('gambar')) {
+            $gambar = $request->file('gambar');
+            $extension = $gambar->getClientOriginalName();
+            $gambarName = date('YmdHis') . "." . $extension;
+            $gambar->move(storage_path('app/public/Materi/file/'), $gambarName);
+        }
+
+        $referensis = Referensi::create([
+            'gambar' => $gambarName,
+            'sumber' => $request->input('sumber')
         ]);
 
         return redirect()->route('referensi-guru.index')->with('success', 'Data Referensi Berhasil Ditambahkan');
@@ -75,6 +83,7 @@ class ReferensiGuruController extends Controller
     public function destroy(string $id)
     {
         $referensis = Referensi::find($id);
+
         $referensis->delete();
 
         return redirect()->route('referensi-guru.index')->with('success', 'Data Berhasil dihapus');

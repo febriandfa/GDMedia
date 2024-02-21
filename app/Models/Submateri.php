@@ -21,4 +21,8 @@ class Submateri extends Model
     public function materi() {
         return $this->belongsTo(Materi::class);
     }
+
+    public function status_murid() {
+        return $this->hasMany(UserSubmateri::class, 'submateri_id', 'id');
+    }
 }

@@ -31,8 +31,17 @@ class TutorialGuruController extends Controller
      */
     public function store(Request $request)
     {
-        Tutorial::create([
-            'name' => $request->input('name'),
+        if ($request->hasFile('cover')) {
+            $cover = $request->file('cover');
+            $extension = $cover->getClientOriginalName();
+            $coverName = date('YmdHis') . "." . $extension;
+            $cover->move(storage_path('app/public/Materi/file/'), $coverName);
+        }
+
+        $tutorials = Tutorial::create([
+            'nama' => $request->input('nama'),
+            'cover' => $coverName,
+            'sumber' => $request->input('sumber')
         ]);
 
         return redirect()->route('tutorial-guru.index')->with('success', 'Data berhasil ditambahkan');

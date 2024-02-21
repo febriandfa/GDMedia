@@ -14,7 +14,7 @@ class SubmateriGuruController extends Controller
      */
     public function index()
     {
-        $submateris = Submateri::all();
+        $submateris = Submateri::with(['status_murid', 'status_murid.user'])->get();
 
         // return view('guru.submateri.index', compact('submateris'));
         return response()->json(['success' => true, 'data' => $submateris, 'message' => 'Berhasil']);
