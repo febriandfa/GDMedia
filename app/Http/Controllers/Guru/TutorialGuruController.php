@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tugas;
+use App\Models\Tutorial;
 use Illuminate\Http\Request;
 
-class TugasGuruController extends Controller
+class TutorialGuruController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $tugases = Tugas::all();
+        $tutorials = Tutorial::all();
 
-        return view('guru.tugas.index', compact('tugases'));
+        return view('guru.tutorial.index', compact('tutorials'));
     }
 
     /**
@@ -23,7 +23,7 @@ class TugasGuruController extends Controller
      */
     public function create()
     {
-        return view('guru.tugas.create');
+        return view('guru.tutorial.create');
     }
 
     /**
@@ -31,11 +31,11 @@ class TugasGuruController extends Controller
      */
     public function store(Request $request)
     {
-        Tugas::create([
+        Tutorial::create([
             'name' => $request->input('name'),
         ]);
 
-        return redirect()->route('tugas-guru.index')->with('success', 'Data tugas berhasil ditambahkan');
+        return redirect()->route('tutorial-guru.index')->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -43,9 +43,9 @@ class TugasGuruController extends Controller
      */
     public function show(string $id)
     {
-        $tugases = Tugas::find($id);
+        $tutorials = Tutorial::find($id);
 
-        return view('guru.tugas.show', compact('tugases'));
+        return view('guru.tutorial.show', compact('tutorials'));
     }
 
     /**
@@ -53,8 +53,9 @@ class TugasGuruController extends Controller
      */
     public function edit(string $id)
     {
-        $tugases = Tugas::find($id);
-        return view('guru.tugas.edit', compact('tugases'));
+        $tutorials = Tutorial::find($id);
+
+        return view('guru.tutorial.edit', compact('tutorials'));
     }
 
     /**
@@ -62,11 +63,11 @@ class TugasGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $tugases = Tugas::find($id);
-        $tugases->name = $request->name;
-        $tugases->save();
+        $tutorials = Tutorial::find($id);
+        $tutorials->name = $request->name;
+        $tutorials->save();
 
-        return redirect()->route('tugas-guru.index')->with('success', 'Data tugas berhasil diupdate');
+        return redirect()->route('tutorial-guru.index')->with('success', 'Data berhasil diupdate');
     }
 
     /**
@@ -74,9 +75,9 @@ class TugasGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        $tugases = Tugas::find($id);
-        $tugases->delete();
+        $tutorials = Tutorial::find($id);
+        $tutorials->delete();
 
-        return redirect()->route('tugas-guru.index')->with('success', 'Data tugas berhasil dihapus');
+        return redirect()->route('tutorial-guru.index')->with('success', 'Data berhasil dihapus');
     }
 }
