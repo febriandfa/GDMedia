@@ -32,7 +32,16 @@
                 <div class="p-4 md:p-5 space-y-9">
                     <div class="flex flex-col gap-8">
                         <input type="text" id="nama" name="nama" value="{{ old('nama') }}" placeholder="Masukkan Nama Tutorial" required autofocus class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">
-                        <input type="file" id="cover" name="cover" accept="image/*">
+                        <div>
+                            <div id="dropzone" class="border-2 rounded-xl border-hijau-400 border-dashed p-4 cursor-pointer h-32 flex flex-col items-center justify-center gap-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M17 9.00195C19.175 9.01395 20.353 9.11095 21.121 9.87895C22 10.758 22 12.172 22 15V16C22 18.829 22 20.243 21.121 21.122C20.243 22 18.828 22 16 22H8C5.172 22 3.757 22 2.879 21.122C2 20.242 2 18.829 2 16V15C2 12.172 2 10.758 2.879 9.87895C3.647 9.11095 4.825 9.01395 7 9.00195" stroke="#231F20" stroke-width="1.5" stroke-linecap="round"/>
+                                        <path d="M12 15V2M12 2L15 5.5M12 2L9 5.5" stroke="#231F20" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <p class="text-gray-500">Unggah File</p>
+                            </div>
+                            <input type="file" name="cover" id="cover" class="hidden">
+                        </div>
                         <input type="text" id="sumber" name="sumber" value="{{ old('sumber') }}" placeholder="Masukkan Sumber Referensi" required class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">
                     </div>
                 </div>
@@ -57,4 +66,42 @@
     <x-no-data text="Belum Ada Tutorial" />
 </div>
 @endif
+
+<script>
+    const dropzone = document.getElementById('dropzone');
+    const inputGambar = document.getElementById('cover');
+
+    dropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropzone.classList.add('border-hijau');
+    });
+
+    dropzone.addEventListener('dragleave', () => {
+        dropzone.classList.remove('border-hijau');
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('border-hijau');
+
+        const file = e.dataTransfer.files[0];
+        inputGambar.files = e.dataTransfer.files;
+
+        // dropzone.textContent = file.name;
+        dropzone.innerHTML = `
+            <p class="text-gray-500">${file.name}</p>
+        `;
+    });
+
+    dropzone.addEventListener('click', () => {
+        inputGambar.click();
+    });
+
+    inputGambar.addEventListener('change', () => {
+        // dropzone.textContent = inputGambar.files[0].name;
+        dropzone.innerHTML = `
+            <p class="text-gray-500">${inputGambar.files[0].name}</p>
+        `;
+    });
+</script>
 @endsection

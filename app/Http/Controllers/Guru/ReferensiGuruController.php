@@ -45,8 +45,6 @@ class ReferensiGuruController extends Controller
         ]);
 
         return redirect()->route('referensi-guru.index')->with('success', 'Data Referensi Berhasil Ditambahkan');
-
-        // return response()->json(['success' => true, 'data' => $referensis, 'message' => 'Berhasil']);
     }
 
     /**
