@@ -35,15 +35,17 @@ class ReferensiGuruController extends Controller
             $gambar = $request->file('gambar');
             $extension = $gambar->getClientOriginalName();
             $gambarName = date('YmdHis') . "." . $extension;
-            $gambar->move(storage_path('app/public/Materi/file/'), $gambarName);
+            $gambar->move(storage_path('app/public/Referensi/gambar/'), $gambarName);
         }
 
         $referensis = Referensi::create([
-            'gambar' => $gambarName,
-            'sumber' => $request->input('sumber')
+            'sumber' => $request->input('sumber'),
+            'gambar' => $gambarName
         ]);
 
-        return redirect()->route('referensi-guru.index')->with('success', 'Data Referensi Berhasil Ditambahkan');
+        // return redirect()->route('referensi-guru.index')->with('success', 'Data Referensi Berhasil Ditambahkan');
+
+        return response()->json(['success' => true, 'data' => $referensis, 'message' => 'Berhasil']);
     }
 
     /**

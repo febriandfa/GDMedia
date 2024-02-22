@@ -1,5 +1,8 @@
 @extends('layouts.guruLayout')
 
+@section('script')
+@endsection
+
 @section('content')
 <div class="flex justify-between items-center pb-6 mb-6 border-b-2 border-b-abu-400">
     <x-title title="Referensi" />
@@ -31,6 +34,9 @@
             @csrf
                 <div class="p-4 md:p-5 space-y-9">
                     <div class="flex flex-col gap-8">
+
+                        <input type="file" name="gambar" id="gambar" value="{{ old('gambar') }}">
+
                         <input type="text" id="sumber" name="sumber" value="{{ old('sumber') }}" placeholder="Masukkan Sumber Referensi" required autofocus class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">
                     </div>
                 </div>
