@@ -29,8 +29,8 @@
                         Tugas
                     </a>
                 </li>
-                <li class="my-3 hover:bg-hijau hover:text-white">
-                    <a href="" class="flex items-center gap-3">
+                <li class="my-3 hover:bg-hijau hover:text-white {{ Request::is('murid/tutorial') ? 'bg-hijau text-white' : '' }}">
+                    <a href="{{ route('tutorial.index') }}" class="flex items-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37" fill="none">
                             <path d="M26.9878 14.1122C26.9878 15.5916 25.7497 16.7908 24.2224 16.7908C22.695 16.7908 21.4569 15.5916 21.4569 14.1122C21.4569 12.6328 22.695 11.4335 24.2224 11.4335C25.7497 11.4335 26.9878 12.6328 26.9878 14.1122Z" stroke="currentcolor" stroke-width="1.875"/>
                             <path d="M16.7162 14.1122C16.7162 15.5916 15.478 16.7908 13.9507 16.7908C12.4234 16.7908 11.1853 15.5916 11.1853 14.1122C11.1853 12.6328 12.4234 11.4335 13.9507 11.4335C15.478 11.4335 16.7162 12.6328 16.7162 14.1122Z" stroke="currentcolor" stroke-width="1.875"/>
@@ -40,7 +40,7 @@
                         Kamus Tutorial
                     </a>
                 </li>
-                <li class="my-3 hover:bg-hijau hover:text-white">
+                <li class="my-3 hover:bg-hijau hover:text-white {{ Request::is('murid/referensi') ? 'bg-hijau text-white' : '' }}">
                     <a href="{{ route('referensi.index') }}" class="flex items-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37" fill="none">
                             <path d="M5.87348 31.5006L15.4195 21.9546M27.4405 17.7096L24.583 26.2821C24.5374 26.4195 24.4593 26.5439 24.3554 26.6447C24.2514 26.7455 24.1247 26.8197 23.986 26.8611L6.46898 32.0676C6.31116 32.1144 6.14352 32.1171 5.98428 32.0753C5.82505 32.0335 5.68033 31.9489 5.56587 31.8305C5.45141 31.7122 5.3716 31.5648 5.33512 31.4042C5.29864 31.2437 5.30689 31.0762 5.35898 30.9201L11.047 13.8591C11.0877 13.7366 11.1544 13.6243 11.2424 13.5298C11.3304 13.4353 11.4377 13.3609 11.557 13.3116L19.6375 9.98457C19.8018 9.91672 19.9824 9.89903 20.1568 9.93373C20.3311 9.96844 20.4912 10.054 20.617 10.1796L27.223 16.7886C27.3412 16.9067 27.4241 17.0555 27.4625 17.2182C27.501 17.3808 27.4933 17.551 27.4405 17.7096Z" stroke="currentcolor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>

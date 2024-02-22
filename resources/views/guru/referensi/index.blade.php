@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="flex justify-between items-center pb-6 mb-6 border-b-2 border-b-abu-400">
-    <x-title title="Referensi" />
+    <x-title title="Referensi Desain" />
     <div class="flex items-center gap-4">
         <x-siswa.search-bar />
         <button data-modal-target="default-modal" data-modal-toggle="default-modal" type="button" class="text-[1.75rem] text-white size-14 rounded-full bg-hijau-400">+</button>
@@ -51,9 +51,13 @@
 {{-- Masonry Gallery --}}
 <div class="columns-4 gap-6">
     @foreach ($referensis as $referensi)
-    <div class="h-auto max-w-60 mb-6">
-        <img src="{{ asset('storage/Referensi/gambar/' . $referensi->gambar) }}" alt="Referensi Image {{ $referensi->id }}" class="rounded-xl">
-    </div>
+    <x-guru.referensi.image-card :sumber="$referensi->sumber" :id="$referensi->id" :gambar="$referensi->gambar" />
     @endforeach
 </div>
+
+@if (count($referensis) == 0)
+<div class="flex items-center justify-center" style="height: calc(100vh - 20vh)">
+    <x-no-data text="Belum Ada Referensi" />
+</div>
+@endif
 @endsection

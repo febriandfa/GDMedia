@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guru;
 use App\Http\Controllers\Controller;
 use App\Models\Referensi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ReferensiGuruController extends Controller
 {
@@ -85,6 +86,10 @@ class ReferensiGuruController extends Controller
     public function destroy(string $id)
     {
         $referensis = Referensi::find($id);
+
+        if (Storage::exists('public/Referensi/gambar/' . $referensis->gambar)) {
+            Storage::delete('public/Referensi/gambar/' . $referensis->gambar);
+        }
 
         $referensis->delete();
 

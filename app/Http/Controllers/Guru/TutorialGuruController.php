@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guru;
 use App\Http\Controllers\Controller;
 use App\Models\Tutorial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TutorialGuruController extends Controller
 {
@@ -35,7 +36,7 @@ class TutorialGuruController extends Controller
             $cover = $request->file('cover');
             $extension = $cover->getClientOriginalName();
             $coverName = date('YmdHis') . "." . $extension;
-            $cover->move(storage_path('app/public/Materi/file/'), $coverName);
+            $cover->move(storage_path('app/public/Tutorial/cover/'), $coverName);
         }
 
         $tutorials = Tutorial::create([
@@ -82,9 +83,14 @@ class TutorialGuruController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $tutorials = Tutorial::find($id);
+
+        if (Storage::exists('public/Tutorial/cover/' . $tutorials->cover)) {
+            Storage::delete('public/Tutorial/cover/' . $tutorials->cover);
+        }
+
         $tutorials->delete();
 
         return redirect()->route('tutorial-guru.index')->with('success', 'Data berhasil dihapus');
