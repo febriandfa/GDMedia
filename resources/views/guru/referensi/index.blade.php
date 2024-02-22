@@ -30,13 +30,11 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form method="POST" action="{{ route('referensi-guru.store') }}">
+            <form method="POST" action="{{ route('referensi-guru.store') }}" enctype="multipart/form-data">
             @csrf
                 <div class="p-4 md:p-5 space-y-9">
                     <div class="flex flex-col gap-8">
-
-                        <input type="file" name="gambar" id="gambar" value="{{ old('gambar') }}">
-
+                        <input type="file" id="gambar" name="gambar" accept="image/*">
                         <input type="text" id="sumber" name="sumber" value="{{ old('sumber') }}" placeholder="Masukkan Sumber Referensi" required autofocus class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">
                     </div>
                 </div>
@@ -54,7 +52,7 @@
 <div class="columns-4 gap-6">
     @foreach ($referensis as $referensi)
     <div class="h-auto max-w-60 mb-6">
-        <img src="https://source.unsplash.com/random/1" alt="Referensi Image {{ $referensi->id }}" class="rounded-xl">
+        <img src="{{ asset('storage/Referensi/gambar/' . $referensi->gambar) }}" alt="Referensi Image {{ $referensi->id }}" class="rounded-xl">
     </div>
     @endforeach
 </div>
