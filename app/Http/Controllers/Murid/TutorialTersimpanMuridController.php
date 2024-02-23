@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tutorial;
+use App\Models\TutorialTersimpan;
 use Illuminate\Http\Request;
 
-class TutorialMuridController extends Controller
+class TutorialTersimpanMuridController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $tutorials = Tutorial::with(['status_tersimpan'])->get();
+        $tutorialTersimpans = TutorialTersimpan::where('user_id', auth()->user()->id)->with(['tutorial', 'user'])->get();
 
-        // dd($tutorials);
+        // dd($tutorialTersimpans);
 
-        return view('murid.tutorial.index', compact('tutorials'));
+        return view('murid.tutorial-tersimpan.index', compact('tutorialTersimpans'));
     }
 
     /**
@@ -33,7 +33,13 @@ class TutorialMuridController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tutorialTersimpans = TutorialTersimpan::create([
+            'user_id' => auth()->user()->id,
+            'tutorial_id' => $request->input('tutorial_id'),
+            'status' => 'Tersimpan'
+        ]);
+
+        return redirect()->route('tutorial.index');
     }
 
     /**
@@ -41,10 +47,7 @@ class TutorialMuridController extends Controller
      */
     public function show(string $id)
     {
-
-        $tutorials = Tutorial::find($id);
-
-        return view('murid.tutorial.index', compact('tutorials'));
+        //
     }
 
     /**

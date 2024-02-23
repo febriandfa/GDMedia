@@ -14,6 +14,7 @@ use App\Http\Controllers\Murid\ReferensiMuridController;
 use App\Http\Controllers\Murid\SubmateriMuridController;
 use App\Http\Controllers\Murid\TugasMuridController;
 use App\Http\Controllers\Murid\TutorialMuridController;
+use App\Http\Controllers\Murid\TutorialTersimpanMuridController;
 use App\Http\Controllers\Murid\UserSubmateriMuridController;
 
 /*
@@ -64,6 +65,7 @@ Route::group(['middleware' => 'role:murid'], function () {
             'user-submateri' =>UserSubmateriMuridController::class,
             'tugas' => TugasMuridController::class,
             'tutorial' => TutorialMuridController::class,
+            'tutorial-tersimpan' => TutorialTersimpanMuridController::class,
             'referensi' => ReferensiMuridController::class,
         ]);
     });
