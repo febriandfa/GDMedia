@@ -34,7 +34,7 @@ class UserSubmateriMuridController extends Controller
         $userSubmateris = UserSubmateri::create([
             'submateri_id' => $request->input('submateri_id'),
             'user_id' => auth()->user()->id,
-            'status' => 'Selesai'
+            'is_seen' => 'Y'
         ]);
 
         return response()->json(['success' => true, 'data' => $userSubmateris, 'message' => 'Berhasil']);

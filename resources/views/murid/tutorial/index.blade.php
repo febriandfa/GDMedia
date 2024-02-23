@@ -15,15 +15,11 @@
 <div class="grid grid-cols-3 gap-6">
     @foreach ($tutorials as $tutorial)
 
-        {{-- @foreach ($tutorial->status_tersimpan as $tersimpan)
-            $status = $tersimpan->where('user_id', auth()->user()->id)->first();
-        @endforeach --}}
+            @php
+                $status = $tutorial->status_tersimpan->where('user_id', auth()->user()->id)->first();
+            @endphp
 
-        @php
-            $status = $tutorial->status_tersimpan->where('user_id', auth()->user()->id)->first();
-        @endphp
-
-    <x-siswa.tutorial.tutorial-card :id="$tutorial->id" :nama="$tutorial->nama" :sumber="$tutorial->sumber" :cover="$tutorial->cover" />
+        <x-siswa.tutorial.tutorial-card :id="$tutorial->id" :nama="$tutorial->nama" :sumber="$tutorial->sumber" :cover="$tutorial->cover" />
     @endforeach
 </div>
 

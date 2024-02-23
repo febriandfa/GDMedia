@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('tutorial_id');
             $table->foreign('tutorial_id')->references('id')->on('tutorials');
-            $table->string('status');
+            $table->string('is_saved');
             $table->timestamps();
         });
     }

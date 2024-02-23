@@ -14,7 +14,7 @@ class TutorialTersimpan extends Model
     protected $fillable = [
         'user_id',
         'tutorial_id',
-        'status',
+        'is_saved',
     ];
 
     public function user() {

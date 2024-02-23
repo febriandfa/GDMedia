@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('submateri_id')->references('id')->on('submateris');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('status');
+            $table->string('is_seen');
             $table->timestamps();
         });
     }

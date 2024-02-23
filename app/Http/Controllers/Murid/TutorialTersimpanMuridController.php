@@ -36,7 +36,7 @@ class TutorialTersimpanMuridController extends Controller
         $tutorialTersimpans = TutorialTersimpan::create([
             'user_id' => auth()->user()->id,
             'tutorial_id' => $request->input('tutorial_id'),
-            'status' => 'Tersimpan'
+            'is_saved' => 'Y'
         ]);
 
         return redirect()->route('tutorial.index');
