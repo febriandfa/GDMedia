@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('tutorials', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->string('cover');
+            $table->string('sumber');
             $table->timestamps();
         });
     }
