@@ -68,6 +68,7 @@ Route::group(['middleware' => 'role:murid'], function () {
             'tutorial-tersimpan' => TutorialTersimpanMuridController::class,
             'referensi' => ReferensiMuridController::class,
         ]);
+        Route::get('/tutorial/search',[TutorialMuridController::class, 'search'])->name('tutorial.search');
     });
 });
 

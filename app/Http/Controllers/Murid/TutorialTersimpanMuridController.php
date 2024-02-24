@@ -71,6 +71,10 @@ class TutorialTersimpanMuridController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $tutorialTersimpans = TutorialTersimpan::find($id);
+
+        $tutorialTersimpans->delete();
+
+        return redirect()->route('tutorial.index');
     }
 }

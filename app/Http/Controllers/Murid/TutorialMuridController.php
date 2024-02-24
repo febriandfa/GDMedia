@@ -70,4 +70,13 @@ class TutorialMuridController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $tutorials = Tutorial::with(['status_tersimpan'])->where('nama', 'like', '%' . $search .'%')->get();
+
+        return view('murid.tutorial.index', compact('tutorials'));
+    }
 }

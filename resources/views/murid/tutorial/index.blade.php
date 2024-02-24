@@ -15,16 +15,15 @@
 <div class="grid grid-cols-3 gap-6">
     @foreach ($tutorials as $tutorial)
 
-            @php
-                $status = $tutorial->status_tersimpan->where('user_id', auth()->user()->id)->first();
-            @endphp
+        @php
+            $status = $tutorial->status_tersimpan->where('user_id', auth()->user()->id)->first();
+        @endphp
 
-        <x-siswa.tutorial.tutorial-card :id="$tutorial->id" :nama="$tutorial->nama" :sumber="$tutorial->sumber" :cover="$tutorial->cover" />
+        <x-siswa.tutorial.tutorial-card :id="$tutorial->id" :nama="$tutorial->nama" :sumber="$tutorial->sumber" :cover="$tutorial->cover" :status="$status ? $status->is_saved : 'N'" :idstatus="$status ? $status->id : ''" />
     @endforeach
 </div>
 
 <script>
     console.log(@json($tutorials))
-    console.log(@json($status))
 </script>
 @endsection
