@@ -14,7 +14,7 @@ class UserSubmateri extends Model
     protected $fillable = [
         'submateri_id',
         'user_id',
-        'status',
+        'is_seen',
     ];
 
     public function submateri() {

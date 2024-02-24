@@ -12,9 +12,15 @@ class TutorialGuruController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tutorials = Tutorial::all();
+        $search = $request->input('search');
+
+        $tutorials = Tutorial::with(['status_tersimpan'])
+            ->when($search, function ($query) use ($search) {
+                $query->where('nama', 'like', '%' . $search . '%');
+            })
+            ->get();
 
         return view('guru.tutorial.index', compact('tutorials'));
     }

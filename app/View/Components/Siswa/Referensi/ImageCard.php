@@ -12,6 +12,7 @@ class ImageCard extends Component
      * Create a new component instance.
      */
     public function __construct(
+        public string $nama,
         public string $sumber,
         public string $gambar,
         public string $id,

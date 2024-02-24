@@ -11,9 +11,15 @@ class TutorialMuridController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tutorials = Tutorial::all();
+        $search = $request->input('search');
+
+        $tutorials = Tutorial::with(['status_tersimpan'])
+            ->when($search, function ($query) use ($search) {
+                $query->where('nama', 'like', '%' . $search . '%');
+            })
+            ->get();
 
         return view('murid.tutorial.index', compact('tutorials'));
     }

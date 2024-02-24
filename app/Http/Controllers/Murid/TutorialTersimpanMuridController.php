@@ -3,19 +3,21 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
-use App\Models\UserSubmateri;
+use App\Models\TutorialTersimpan;
 use Illuminate\Http\Request;
 
-class UserSubmateriMuridController extends Controller
+class TutorialTersimpanMuridController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $userSubmateris = UserSubmateri::with('submateri', 'user')->get();
-        
-    return response()->json(['success' => true, 'data' => $userSubmateris, 'message' => 'Berhasil']);
+        $tutorialTersimpans = TutorialTersimpan::where('user_id', auth()->user()->id)->with(['tutorial', 'user'])->get();
+
+        // dd($tutorialTersimpans);
+
+        return view('murid.tutorial-tersimpan.index', compact('tutorialTersimpans'));
     }
 
     /**
@@ -31,13 +33,13 @@ class UserSubmateriMuridController extends Controller
      */
     public function store(Request $request)
     {
-        $userSubmateris = UserSubmateri::create([
-            'submateri_id' => $request->input('submateri_id'),
+        $tutorialTersimpans = TutorialTersimpan::create([
             'user_id' => auth()->user()->id,
-            'is_seen' => 'Y'
+            'tutorial_id' => $request->input('tutorial_id'),
+            'is_saved' => 'Y'
         ]);
 
-        return response()->json(['success' => true, 'data' => $userSubmateris, 'message' => 'Berhasil']);
+        return redirect()->route('tutorial.index');
     }
 
     /**
@@ -69,6 +71,10 @@ class UserSubmateriMuridController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $tutorialTersimpans = TutorialTersimpan::find($id);
+
+        $tutorialTersimpans->delete();
+
+        return redirect()->route('tutorial.index');
     }
 }

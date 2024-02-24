@@ -15,7 +15,9 @@ class TutorialCard extends Component
         public string $id,
         public string $cover,
         public string $sumber,
-        public string $nama
+        public string $nama,
+        public string $status,
+        public string $idstatus
     )
     {
         //

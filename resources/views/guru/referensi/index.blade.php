@@ -4,7 +4,7 @@
 <div class="flex justify-between items-center pb-6 mb-6 border-b-2 border-b-abu-400">
     <x-title title="Referensi Desain" />
     <div class="flex items-center gap-4">
-        <x-siswa.search-bar />
+        <x-siswa.search-bar :route="route('referensi-guru.index')" />
         <button data-modal-target="default-modal" data-modal-toggle="default-modal" type="button" class="text-[1.75rem] text-white size-14 rounded-full bg-hijau-400">+</button>
     </div>
 </div>
@@ -32,6 +32,7 @@
                 <div class="p-4 md:p-5 space-y-9">
                     <div class="flex flex-col gap-8">
                         {{-- <input type="file" id="gambar" name="gambar" accept="image/*"> --}}
+                        <input type="text" id="nama" name="nama" value="{{ old('nama') }}" placeholder="Masukkan Nama Referensi" required autofocus class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">
                         <div>
                             <div id="dropzone" class="border-2 rounded-xl border-hijau-400 border-dashed p-4 cursor-pointer h-32 flex flex-col items-center justify-center gap-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -42,7 +43,7 @@
                             </div>
                             <input type="file" name="gambar" id="gambar" class="hidden">
                         </div>
-                        <input type="text" id="sumber" name="sumber" value="{{ old('sumber') }}" placeholder="Masukkan Sumber Referensi" required autofocus class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">
+                        <input type="text" id="sumber" name="sumber" value="{{ old('sumber') }}" placeholder="Masukkan Sumber Referensi" required class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">
                     </div>
                 </div>
                 <!-- Modal footer -->
@@ -58,7 +59,7 @@
 {{-- Masonry Gallery --}}
 <div class="columns-4 gap-6">
     @foreach ($referensis as $referensi)
-    <x-guru.referensi.image-card :sumber="$referensi->sumber" :id="$referensi->id" :gambar="$referensi->gambar" />
+    <x-guru.referensi.image-card :nama="$referensi->nama" :sumber="$referensi->sumber" :id="$referensi->id" :gambar="$referensi->gambar" />
     @endforeach
 </div>
 

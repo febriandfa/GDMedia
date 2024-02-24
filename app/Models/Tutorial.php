@@ -16,4 +16,8 @@ class Tutorial extends Model
         'cover',
         'sumber'
     ];
+
+    public function status_tersimpan() {
+        return $this->hasMany(TutorialTersimpan::class, 'tutorial_id', 'id');
+    }
 }

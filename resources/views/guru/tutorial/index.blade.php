@@ -4,7 +4,7 @@
 <div class="flex justify-between items-center pb-6 mb-6 border-b-2 border-b-abu-400">
     <x-title title="Kamus Tutorial" />
     <div class="flex items-center gap-4">
-        <x-siswa.search-bar />
+        <x-siswa.search-bar :route="route('tutorial-guru.index')" />
         <button data-modal-target="default-modal" data-modal-toggle="default-modal" type="button" class="text-[1.75rem] text-white size-14 rounded-full bg-hijau-400">+</button>
     </div>
 </div>
