@@ -11,11 +11,15 @@ class TutorialMuridController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tutorials = Tutorial::with(['status_tersimpan'])->get();
+        $search = $request->input('search');
 
-        // dd($tutorials);
+        $tutorials = Tutorial::with(['status_tersimpan'])
+            ->when($search, function ($query) use ($search) {
+                $query->where('nama', 'like', '%' . $search . '%');
+            })
+            ->get();
 
         return view('murid.tutorial.index', compact('tutorials'));
     }
@@ -69,14 +73,5 @@ class TutorialMuridController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function search(Request $request)
-    {
-        $search = $request->input('search');
-
-        $tutorials = Tutorial::with(['status_tersimpan'])->where('nama', 'like', '%' . $search .'%')->get();
-
-        return view('murid.tutorial.index', compact('tutorials'));
     }
 }

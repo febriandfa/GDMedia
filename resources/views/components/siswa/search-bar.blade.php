@@ -1,5 +1,5 @@
 <div class="w-[30rem] h-10 relative rounded-xl overflow-hidden">
-    <form method="GET" action="{{ route('tutorial.search') }}">
+    <form method="GET" action="{{ $route }}">
         @csrf
         <input type="text" id="search" name="search" placeholder="Cari..." value="{{ old('search') }}" class="w-[30rem] h-10 border-0 outline-none focus:outline-none rounded-xl pr-16">
         <button type="submit" class="absolute top-1.5 right-2.5 z-[5]">

@@ -12,9 +12,14 @@ class ReferensiGuruController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $referensis = Referensi::all();
+        $search = $request->input('search');
+
+        $referensis = Referensi::when($search, function ($query) use ($search) {
+                $query->where('nama', 'like', '%' . $search . '%');
+            })
+            ->get();
 
         return view('guru.referensi.index', compact('referensis'));
     }
@@ -40,6 +45,7 @@ class ReferensiGuruController extends Controller
         }
 
         $referensis = Referensi::create([
+            'nama' => $request->input('nama'),
             'sumber' => $request->input('sumber'),
             'gambar' => $gambarName
         ]);

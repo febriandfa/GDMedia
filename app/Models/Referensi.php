@@ -12,6 +12,7 @@ class Referensi extends Model
     protected $table = 'referensis';
 
     protected $fillable = [
+        'nama',
         'sumber',
         'gambar',
     ];
