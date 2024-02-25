@@ -1,15 +1,24 @@
+<script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>  
+
 <div class="p-6 bg-white rounded-xl">
     <h1 class="mb-6 text-xl font-semibold">Proyek 1</h1>
     <div class="p-8 border rounded-lg border-hijau">
         <h2 class="mb-2">Membuat Poster</h2>
-        <h2 class="text-red-500">Deadline : 15/02/2024</h2>
-        <div class="relative w-full my-7">
-            <div class="h-[5px] bg-hijau rounded-full relative z-[2]" style="width:{{ 25 * 100 / 100 }}%"></div>
-            <div class="h-[5px] bg-abu-400 rounded-full w-full absolute top-0"></div>
-        </div>
-        <div class="flex justify-between text-xs">
-            <span>Progress</span>
-            <span>25%</span>
+        <h2 class="text-red-500 mb-7">Deadline : 15/02/2024</h2>
+        <div class="flex items-center justify-between gap-6">
+            <div class="flex items-center justify-center w-fit" x-data="{ circumference: 2 * 22 / 7 * 23 }">
+                <svg class="w-16 h-16 transform -rotate-90">
+                    <circle cx="32.5" cy="32.5" r="23" stroke="currentColor" stroke-width="8" fill="transparent" class="text-abu-400" />
+                    <circle cx="32.5" cy="32.5" r="23" stroke="currentColor" stroke-width="8" fill="transparent" :stroke-dasharray="circumference" :stroke-dashoffset="circumference - 75 / 100 * circumference" class="text-hijau" />
+                </svg>
+                <span class="absolute text-xs">75%</span>
+            </div>
+            <a href="{{ route('lihat-tugas') }}" class="py-2 px-8 rounded-xl bg-hijau text-white flex items-center gap-1 w-full justify-center">
+                Lanjutkan
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                    <path d="M10.5 17L15.5 12L10.5 7" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
         </div>
     </div>
 </div>
