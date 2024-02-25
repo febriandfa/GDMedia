@@ -3,7 +3,10 @@
 @section('content')
 <div class="flex justify-between items-center pb-6 mb-6 border-b-2 border-b-abu-400">
     <x-title title="Referensi Desain" />
-    <x-siswa.search-bar :route="route('referensi.index')" />
+    <div class="flex items-center gap-3">
+        <x-siswa.search-bar :route="route('referensi.index')" />
+        <x-siswa.profil.profil-icon />
+    </div>
 </div>
 
 {{-- Masonry Gallery --}}

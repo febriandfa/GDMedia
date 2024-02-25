@@ -162,7 +162,6 @@
 <script>
     // Handle Show Add Submateri
     function showSectionSubmateri() {
-        console.log('Clicked!')
         var sectionSubmateri = document.getElementById('section-submateri');
         // Remove Class
         sectionSubmateri.classList.remove('hidden');
