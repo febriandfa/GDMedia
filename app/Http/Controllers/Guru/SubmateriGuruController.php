@@ -37,18 +37,18 @@ class SubmateriGuruController extends Controller
             $file = $request->file('file');
             $extension = $file->getClientOriginalName();
             $fileName = date('YmdHis') . "." . $extension;
-            $file->move(storage_path('app/public/Materi/file/'), $fileName);
+            $file->move(storage_path('app/public/Submateri/file/'), $fileName);
         }
 
         $submateris = Submateri::create([
-            // 'materi_id' => $materi_id,
             'materi_id' => $request->input('materi_id'),
             'nama' => $request->input('nama'),
             'deskripsi' => $request->input('deskripsi'),
             'file' => $fileName
         ]);
 
-        return response()->json(['success' => true, 'data' => $submateris, 'message' => 'Berhasil']);
+        return redirect()->route('materi-guru.show', $request->input('materi_id'));
+        // return response()->json(['success' => true, 'data' => $submateris, 'message' => 'Berhasil']);
     }
 
     /**
