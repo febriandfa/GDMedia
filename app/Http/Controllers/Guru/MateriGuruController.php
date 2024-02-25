@@ -64,7 +64,7 @@ class MateriGuruController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         $materis = Materi::find($id);
 
@@ -72,7 +72,7 @@ class MateriGuruController extends Controller
 
         $materis->update($materisUpdate);
 
-        return redirect()->route('materi-guru.index');
+        return redirect()->route('materi-guru.show', $id);
     }
 
     /**
