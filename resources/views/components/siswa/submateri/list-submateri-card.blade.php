@@ -7,7 +7,7 @@
             <p>{{ $desc }}</p>
         </div>
     </div>
-    <a href="{{ route('submateri.show', $id) }}" class="flex items-center px-10 py-2 text-lg font-semibold text-white rounded-xl bg-hijau">
-        Pelajari
+    <a href="{{ route('submateri.show', $id) }}" class="flex items-center px-10 py-2 text-lg font-semibold rounded-xl {{ $status == "Y" ? "bg-white border border-hijau text-hijau" : "bg-hijau text-white border-none" }}">
+        {{ $status == "Y" ? "Selesai" : "Pelajari" }}
     </a>
 </div>

@@ -1,21 +1,20 @@
 <?php
 
-namespace App\View\Components\Siswa\Materi;
+namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ListMateriCard extends Component
+class Itemtitle extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public string $title,
-        public string $mapel,
-        public string $id,
-        public string $percentage
+        public string $main,
+        public string $sub,
+        public string $item
     )
     {
         //
@@ -26,6 +25,6 @@ class ListMateriCard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.siswa.materi.list-materi-card');
+        return view('components.itemtitle');
     }
 }

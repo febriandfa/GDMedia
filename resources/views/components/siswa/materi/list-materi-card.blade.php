@@ -10,9 +10,9 @@
         <div class="flex items-center justify-center" x-data="{ circumference: 2 * 22 / 7 * 23 }">
             <svg class="w-16 h-16 transform -rotate-90">
                 <circle cx="32.5" cy="32.5" r="23" stroke="currentColor" stroke-width="8" fill="transparent" class="text-abu-400" />
-                <circle cx="32.5" cy="32.5" r="23" stroke="currentColor" stroke-width="8" fill="transparent" :stroke-dasharray="circumference" :stroke-dashoffset="circumference - 75 / 100 * circumference" class="text-hijau" />
+                <circle cx="32.5" cy="32.5" r="23" stroke="currentColor" stroke-width="8" fill="transparent" :stroke-dasharray="circumference" :stroke-dashoffset="circumference - {{ $percentage }} / 100 * circumference" class="text-hijau" />
             </svg>
-            <span class="absolute text-xs">75%</span>
+            <span class="absolute text-xs">{{ $percentage }}%</span>
         </div>
     
         <a href="{{ route('submateri.index', $id) }}" class="flex items-center gap-1 px-4 py-2 text-lg font-semibold text-white rounded-xl bg-hijau">

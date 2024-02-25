@@ -148,7 +148,7 @@
                         </svg>
                         <p class="text-gray-500">Unggah File</p>
                 </div>
-                <input type="file" name="file" id="file" class="hidden">
+                <input type="file" name="file" id="file" class="hidden" accept=".pdf" />
             </div>
         </div>
         <div class="flex items-center p-4 md:p-5 rounded-b gap-4 justify-end w-full">
