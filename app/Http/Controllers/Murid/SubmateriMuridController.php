@@ -13,7 +13,7 @@ class SubmateriMuridController extends Controller
      */
     public function index()
     {
-        $submateris = Submateri::with(['materi'])->get();
+        $submateris = Submateri::with(['materi', 'status_murid'])->get();
 
         return view('murid.submateri.index', compact('submateris'));
     }

@@ -121,7 +121,7 @@
     <div class="w-full h-0.5 bg-hijau"></div>
     <div class="my-8">
         @foreach ($materis->submateri as $submateri)
-            <x-guru.submateri.submateri-card :title="$submateri->nama" :desc="$submateri->deskripsi" :file="$submateri->file" />
+            <x-guru.submateri.submateri-card :id="$submateri->id" :title="$submateri->nama" :desc="$submateri->deskripsi" :file="$submateri->file" />
         @endforeach
         <div class="flex justify-center">
             <button type="button" onclick="showSectionSubmateri()" class="text-[1.75rem] text-white size-14 rounded-full bg-hijau-400">+</button>
@@ -162,7 +162,15 @@
 <script>
     // Handle Show Add Submateri
     function showSectionSubmateri() {
-        var addSubmateri = document.getElementById('add-submateri');
+        console.log('Clicked!')
+        var sectionSubmateri = document.getElementById('section-submateri');
+        // Remove Class
+        sectionSubmateri.classList.remove('hidden');
+        // Add Class
+        sectionSubmateri.classList.add('block');
+    }
+
+    function buttonShowSectionSubmateri() {
         var sectionSubmateri = document.getElementById('section-submateri');
         // Remove Class
         sectionSubmateri.classList.remove('hidden');
@@ -172,7 +180,6 @@
 
     // Handle Close Add Submateri
     function closeSectionSubmateri() {
-        var addSubmateri = document.getElementById('add-submateri');
         var sectionSubmateri = document.getElementById('section-submateri');
         // Remove Class
         sectionSubmateri.classList.remove('block');

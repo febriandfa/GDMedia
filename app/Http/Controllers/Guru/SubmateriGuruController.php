@@ -75,7 +75,7 @@ class SubmateriGuruController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         $submateris = Submateri::find($id);
 
@@ -83,7 +83,7 @@ class SubmateriGuruController extends Controller
             $file = $request->file('file');
             $extension = $file->getClientOriginalName();
             $fileName = date('YmdHis') . "." . $extension;
-            $file->move(storage_path('app/public/Materi/file/'), $fileName);
+            $file->move(storage_path('app/public/Submateri/file/'), $fileName);
         } else {
             $fileName = $submateris->file;
         }
@@ -93,7 +93,8 @@ class SubmateriGuruController extends Controller
 
         $submateris->update($submaterisUpdate);
 
-        return response()->json(['success' => true, 'data' => $submateris, 'message' => 'Berhasil']);
+        return redirect()->route('materi-guru.show', $submateris->materi_id);
+        // return response()->json(['success' => true, 'data' => $submateris, 'message' => 'Berhasil']);
     }
 
     /**
@@ -105,6 +106,7 @@ class SubmateriGuruController extends Controller
 
         $submateris->delete();
 
-        return redirect()->route('submateri-guru.index')->with('success', 'Data Materi berhasil dihapus');
+        return redirect()->route('materi-guru.show', $submateris->materi_id);
+        // return redirect()->route('submateri-guru.index')->with('success', 'Data Materi berhasil dihapus');
     }
 }

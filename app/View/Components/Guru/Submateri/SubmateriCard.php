@@ -14,7 +14,8 @@ class SubmateriCard extends Component
     public function __construct(
         public string $title,
         public string $desc,
-        public string $file
+        public string $file,
+        public string $id
     )
     {
         //
