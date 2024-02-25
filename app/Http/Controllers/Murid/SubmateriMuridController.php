@@ -39,7 +39,7 @@ class SubmateriMuridController extends Controller
      */
     public function show(string $id)
     {
-        $submateris = Submateri::find($id)->with(['materi'])->first();
+        $submateris = Submateri::where('id', $id)->with(['materi', 'status_murid'])->first();
 
         // dd($submateris);
 

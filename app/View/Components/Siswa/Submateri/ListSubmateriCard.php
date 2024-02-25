@@ -15,7 +15,8 @@ class ListSubmateriCard extends Component
         public string $index,
         public string $title,
         public string $desc,
-        public string $id
+        public string $id,
+        public string $status
     )
     {
         //

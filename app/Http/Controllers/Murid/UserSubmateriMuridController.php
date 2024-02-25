@@ -37,7 +37,8 @@ class UserSubmateriMuridController extends Controller
             'is_seen' => 'Y'
         ]);
 
-        return response()->json(['success' => true, 'data' => $userSubmateris, 'message' => 'Berhasil']);
+        return redirect()->route('submateri.show', $request->input('submateri_id'));
+        // return response()->json(['success' => true, 'data' => $userSubmateris, 'message' => 'Berhasil']);
     }
 
     /**

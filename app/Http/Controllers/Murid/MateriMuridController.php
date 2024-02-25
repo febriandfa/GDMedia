@@ -13,7 +13,7 @@ class MateriMuridController extends Controller
      */
     public function index()
     {
-        $materis = Materi::with(['submateri'])->get();
+        $materis = Materi::with(['submateri', 'submateri.status_murid'])->get();
 
         return view('murid.materi.index', compact('materis'));
     }
