@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tutorial_tersimpans', function (Blueprint $table) {
+        Schema::create('tugas_answers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('tutorial_id');
-            $table->foreign('tutorial_id')->references('id')->on('tutorials')->cascadeOnDelete();
-            $table->string('is_saved');
+            $table->unsignedBigInteger('subtugas_id');
+            $table->foreign('subtugas_id')->references('id')->on('subtugas')->cascadeOnDelete();
+            $table->longText('catatan')->nullable();
+            $table->string('link')->nullable();
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tutorial_tersimpan');
+        Schema::dropIfExists('tugas_answer');
     }
 };

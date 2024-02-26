@@ -13,7 +13,7 @@ class TugasGuruController extends Controller
      */
     public function index()
     {
-        $tugases = Tugas::all();
+        $tugases = Tugas::with(['subtugas'])->get();
 
         return view('guru.tugas.index', compact('tugases'));
     }
@@ -31,8 +31,10 @@ class TugasGuruController extends Controller
      */
     public function store(Request $request)
     {
-        Tugas::create([
-            'name' => $request->input('name'),
+        $tugases = Tugas::create([
+            'nama' => $request->input('nama'),
+            'deskripsi' => $request->input('deskripsi'),
+            'deadline' => $request->input('deadline'),
         ]);
 
         return redirect()->route('tugas-guru.index')->with('success', 'Data tugas berhasil ditambahkan');
@@ -53,7 +55,8 @@ class TugasGuruController extends Controller
      */
     public function edit(string $id)
     {
-        $tugases = Tugas::find($id);
+        $tugases = Tugas::where('id', $id)->with(['subtugas'])->first();
+
         return view('guru.tugas.edit', compact('tugases'));
     }
 

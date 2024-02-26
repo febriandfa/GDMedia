@@ -1,21 +1,20 @@
 <?php
 
-namespace App\View\Components\Guru\Tugas;
+namespace App\View\Components\Guru\Subtugas;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ListTugasCard extends Component
+class SubtugasCard extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
         public string $id,
-        public string $nama,
-        public string $deadline,
-        public string $index,
+        public string $title,
+        public string $desc
     )
     {
         //
@@ -26,6 +25,6 @@ class ListTugasCard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.guru.tugas.list-tugas-card');
+        return view('components.guru.subtugas.subtugas-card');
     }
 }

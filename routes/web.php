@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Guru\DataSiswaGuruController;
 use App\Http\Controllers\Guru\MateriGuruController;
+use App\Http\Controllers\Guru\ProgressTugasGuruController;
 use App\Http\Controllers\Guru\ReferensiGuruController;
 use App\Http\Controllers\Guru\SubmateriGuruController;
+use App\Http\Controllers\Guru\SubtugasGuruController;
 use App\Http\Controllers\Guru\TugasGuruController;
 use App\Http\Controllers\Guru\TutorialGuruController;
 use Illuminate\Support\Facades\Route;
@@ -12,10 +14,13 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Murid\MateriMuridController;
 use App\Http\Controllers\Murid\ReferensiMuridController;
 use App\Http\Controllers\Murid\SubmateriMuridController;
+use App\Http\Controllers\Murid\SubtugasMuridController;
+use App\Http\Controllers\Murid\TugasAnswerMuridController;
 use App\Http\Controllers\Murid\TugasMuridController;
 use App\Http\Controllers\Murid\TutorialMuridController;
 use App\Http\Controllers\Murid\TutorialTersimpanMuridController;
 use App\Http\Controllers\Murid\UserSubmateriMuridController;
+use App\Models\Subtugas;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +59,8 @@ Route::group(['middleware' => 'role:guru'], function () {
             'materi-guru' => MateriGuruController::class,
             'submateri-guru' => SubmateriGuruController::class,
             'tugas-guru' => TugasGuruController::class,
+            'subtugas-guru' => SubtugasGuruController::class,
+            'progress-guru' => ProgressTugasGuruController::class,
             'tutorial-guru' => TutorialGuruController::class,
             'referensi-guru' => ReferensiGuruController::class,
         ]);
@@ -70,6 +77,8 @@ Route::group(['middleware' => 'role:murid'], function () {
             'submateri' => SubmateriMuridController::class,
             'user-submateri' =>UserSubmateriMuridController::class,
             'tugas' => TugasMuridController::class,
+            'subtugas' => SubtugasMuridController::class,
+            'tugas-answer' => TugasAnswerMuridController::class,
             'tutorial' => TutorialMuridController::class,
             'tutorial-tersimpan' => TutorialTersimpanMuridController::class,
             'referensi' => ReferensiMuridController::class,

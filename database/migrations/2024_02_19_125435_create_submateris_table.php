@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('materi_id');
             $table->foreign('materi_id')->references('id')->on('materis')->cascadeOnDelete();
             $table->string('nama');
-            $table->string('deskripsi');
+            $table->longText('deskripsi');
             $table->string('file');
             $table->timestamps();
         });

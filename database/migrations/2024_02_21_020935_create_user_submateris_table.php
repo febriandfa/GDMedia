@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('user_submateris', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('submateri_id');
-            $table->foreign('submateri_id')->references('id')->on('submateris');
+            $table->foreign('submateri_id')->references('id')->on('submateris')->cascadeOnDelete();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('is_seen');

@@ -24,7 +24,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form method="POST" action="{{ route('materi-guru.store') }}">
+            <form method="POST" action="{{ route('tugas-guru.store') }}">
             @csrf
                 <div class="p-4 md:p-5 space-y-9">
                     <div class="flex flex-col gap-8">
@@ -43,13 +43,13 @@
     </div>
 </div>
 
-<script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>  
-
-<x-guru.tugas.list-tugas-card />
+@foreach ($tugases as $index => $tugas)
+    <x-guru.tugas.list-tugas-card :id="$tugas->id" :index="$index + 1" :nama="$tugas->nama" :deadline="$tugas->deadline" />
+@endforeach
 
 @if (count($tugases) == 0)
-{{-- <div class="flex items-center justify-center" style="height: calc(100vh - 20vh)">
-    <x-no-data text="Belum Ada Materi" />
-</div> --}}
+<div class="flex items-center justify-center" style="height: calc(100vh - 20vh)">
+    <x-no-data text="Belum Ada Tugas" />
+</div>
 @endif
 @endsection

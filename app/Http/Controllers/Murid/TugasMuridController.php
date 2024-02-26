@@ -15,7 +15,7 @@ class TugasMuridController extends Controller
      */
     public function index()
     {
-        $tugases = Tugas::all();
+        $tugases = Tugas::with(['subtugas'])->get();
 
         return view('murid.tugas.index', compact('tugases'));
     }
@@ -47,7 +47,7 @@ class TugasMuridController extends Controller
      */
     public function show(string $id)
     {
-        $tugases = Tugas::find($id);
+        $tugases = Tugas::where('id', $id)->with(['subtugas', 'subtugas.tugas_answer'])->first();
 
         return view('murid.tugas.show', compact('tugases'));
     }
