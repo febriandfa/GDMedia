@@ -43,9 +43,13 @@
     </div>
 </div>
 
+<script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>  
+
+<x-guru.tugas.list-tugas-card />
+
 @if (count($tugases) == 0)
-<div class="flex items-center justify-center" style="height: calc(100vh - 20vh)">
+{{-- <div class="flex items-center justify-center" style="height: calc(100vh - 20vh)">
     <x-no-data text="Belum Ada Materi" />
-</div>
+</div> --}}
 @endif
 @endsection
