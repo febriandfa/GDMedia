@@ -33,7 +33,7 @@ class TugasAnswerMuridController extends Controller
             $file = $request->file('file');
             $extension = $file->getClientOriginalName();
             $fileName = date('YmdHis') . "." . $extension;
-            $file->move(storage_path('app/public/Subtugas/file/'), $fileName);
+            $file->move(storage_path('app/public/TugasAnswer/file/'), $fileName);
         }
 
         $tugasAnswers = TugasAnswer::create([

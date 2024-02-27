@@ -8,10 +8,15 @@
 </div>
 
 <div class="space-y-6">
-    @foreach ($tugases->subtugas as $subtugas)    
+    @foreach ($tugases->subtugas as $subtugas)   
+
+        @php
+            $userFinish = $subtugas->tugas_answer->where('user_id', auth()->user()->id)->first();
+        @endphp
+    
         <div class="w-full p-8 rounded-xl border-b border-b-hijau bg-white flex items-center justify-between">
             <p class="text-xl font-semibold">{{ $subtugas->tahap }}</p>
-            <a href="{{ route('subtugas.show', $subtugas->id) }}" class="py-2 px-8 rounded-xl bg-hijau text-white text-lg font-semibold">Kerjakan</a>
+            <a href="{{ $userFinish ? route('subtugas.edit', $subtugas->id) : route('subtugas.show', $subtugas->id) }}" class="py-2 px-8 rounded-xl bg-hijau text-white text-lg font-semibold">{{ $userFinish ? "Lihat" : "Kerjakan" }}</a>
         </div>
     @endforeach
 
@@ -31,5 +36,6 @@
 
 <script>
     console.log(@json($tugases))
+    console.log(@json($userFinish))
 </script>
 @endsection

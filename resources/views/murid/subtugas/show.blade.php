@@ -34,6 +34,8 @@
 </div>
 
 <script>
+    console.log(@json($subtugases))
+
     // Handle Drag n Drop Upload
     const dropzone = document.getElementById('dropzone');
     const inputGambar = document.getElementById('file');

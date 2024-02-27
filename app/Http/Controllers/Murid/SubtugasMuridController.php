@@ -47,7 +47,9 @@ class SubtugasMuridController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $subtugases = Subtugas::where('id', $id)->with(['tugas', 'tugas_answer'])->first();
+
+        return view('murid.subtugas.edit', compact('subtugases'));
     }
 
     /**
