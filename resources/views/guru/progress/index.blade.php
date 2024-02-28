@@ -6,7 +6,7 @@
 </div>
 
 @foreach ($tugases as $index => $tugas)
-    <a href="{{ route('progress-guru.show', $tugas->id) }}" class="p-6 bg-white rounded-xl block">
+    <a href="{{ route('progress-guru.indexMurid', $tugas->id) }}" class="p-6 bg-white rounded-xl block">
         <h1 class="mb-6 text-xl font-semibold">{{ $tugas->nama }}</h1>
         <div class="p-8 border rounded-lg border-hijau flex items-center justify-between">
             <div>

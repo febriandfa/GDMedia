@@ -45,7 +45,7 @@ class TugasGuruController extends Controller
      */
     public function show(string $id)
     {
-        $tugases = Tugas::find($id);
+        $tugases = Tugas::where('id', $id)->with(['subtugas'])->first();
 
         return view('guru.tugas.show', compact('tugases'));
     }

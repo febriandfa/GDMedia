@@ -1,4 +1,4 @@
-<a href="{{ route('tugas-guru.edit', $id) }}" class="p-6 bg-white rounded-xl block">
+<a href="{{ route('tugas-guru.show', $id) }}" class="p-6 bg-white rounded-xl block">
     <h1 class="mb-6 text-xl font-semibold">{{ $nama }}</h1>
     <div class="p-8 border rounded-lg border-hijau flex items-center justify-between">
         <div>

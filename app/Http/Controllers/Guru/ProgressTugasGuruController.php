@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\Subtugas;
 use App\Models\Tugas;
 use App\Models\TugasAnswer;
 use App\Models\User;
@@ -43,13 +44,13 @@ class ProgressTugasGuruController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($user_id)
     {
-        $tugases = Tugas::where('id', $id)->with(['subtugas.tugas_answer'])->first();
+        $tugases = Tugas::with(['subtugas.tugas_answer'])->get();
 
-        $users = User::where('role', 'murid')->with(['tugas_answer.subtugas'])->get();
+        $answers = TugasAnswer::where('user_id', $user_id)->with(['user', 'subtugas'])->get();
         
-        return view('guru.progress.show', compact('tugases', 'users'));
+        return view('guru.progress.show', compact('tugases', 'answers'));
     }
 
     /**
@@ -57,7 +58,9 @@ class ProgressTugasGuruController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $answers = TugasAnswer::where('id', $id)->with(['user', 'subtugas'])->first();
+
+        return view('guru.progress.edit', compact('answers'));
     }
 
     /**
@@ -74,5 +77,14 @@ class ProgressTugasGuruController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function indexMurid($id)
+    {
+        $tugases = Tugas::where('id', $id)->with(['subtugas.tugas_answer'])->first();
+
+        $users = User::where('role', 'murid')->with(['tugas_answer.subtugas'])->get();
+        
+        return view('guru.progress.indexMurid', compact('tugases', 'users'));
     }
 }

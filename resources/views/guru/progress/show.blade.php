@@ -1,7 +1,27 @@
 @extends('layouts.guruLayout')
 
 @section('content')
-<script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>  
+
+@php
+    $tugas = $tugases->where('id', $answers[0]->subtugas->tugas_id)->first();
+@endphp
+
+<div class="mb-6 flex flex-col gap-6">
+    <x-subtitle main="Tugas" sub="{{ $tugas->nama }}" />
+    <p class="text-lg font-semibold">{{ $tugas->deskripsi }}</p>
+    <p class="text-lg font-semibold text-red-500">Deadline : {{ $tugas->deadline }}</p>
+</div>
+
+<div class="space-y-6">
+    @foreach ($answers as $answer)   
+        <div class="w-full p-8 rounded-xl border-b border-b-hijau bg-white flex items-center justify-between">
+            <p class="text-xl font-semibold">{{ $answer->subtugas->tahap }}</p>
+            <a href="{{ route('progress-guru.edit', $answer->id) }}" class="py-2 px-8 rounded-xl bg-hijau text-white text-lg font-semibold">Lihat Hasil Siswa</a>
+        </div>
+    @endforeach
+</div>
+
+{{-- <script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>  
 
 <div class="mb-6 flex flex-col gap-6">
     <x-subtitle main="Tugas" :sub="$tugases->nama" />
@@ -37,8 +57,10 @@
     @endforeach
 
 @endforeach
+ --}}
 
 <script>
     console.log(@json($tugases))
+    console.log(@json($answers))
 </script>
 @endsection

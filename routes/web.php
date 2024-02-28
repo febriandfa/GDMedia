@@ -64,6 +64,7 @@ Route::group(['middleware' => 'role:guru'], function () {
             'tutorial-guru' => TutorialGuruController::class,
             'referensi-guru' => ReferensiGuruController::class,
         ]);
+        Route::get('/progress-guru/{id}/murid', [ProgressTugasGuruController::class, 'indexMurid'])->name('progress-guru.indexMurid');
     });
 });
 
