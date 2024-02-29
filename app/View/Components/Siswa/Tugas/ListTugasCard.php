@@ -14,7 +14,8 @@ class ListTugasCard extends Component
     public function __construct(
         public string $id,
         public string $nama,
-        public string $deadline
+        public string $deadline,
+        public string $nilai
     )
     {
         //

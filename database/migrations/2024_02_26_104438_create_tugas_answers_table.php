@@ -20,6 +20,7 @@ return new class extends Migration
             $table->longText('catatan')->nullable();
             $table->string('link')->nullable();
             $table->string('file')->nullable();
+            $table->string('feedback')->nullable();
             $table->timestamps();
         });
     }

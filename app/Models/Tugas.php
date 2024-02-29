@@ -20,4 +20,8 @@ class Tugas extends Model
     public function subtugas() {
         return $this->hasMany(Subtugas::class, 'tugas_id', 'id');
     }
+
+    public function tugas_nilai() {
+        return $this->hasMany(TugasNilai::class, 'tugas_id', 'id');
+    }
 }

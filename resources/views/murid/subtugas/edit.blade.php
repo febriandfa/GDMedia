@@ -35,7 +35,7 @@
 
 <h3 class="text-xl font-semibold mb-2">Nilai & Masukan Dari Fasilitator</h3>
 <div class="rounded-xl bg-white p-8 border-b border-b-hijau">
-    <p class="text-sm">ihfiaf auhfhawhf awjfawfuia uawbf uiabf</p>
+    <p class="text-sm">{{ $userAnswer->feedback ? $userAnswer->feedback : "Tidak Ada Feedback" }}</p>
 </div>
 
 <script>

@@ -44,7 +44,12 @@
 
 <div class="grid grid-cols-2 gap-10">
     @foreach ($tugases as $tugas)
-        <x-siswa.tugas.list-tugas-card :id="$tugas->id" :nama="$tugas->nama" :deadline="$tugas->deadline" />
+
+        @php
+            $nilaiUser = $tugas->tugas_nilai->where('murid_id', auth()->user()->id)->first();
+        @endphp
+
+        <x-siswa.tugas.list-tugas-card :id="$tugas->id" :nama="$tugas->nama" :deadline="$tugas->deadline" :nilai="$nilaiUser ? $nilaiUser->nilai : 'Belum Dinilai'" />
     @endforeach
 </div>
 

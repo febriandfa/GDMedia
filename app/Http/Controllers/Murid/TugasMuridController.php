@@ -15,7 +15,7 @@ class TugasMuridController extends Controller
      */
     public function index()
     {
-        $tugases = Tugas::with(['subtugas'])->get();
+        $tugases = Tugas::with(['subtugas', 'tugas_nilai'])->get();
 
         return view('murid.tugas.index', compact('tugases'));
     }

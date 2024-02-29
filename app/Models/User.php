@@ -50,4 +50,8 @@ class User extends Authenticatable
     public function tugas_answer() {
         return $this->hasMany(TugasAnswer::class);
     }
+
+    public function tugas_nilai() {
+        return $this->hasMany(TugasNilai::class);
+    }
 }

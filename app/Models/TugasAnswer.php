@@ -16,7 +16,8 @@ class TugasAnswer extends Model
         'subtugas_id',
         'catatan',
         'file',
-        'link'
+        'link',
+        'feedback'
     ];
 
     public function user() {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Subtugas;
 use App\Models\Tugas;
 use App\Models\TugasAnswer;
+use App\Models\TugasNilai;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -38,7 +39,13 @@ class ProgressTugasGuruController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nilais = TugasNilai::create([
+            'murid_id' => $request->input('murid_id'),
+            'tugas_id' => $request->input('tugas_id'),
+            'nilai' => $request->input('nilai')
+        ]);
+
+        return redirect()->route('progress-guru.show', $request->input('murid_id'));
     }
 
     /**
@@ -46,7 +53,7 @@ class ProgressTugasGuruController extends Controller
      */
     public function show($user_id)
     {
-        $tugases = Tugas::with(['subtugas.tugas_answer'])->get();
+        $tugases = Tugas::with(['subtugas.tugas_answer', 'tugas_nilai'])->get();
 
         $answers = TugasAnswer::where('user_id', $user_id)->with(['user', 'subtugas'])->get();
         
@@ -60,15 +67,23 @@ class ProgressTugasGuruController extends Controller
     {
         $answers = TugasAnswer::where('id', $id)->with(['user', 'subtugas'])->first();
 
-        return view('guru.progress.edit', compact('answers'));
+        $tugases = Tugas::with(['subtugas.tugas_answer'])->get();
+
+        return view('guru.progress.edit', compact('answers', 'tugases'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $answers = TugasAnswer::find($id);
+
+        $answersUpdate = $request->only(['feedback']);
+
+        $answers->update($answersUpdate);
+
+        return redirect()->route('progress-guru.edit', $id);
     }
 
     /**
