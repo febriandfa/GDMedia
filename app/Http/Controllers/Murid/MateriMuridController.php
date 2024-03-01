@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
 use App\Models\Materi;
+use App\Models\Submateri;
 use Illuminate\Http\Request;
 
 class MateriMuridController extends Controller
@@ -39,9 +40,11 @@ class MateriMuridController extends Controller
      */
     public function show(string $id)
     {
-        $materis = Materi::find($id)->first();
+        // $materis = Materi::find($id)->first();
+        $submateris = Submateri::where('materi_id', $id)->with(['materi', 'status_murid'])->get();
 
-        return view('murid.materi.show', compact('materis'));
+
+        return view('murid.materi.show', compact('submateris'));
     }
 
     /**
