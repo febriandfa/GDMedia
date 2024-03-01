@@ -11,9 +11,9 @@ class SubmateriMuridController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        $submateris = Submateri::with(['materi', 'status_murid'])->get();
+        $submateris = Submateri::where('materi_id', $id)->with(['materi', 'status_murid'])->get();
 
         return view('murid.submateri.index', compact('submateris'));
     }

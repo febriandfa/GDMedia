@@ -40,12 +40,6 @@ use App\Models\Subtugas;
 Route::view('/', 'auth.login')->name('landing-pages');
 
 Route::view('/gabung-kelompok', 'murid.kelompok.index')->name('gabung-kelompok');
-Route::view('/show-tugas', 'murid.tugas.show')->name('lihat-tugas');
-
-Route::view('/tugas/tahap-1', 'murid.tugas.tahap-1')->name('tahap1');
-Route::view('/tugas/tahap-2', 'murid.tugas.tahap-2')->name('tahap2');
-Route::view('/tugas/tahap-3', 'murid.tugas.tahap-3')->name('tahap3');
-Route::view('/tugas/tahap-4', 'murid.tugas.tahap-4')->name('tahap4');
 
 // Login,Resgiter,Logout (Authentication)
 Auth::routes();

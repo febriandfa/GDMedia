@@ -44,7 +44,7 @@ class TugasAnswerMuridController extends Controller
             'file' => $fileName,
         ]);
 
-        return redirect()->route('subtugas.show', $request->input('subtugas_id'));
+        return redirect()->route('subtugas.edit', $request->input('subtugas_id'));
     }
 
     /**
