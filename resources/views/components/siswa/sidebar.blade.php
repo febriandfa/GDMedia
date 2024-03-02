@@ -21,7 +21,7 @@
                         Materi
                     </a>
                 </li>
-                <li class="my-3 hover:bg-hijau hover:text-white {{ Request::is('murid/tugas') ? 'bg-hijau text-white' : '' }}">
+                <li class="my-3 hover:bg-hijau hover:text-white {{ Request::is('murid/tugas*') || Request::is('murid/subtugas*') ? 'bg-hijau text-white' : '' }}">
                     <a href="{{ route('tugas.index') }}" class="flex items-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37" fill="none">
                             <path d="M12.9294 27.5976V23.0975M18.9295 20.0975V27.5976M24.9295 27.5976V17.0975M10.6794 17.8475L12.8763 15.2845C14.3026 13.6205 16.505 12.8385 18.6613 13.2306V13.2306C21.6475 13.7736 24.7101 12.8169 26.8563 10.6707L27.1795 10.3475M16.2295 32.0976H21.6295C26.1291 32.0976 28.379 32.0976 29.9562 30.9517C30.4655 30.5816 30.9135 30.1336 31.2836 29.6243C32.4295 28.0471 32.4295 25.7972 32.4295 21.2975V15.8975C32.4295 11.3979 32.4295 9.14802 31.2836 7.57082C30.9135 7.06146 30.4655 6.61351 29.9562 6.24343C28.379 5.09753 26.1291 5.09753 21.6294 5.09753H16.2295C11.7298 5.09753 9.47993 5.09753 7.90273 6.24343C7.39337 6.61351 6.94542 7.06146 6.57534 7.57082C5.42944 9.14802 5.42944 11.3979 5.42944 15.8976V21.2975C5.42944 25.7972 5.42944 28.0471 6.57534 29.6243C6.94542 30.1336 7.39337 30.5816 7.90273 30.9517C9.47993 32.0976 11.7298 32.0976 16.2295 32.0976Z" stroke="currentcolor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
@@ -29,7 +29,7 @@
                         Tugas
                     </a>
                 </li>
-                <li class="my-3 hover:bg-hijau hover:text-white {{ Request::is('murid/tutorial') ? 'bg-hijau text-white' : '' }}">
+                <li class="my-3 hover:bg-hijau hover:text-white {{ Request::is('murid/tutorial*') ? 'bg-hijau text-white' : '' }}">
                     <a href="{{ route('tutorial.index') }}" class="flex items-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37" fill="none">
                             <path d="M26.9878 14.1122C26.9878 15.5916 25.7497 16.7908 24.2224 16.7908C22.695 16.7908 21.4569 15.5916 21.4569 14.1122C21.4569 12.6328 22.695 11.4335 24.2224 11.4335C25.7497 11.4335 26.9878 12.6328 26.9878 14.1122Z" stroke="currentcolor" stroke-width="1.875"/>

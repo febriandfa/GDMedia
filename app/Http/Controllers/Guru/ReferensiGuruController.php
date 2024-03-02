@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notifikasi;
 use App\Models\Referensi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -48,6 +49,11 @@ class ReferensiGuruController extends Controller
             'nama' => $request->input('nama'),
             'sumber' => $request->input('sumber'),
             'gambar' => $gambarName
+        ]);
+
+        $notifikasis = Notifikasi::create([
+            'pesan' => auth()->user()->name . ' Telah Memposting Referensi Baru!',
+            'oleh' => 'Guru'
         ]);
 
         return redirect()->route('referensi-guru.index')->with('success', 'Data Referensi Berhasil Ditambahkan');

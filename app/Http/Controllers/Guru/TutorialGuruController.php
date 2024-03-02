@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notifikasi;
 use App\Models\Tutorial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -49,6 +50,11 @@ class TutorialGuruController extends Controller
             'nama' => $request->input('nama'),
             'cover' => $coverName,
             'sumber' => $request->input('sumber')
+        ]);
+
+        $notifikasis = Notifikasi::create([
+            'pesan' => auth()->user()->name . ' Telah Memposting Tutorial Baru!',
+            'oleh' => 'Guru'
         ]);
 
         return redirect()->route('tutorial-guru.index')->with('success', 'Data berhasil ditambahkan');

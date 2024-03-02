@@ -43,6 +43,17 @@
 <div class="h-0.5 w-full bg-abu-400 my-8"></div>
 
 <div class="grid grid-cols-2 gap-10">
-    <x-siswa.tugas.list-tugas-card />
+    @foreach ($tugases as $tugas)
+
+        @php
+            $nilaiUser = $tugas->tugas_nilai->where('murid_id', auth()->user()->id)->first();
+        @endphp
+
+        <x-siswa.tugas.list-tugas-card :id="$tugas->id" :nama="$tugas->nama" :deadline="$tugas->deadline" :nilai="$nilaiUser ? $nilaiUser->nilai : 'Belum Dinilai'" />
+    @endforeach
 </div>
+
+<script>
+    console.log(@json($tugases))
+</script>
 @endsection

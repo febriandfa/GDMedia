@@ -56,7 +56,7 @@
                 <div class="p-4 md:p-5 space-y-9">
                     <div class="flex flex-col gap-8">
                         <input type="text" id="nama" name="nama" value="{{ $title }}" placeholder="Masukkan Nama Elemen" required autofocus class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">
-                        <input type="text" id="deskripsi" name="deskripsi" value="{{ $desc }}" placeholder="Masukkan Mata Pelajaran" required class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">
+                        <textarea name="deskripsi" id="deskripsi" rows="6" value="{{ $desc }}" placeholder="Masukkan Deskripsi" class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">{{ $desc }}</textarea>
                         <div>
                             <div id="dropzone{{$id}}" class="border-2 rounded-xl border-hijau-400 border-dashed p-4 cursor-pointer h-32 flex flex-col items-center justify-center gap-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

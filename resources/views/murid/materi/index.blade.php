@@ -31,9 +31,4 @@
     <x-siswa.materi.list-materi-card :title="$materi->nama" :mapel="$materi->mata_pelajaran" :id="$materi->id" :percentage="$percentage" />
 </div>
 @endforeach
-
-<script>
-    console.log(@json($materis))
-    console.log(@json($isSeen))
-</script>
 @endsection

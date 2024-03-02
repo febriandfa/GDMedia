@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('tugas', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->longText('deskripsi');
+            $table->date('deadline');
             $table->timestamps();
         });
     }

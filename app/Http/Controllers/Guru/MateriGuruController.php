@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use App\Models\Materi;
+use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 
 class MateriGuruController extends Controller
@@ -36,6 +37,11 @@ class MateriGuruController extends Controller
             'mata_pelajaran' => $request->input('mata_pelajaran'),
             'deskripsi' => $request->input('deskripsi'),
             'capaian' => $request->input('capaian'),
+        ]);
+
+        $notifikasis = Notifikasi::create([
+            'pesan' => auth()->user()->name . ' Telah Memposting Materi Baru!',
+            'oleh' => 'Guru'
         ]);
 
         return redirect()->route('materi-guru.index');
