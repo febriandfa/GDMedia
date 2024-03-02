@@ -24,6 +24,8 @@ class UserSeeder extends Seeder
         $murid = User::create([
             'name' => 'Murid GDMedia',
             'email' => 'murid@gdmedia.com',
+            'kelas' => 'XII-IPA',
+            'absen' => '212',
             'password' => bcrypt('murid123'),
             'role' => 'murid'
         ]);

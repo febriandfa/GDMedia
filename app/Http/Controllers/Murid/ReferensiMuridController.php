@@ -11,9 +11,14 @@ class ReferensiMuridController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $referensis = Referensi::all();
+        $search = $request->input('search');
+
+        $referensis = Referensi::when($search, function ($query) use ($search) {
+                $query->where('nama', 'like', '%' . $search . '%');
+            })
+            ->get();
 
         return view('murid.referensi.index', compact('referensis'));
     }

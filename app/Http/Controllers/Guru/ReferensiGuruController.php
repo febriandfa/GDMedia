@@ -3,17 +3,24 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notifikasi;
 use App\Models\Referensi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ReferensiGuruController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $referensis = Referensi::all();
+        $search = $request->input('search');
+
+        $referensis = Referensi::when($search, function ($query) use ($search) {
+                $query->where('nama', 'like', '%' . $search . '%');
+            })
+            ->get();
 
         return view('guru.referensi.index', compact('referensis'));
     }
@@ -31,8 +38,22 @@ class ReferensiGuruController extends Controller
      */
     public function store(Request $request)
     {
-        Referensi::create([
-            'name' => $request->input('name'),
+        if ($request->hasFile('gambar')) {
+            $gambar = $request->file('gambar');
+            $extension = $gambar->getClientOriginalName();
+            $gambarName = date('YmdHis') . "." . $extension;
+            $gambar->move(storage_path('app/public/Referensi/gambar/'), $gambarName);
+        }
+
+        $referensis = Referensi::create([
+            'nama' => $request->input('nama'),
+            'sumber' => $request->input('sumber'),
+            'gambar' => $gambarName
+        ]);
+
+        $notifikasis = Notifikasi::create([
+            'pesan' => auth()->user()->name . ' Telah Memposting Referensi Baru!',
+            'oleh' => 'Guru'
         ]);
 
         return redirect()->route('referensi-guru.index')->with('success', 'Data Referensi Berhasil Ditambahkan');
@@ -75,6 +96,11 @@ class ReferensiGuruController extends Controller
     public function destroy(string $id)
     {
         $referensis = Referensi::find($id);
+
+        if (Storage::exists('public/Referensi/gambar/' . $referensis->gambar)) {
+            Storage::delete('public/Referensi/gambar/' . $referensis->gambar);
+        }
+
         $referensis->delete();
 
         return redirect()->route('referensi-guru.index')->with('success', 'Data Berhasil dihapus');

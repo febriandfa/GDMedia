@@ -3,17 +3,25 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notifikasi;
 use App\Models\Tutorial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TutorialGuruController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tutorials = Tutorial::all();
+        $search = $request->input('search');
+
+        $tutorials = Tutorial::with(['status_tersimpan'])
+            ->when($search, function ($query) use ($search) {
+                $query->where('nama', 'like', '%' . $search . '%');
+            })
+            ->get();
 
         return view('guru.tutorial.index', compact('tutorials'));
     }
@@ -31,8 +39,22 @@ class TutorialGuruController extends Controller
      */
     public function store(Request $request)
     {
-        Tutorial::create([
-            'name' => $request->input('name'),
+        if ($request->hasFile('cover')) {
+            $cover = $request->file('cover');
+            $extension = $cover->getClientOriginalName();
+            $coverName = date('YmdHis') . "." . $extension;
+            $cover->move(storage_path('app/public/Tutorial/cover/'), $coverName);
+        }
+
+        $tutorials = Tutorial::create([
+            'nama' => $request->input('nama'),
+            'cover' => $coverName,
+            'sumber' => $request->input('sumber')
+        ]);
+
+        $notifikasis = Notifikasi::create([
+            'pesan' => auth()->user()->name . ' Telah Memposting Tutorial Baru!',
+            'oleh' => 'Guru'
         ]);
 
         return redirect()->route('tutorial-guru.index')->with('success', 'Data berhasil ditambahkan');
@@ -73,9 +95,14 @@ class TutorialGuruController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $tutorials = Tutorial::find($id);
+
+        if (Storage::exists('public/Tutorial/cover/' . $tutorials->cover)) {
+            Storage::delete('public/Tutorial/cover/' . $tutorials->cover);
+        }
+
         $tutorials->delete();
 
         return redirect()->route('tutorial-guru.index')->with('success', 'Data berhasil dihapus');

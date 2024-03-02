@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('referensis', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->string('sumber');
+            $table->string('gambar');
             $table->timestamps();
         });
     }

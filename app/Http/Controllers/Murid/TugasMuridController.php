@@ -7,6 +7,8 @@ use App\Models\Tugas;
 use App\Models\TugasResult;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Kelompok;
+use App\Models\User;
 
 class TugasMuridController extends Controller
 {
@@ -15,9 +17,15 @@ class TugasMuridController extends Controller
      */
     public function index()
     {
-        $tugases = Tugas::all();
+        $tugases = Tugas::with(['subtugas', 'tugas_nilai'])->get();
+        $kelompoks = User::where([
+            'id' => Auth::user()->id,
+            'kelompok_id' => Auth::user()->kelompok_id,
+        ])->get();
+        // dd($kelompoks);
 
-        return view('murid.tugas.index', compact('tugases'));
+
+        return view('murid.tugas.index', compact('tugases', 'kelompoks'));
     }
 
     /**
@@ -47,7 +55,7 @@ class TugasMuridController extends Controller
      */
     public function show(string $id)
     {
-        $tugases = Tugas::find($id);
+        $tugases = Tugas::where('id', $id)->with(['subtugas', 'subtugas.tugas_answer'])->first();
 
         return view('murid.tugas.show', compact('tugases'));
     }
@@ -83,5 +91,21 @@ class TugasMuridController extends Controller
      */
     public function destroy(string $id)
     {
+    }
+
+
+    public function joinKelompok()
+    {
+        $kelompoks = Kelompok::all();
+
+        return view('murid.kelompok.index', compact('kelompoks'));
+    }
+
+    public function joinKelompokStore(Request $request)
+    {
+        $kelompok = User::find($request->id);
+        $kelompok->kelompok_id = $request->kelompok_id;
+        $kelompok->save();
+        return redirect()->route('tugas.index');
     }
 }
