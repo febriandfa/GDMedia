@@ -12,6 +12,7 @@ use App\Http\Controllers\Guru\TutorialGuruController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Murid\KelompokMuridController;
 use App\Http\Controllers\Murid\MateriMuridController;
 use App\Http\Controllers\Murid\NotifikasiMuridController;
 use App\Http\Controllers\Murid\ReferensiMuridController;
@@ -80,7 +81,8 @@ Route::group(['middleware' => 'role:murid'], function () {
             'tutorial' => TutorialMuridController::class,
             'tutorial-tersimpan' => TutorialTersimpanMuridController::class,
             'referensi' => ReferensiMuridController::class,
-            'notifikasi' => NotifikasiMuridController::class
+            'notifikasi' => NotifikasiMuridController::class,
+            'kelompok' => KelompokMuridController::class
         ]);
         Route::get('/gabung-kelompok', [TugasMuridController::class, 'joinKelompok'])->name('gabung-kelompok');
         Route::post('/gabung-kelompok-store', [TugasMuridController::class, 'joinKelompokStore'])->name('gabung-kelompok.store');

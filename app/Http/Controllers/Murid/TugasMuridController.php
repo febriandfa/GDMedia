@@ -18,8 +18,14 @@ class TugasMuridController extends Controller
     public function index()
     {
         $tugases = Tugas::with(['subtugas', 'tugas_nilai'])->get();
+        $kelompoks = User::where([
+            'id' => Auth::user()->id,
+            'kelompok_id' => Auth::user()->kelompok_id,
+        ])->get();
+        // dd($kelompoks);
 
-        return view('murid.tugas.index', compact('tugases'));
+
+        return view('murid.tugas.index', compact('tugases', 'kelompoks'));
     }
 
     /**
