@@ -19,7 +19,7 @@ class TugasMuridController extends Controller
     {
         $tugases = Tugas::with(['subtugas', 'tugas_nilai'])->get();
         $kelompoks = User::where([
-            'id' => Auth::user()->id,
+            // 'id' => Auth::user()->id,
             'kelompok_id' => Auth::user()->kelompok_id,
         ])->get();
         // dd($kelompoks);
