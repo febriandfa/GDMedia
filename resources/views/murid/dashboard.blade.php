@@ -1,7 +1,6 @@
 @extends('layouts.siswaLayout')
 
 @section('content')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>    
 
     <div class="grid grid-cols-4">
@@ -11,11 +10,32 @@
                 <div class="bg-hijau-100 p-6 rounded-xl h-fit">
                     <h3 class="text-xl font-semibold mb-6">Progress Materi</h3>
                     <div class="rounded-xl border border-hijau p-3 space-y-3">
-                        <img src="{{ asset('assets/icon-book.png') }}" alt="Icon Book" class="w-fit mx-auto">
-                        <p class="text-center">
-                            Belum ada Materi yang dipelajari
-                        </p>
-                        <a href="{{ route('materi.index') }}" class="block py-2 px-4 rounded-xl bg-hijau w-fit text-white mx-auto">Pelajari Materi</a>
+                        @if ($userMateris)
+                            <div>
+                                <p>{{ $userMateris->submateri->materi->nama }}</p>
+                                <div class="flex items-center gap-6 mt-6">
+                                    <div class="flex items-center justify-center" x-data="{ circumference: 2 * 22 / 7 * 23 }">
+                                        <svg class="w-16 h-16 transform -rotate-90">
+                                            <circle cx="32.5" cy="32.5" r="23" stroke="currentColor" stroke-width="8" fill="transparent" class="text-abu-400" />
+                                            <circle cx="32.5" cy="32.5" r="23" stroke="currentColor" stroke-width="8" fill="transparent" :stroke-dasharray="circumference" :stroke-dashoffset="circumference - 75 / 100 * circumference" class="text-hijau" />
+                                        </svg>
+                                        <span class="absolute text-xs">75%</span>
+                                    </div>
+                                    <a href="{{ route('materi.show', $userMateris->submateri->materi->id) }}" class="bg-hijau rounded-xl py-1.5 text-white text-base flex items-center justify-center gap-2 w-full">
+                                        Lanjutkan
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                                            <path d="M10.5 17L15.5 12L10.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        @else
+                            <img src="{{ asset('assets/icon-book.png') }}" alt="Icon Book" class="w-fit mx-auto">
+                            <p class="text-center">
+                                Belum ada Materi yang dipelajari
+                            </p>
+                            <a href="{{ route('materi.index') }}" class="block py-2 px-4 rounded-xl bg-hijau w-fit text-white mx-auto">Pelajari Materi</a>
+                        @endif
                     </div>
                 </div>
                 <div class="bg-hijau-100 p-6 rounded-xl h-fit">
@@ -42,27 +62,21 @@
                                 </div>
                             </div>
                         @else
-                            <p class="text-center">
+                            <img src="{{ asset('assets/icon-book.png') }}" alt="Icon Book" class="w-fit mx-auto">
+                            <p class="text-center my-3">
                                 Belum ada tugas yang dikerjakan
                             </p>
+                            <a href="{{ route('tugas.index') }}" class="block py-2 px-4 rounded-xl bg-hijau w-fit text-white mx-auto">Lihat Tugas</a>
                         @endif
                     </div>
                 </div>
             </div>
             <div class="grid grid-cols-5 gap-6">
                 <div class="col-span-3 bg-white rounded-xl p-6 h-fit">
-                    <h3 class="text-xl font-semibold mb-6">Kalender</h3>
-                    <div class="rounded-xl border border-hijau p-3">
-                        <div id="datepicker-container" inline-datepicker class="w-fit mx-auto"></div>
-                    </div>
+                    <x-siswa.dashboard.calendar />
                 </div>
                 <div class="col-span-2 bg-white rounded-xl p-6 h-fit">
-                    <h3 class="text-xl font-semibold mb-6">Absensi</h3>
-                    <div class="rounded-xl border border-hijau p-3 mb-6">
-                        <img src="{{ asset('assets/absen.png') }}" alt="Absensi Image" class="w-fit mx-auto">
-                    </div>
-                    <p class="text-center">Desain Grafis</p>
-                    <p class="text-center">XI DKV 1</p>
+                    <x-siswa.dashboard.absensi />
                 </div>
             </div>
         </div>
@@ -90,19 +104,22 @@
                     <p class="text-xl font-semibold">Notifikasi</p>
                 </div>
                 <div class="space-y-6">
-                    <div class="p-3 rounded-xl bg-hijau-200">
-                        Bu Kirana telah memposting materi baru!
-                    </div>
+                    @foreach ($notifikasis as $notifikasi)
+                        <div class="p-3 rounded-xl bg-hijau-200">
+                            {{ $notifikasi->pesan }}
+                        </div>
+                    @endforeach
                 </div>
+                <a href="{{ route('notifikasi.index') }}" class="text-hijau text-center block mt-6">Tampilkan Semua</a>
             </div>
         </div>
     </div>
 
 <script>
-    console.log(@json($materis))
-    console.log(@json($tugases))
+    // console.log(@json($materis))
+    // console.log(@json($tugases))
     console.log(@json($userMateris))
-    console.log(@json($answers))
+    // console.log(@json($answers))
 
     document.addEventListener('DOMContentLoaded', function () {
         var currentDate = new Date().toLocaleDateString('en-US');

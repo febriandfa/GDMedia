@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notifikasi;
 use App\Models\TugasAnswer;
 use Illuminate\Http\Request;
 
@@ -42,6 +43,11 @@ class TugasAnswerMuridController extends Controller
             'catatan' => $request->input('catatan'),
             'link' => $request->input('link'),
             'file' => $fileName,
+        ]);
+
+        $notifikasis = Notifikasi::create([
+            'pesan' => auth()->user()->name . ' Telah Mengumpulkan Tugas!',
+            'oleh' => 'Murid'
         ]);
 
         return redirect()->route('subtugas.edit', $request->input('subtugas_id'));

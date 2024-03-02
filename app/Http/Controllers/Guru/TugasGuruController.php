@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notifikasi;
 use App\Models\Tugas;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,11 @@ class TugasGuruController extends Controller
             'nama' => $request->input('nama'),
             'deskripsi' => $request->input('deskripsi'),
             'deadline' => $request->input('deadline'),
+        ]);
+
+        $notifikasis = Notifikasi::create([
+            'pesan' => auth()->user()->name . ' Telah Memposting Tugas Baru!',
+            'oleh' => 'Guru'
         ]);
 
         return redirect()->route('tugas-guru.index')->with('success', 'Data tugas berhasil ditambahkan');

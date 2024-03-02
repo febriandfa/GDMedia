@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Guru\DataSiswaGuruController;
 use App\Http\Controllers\Guru\MateriGuruController;
+use App\Http\Controllers\Guru\NotifikasiGuruController;
 use App\Http\Controllers\Guru\ProgressTugasGuruController;
 use App\Http\Controllers\Guru\ReferensiGuruController;
 use App\Http\Controllers\Guru\SubmateriGuruController;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Murid\MateriMuridController;
+use App\Http\Controllers\Murid\NotifikasiMuridController;
 use App\Http\Controllers\Murid\ReferensiMuridController;
 use App\Http\Controllers\Murid\SubmateriMuridController;
 use App\Http\Controllers\Murid\SubtugasMuridController;
@@ -57,6 +59,7 @@ Route::group(['middleware' => 'role:guru'], function () {
             'progress-guru' => ProgressTugasGuruController::class,
             'tutorial-guru' => TutorialGuruController::class,
             'referensi-guru' => ReferensiGuruController::class,
+            'notifikasi-guru' => NotifikasiGuruController::class
         ]);
         Route::get('/progress-guru/{id}/murid', [ProgressTugasGuruController::class, 'indexMurid'])->name('progress-guru.indexMurid');
     });
@@ -77,6 +80,7 @@ Route::group(['middleware' => 'role:murid'], function () {
             'tutorial' => TutorialMuridController::class,
             'tutorial-tersimpan' => TutorialTersimpanMuridController::class,
             'referensi' => ReferensiMuridController::class,
+            'notifikasi' => NotifikasiMuridController::class
         ]);
     });
 });
