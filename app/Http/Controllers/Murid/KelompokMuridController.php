@@ -52,6 +52,7 @@ class KelompokMuridController extends Controller
         });
 
         $tugases = Tugas::all();
+        
         return view('murid.kelompok.show', compact('kelompok', 'tugases', 'anggota'));
     }
 

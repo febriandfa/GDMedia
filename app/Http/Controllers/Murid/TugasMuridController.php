@@ -24,8 +24,11 @@ class TugasMuridController extends Controller
         ])->get();
         // dd($kelompoks);
 
+        $anggotas = $kelompoks->map(function ($kelompok) {
+            return $kelompok->name;
+        });
 
-        return view('murid.tugas.index', compact('tugases', 'kelompoks'));
+        return view('murid.tugas.index', compact('tugases', 'kelompoks', 'anggotas'));
     }
 
     /**
