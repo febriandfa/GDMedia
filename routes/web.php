@@ -88,6 +88,3 @@ Route::group(['middleware' => 'role:murid'], function () {
         Route::post('/gabung-kelompok-store', [TugasMuridController::class, 'joinKelompokStore'])->name('gabung-kelompok.store');
     });
 });
-
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
