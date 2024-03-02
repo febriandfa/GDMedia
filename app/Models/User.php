@@ -25,6 +25,7 @@ class User extends Authenticatable
         'absen',
         'password',
         'role',
+        'kelompok_id'
     ];
 
     /**
@@ -47,11 +48,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function tugas_answer() {
+    public function tugas_answer()
+    {
         return $this->hasMany(TugasAnswer::class);
     }
 
-    public function tugas_nilai() {
+    public function tugas_nilai()
+    {
         return $this->hasMany(TugasNilai::class);
+    }
+
+    public function kelompok()
+    {
+        return $this->belongsTo(Kelompok::class, 'kelompok_id');
     }
 }

@@ -41,7 +41,7 @@ use App\Models\Subtugas;
 // Route::view('/', 'welcome')->name('landing-pages');
 Route::view('/', 'auth.login')->name('landing-pages');
 
-Route::view('/gabung-kelompok', 'murid.kelompok.index')->name('gabung-kelompok');
+
 
 // Login,Resgiter,Logout (Authentication)
 Auth::routes();
@@ -73,7 +73,7 @@ Route::group(['middleware' => 'role:murid'], function () {
         Route::resources([
             'materi' => MateriMuridController::class,
             'submateri' => SubmateriMuridController::class,
-            'user-submateri' =>UserSubmateriMuridController::class,
+            'user-submateri' => UserSubmateriMuridController::class,
             'tugas' => TugasMuridController::class,
             'subtugas' => SubtugasMuridController::class,
             'tugas-answer' => TugasAnswerMuridController::class,
@@ -82,6 +82,8 @@ Route::group(['middleware' => 'role:murid'], function () {
             'referensi' => ReferensiMuridController::class,
             'notifikasi' => NotifikasiMuridController::class
         ]);
+        Route::get('/gabung-kelompok', [TugasMuridController::class, 'joinKelompok'])->name('gabung-kelompok');
+        Route::post('/gabung-kelompok-store', [TugasMuridController::class, 'joinKelompokStore'])->name('gabung-kelompok.store');
     });
 });
 

@@ -7,6 +7,8 @@ use App\Models\Tugas;
 use App\Models\TugasResult;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Kelompok;
+use App\Models\User;
 
 class TugasMuridController extends Controller
 {
@@ -83,5 +85,21 @@ class TugasMuridController extends Controller
      */
     public function destroy(string $id)
     {
+    }
+
+
+    public function joinKelompok()
+    {
+        $kelompoks = Kelompok::all();
+
+        return view('murid.kelompok.index', compact('kelompoks'));
+    }
+
+    public function joinKelompokStore(Request $request)
+    {
+        $kelompok = User::find($request->id);
+        $kelompok->kelompok_id = $request->kelompok_id;
+        $kelompok->save();
+        return redirect()->route('tugas.index');
     }
 }
