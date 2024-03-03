@@ -22,7 +22,7 @@ class TugasMuridController extends Controller
             // 'id' => Auth::user()->id,
             'kelompok_id' => Auth::user()->kelompok_id,
         ])->get();
-        // dd($kelompoks);
+
 
         $anggotas = $kelompoks->map(function ($kelompok) {
             return $kelompok->name;

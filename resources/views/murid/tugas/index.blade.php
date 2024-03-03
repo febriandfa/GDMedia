@@ -35,16 +35,14 @@
                     @endforeach
                 </ol>
             </div>
+
             <div class="flex -space-x-4 rtl:space-x-reverse">
-                <img class="size-16 border-2 border-white rounded-full dark:border-gray-800"
-                    src="{{ asset('assets/profil-icon.jpg') }}" alt="Icon User">
-                <img class="size-16 border-2 border-white rounded-full dark:border-gray-800"
-                    src="{{ asset('assets/profil-icon.jpg') }}" alt="Icon User">
-                <img class="size-16 border-2 border-white rounded-full dark:border-gray-800"
-                    src="{{ asset('assets/profil-icon.jpg') }}" alt="Icon User">
-                <img class="size-16 border-2 border-white rounded-full dark:border-gray-800"
-                    src="{{ asset('assets/profil-icon.jpg') }}" alt="Icon User">
+                @foreach ($kelompoks as $kelompok)
+                    <img class="size-16 border-2 border-white rounded-full dark:border-gray-800"
+                        src="{{ asset('storage/profile/foto/' . $kelompok->foto) }}" alt="Icon User">
+                @endforeach
             </div>
+
         </div>
     @endif
     <div class="h-0.5 w-full bg-abu-400 my-8"></div>
