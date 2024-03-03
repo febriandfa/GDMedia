@@ -15,6 +15,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Murid\KelompokMuridController;
 use App\Http\Controllers\Murid\MateriMuridController;
 use App\Http\Controllers\Murid\NotifikasiMuridController;
+use App\Http\Controllers\Murid\ProfileMuridController;
 use App\Http\Controllers\Murid\ReferensiMuridController;
 use App\Http\Controllers\Murid\SubmateriMuridController;
 use App\Http\Controllers\Murid\SubtugasMuridController;
@@ -42,7 +43,8 @@ use App\Models\Subtugas;
 // Route::view('/', 'welcome')->name('landing-pages');
 Route::view('/', 'auth.login')->name('landing-pages');
 
-Route::view('/profil/edit', 'murid.profile.edit')->name('profil.edit');
+
+
 Route::view('/profil-guru/edit', 'guru.profile.edit')->name('profil-guru.edit');
 
 // Login,Resgiter,Logout (Authentication)
@@ -85,6 +87,9 @@ Route::group(['middleware' => 'role:murid'], function () {
             'notifikasi' => NotifikasiMuridController::class,
             'kelompok' => KelompokMuridController::class
         ]);
+        Route::get('/profil/edit', [ProfileMuridController::class, 'index'])->name('profil.edit');
+        Route::post('/profil/edit', [ProfileMuridController::class, 'store'])->name('profil.store');
+
         Route::get('/gabung-kelompok', [TugasMuridController::class, 'joinKelompok'])->name('gabung-kelompok');
         Route::post('/gabung-kelompok-store', [TugasMuridController::class, 'joinKelompokStore'])->name('gabung-kelompok.store');
     });
