@@ -3,6 +3,7 @@
 use App\Http\Controllers\Guru\DataSiswaGuruController;
 use App\Http\Controllers\Guru\MateriGuruController;
 use App\Http\Controllers\Guru\NotifikasiGuruController;
+use App\Http\Controllers\Guru\ProfileGuruController;
 use App\Http\Controllers\Guru\ProgressTugasGuruController;
 use App\Http\Controllers\Guru\ReferensiGuruController;
 use App\Http\Controllers\Guru\SubmateriGuruController;
@@ -45,8 +46,6 @@ Route::view('/', 'auth.login')->name('landing-pages');
 
 
 
-Route::view('/profil-guru/edit', 'guru.profile.edit')->name('profil-guru.edit');
-
 // Login,Resgiter,Logout (Authentication)
 Auth::routes();
 
@@ -54,6 +53,8 @@ Auth::routes();
 Route::group(['middleware' => 'role:guru'], function () {
     Route::prefix('guru')->group(function () {
         Route::get('/dashboard', [HomeController::class, 'guru'])->name('dashboard.guru');
+        Route::get('/profil-guru/edit', [ProfileGuruController::class, 'index'])->name('profil-guru.edit');
+        Route::post('/profil-guru/edit', [ProfileGuruController::class, 'store'])->name('profil-guru.store');
         Route::resources([
             'data-master' => DataSiswaGuruController::class,
             'materi-guru' => MateriGuruController::class,
