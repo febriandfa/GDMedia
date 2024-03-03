@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Materi;
 use App\Models\Notifikasi;
+use App\Models\Submateri;
+use App\Models\Subtugas;
 use App\Models\Tugas;
 use App\Models\TugasAnswer;
 use App\Models\User;
@@ -45,14 +47,20 @@ class HomeController extends Controller
     {
         $materis = Materi::with(['submateri.status_murid'])->get();
 
+        $submateris = Submateri::with(['materi', 'status_murid'])->get();
+
         $tugases = Tugas::with(['subtugas.tugas_answer'])->get();
 
-        $userMateris = UserSubmateri::with(['submateri.materi'])->latest('updated_at')->first();
+        $subtugases = Subtugas::with(['tugas_answer', 'tugas'])->get();
 
-        $answers = TugasAnswer::with(['subtugas.tugas'])->latest('updated_at')->first();
+        $answerAlls = TugasAnswer::with(['subtugas.tugas'])->get();
+
+        $userMateris = UserSubmateri::where('user_id', auth()->user()->id)->with(['submateri.materi'])->latest('updated_at')->first();
+
+        $answers = TugasAnswer::where('user_id', auth()->user()->id)->with(['subtugas.tugas'])->latest('updated_at')->first();
 
         $notifikasis = Notifikasi::where('oleh', 'Guru')->latest()->take(3)->get();
 
-        return view('murid.dashboard', compact('materis', 'tugases', 'userMateris', 'answers', 'notifikasis'));
+        return view('murid.dashboard', compact('materis', 'submateris', 'tugases', 'userMateris', 'answers', 'notifikasis', 'subtugases', 'answerAlls'));
     }
 }

@@ -5,6 +5,19 @@
 
     @php
         $tugas = $tugases->where('id', $answers->subtugas->tugas_id)->first();
+
+        $subtugasLength = $tugas->subtugas->count();
+
+        $tugasId = $tugas->id;
+        $userId = $answers->user_id;
+
+        $answerFilter = $answerAlls->filter(function ($answer) use ($tugasId, $userId) {
+            return $answer->subtugas->tugas->id == $tugasId && $answer->user_id == $userId;
+        });
+
+        $answerLength = $answerFilter->count();
+
+        $answerPercentage = $answerLength / $subtugasLength * 100;
     @endphp
 
 <div class="mb-6 flex flex-col gap-6">
@@ -22,9 +35,9 @@
         <div class="flex items-center justify-center w-fit" x-data="{ circumference: 2 * 22 / 7 * 23 }">
             <svg class="w-16 h-16 transform -rotate-90">
                 <circle cx="32.5" cy="32.5" r="23" stroke="currentColor" stroke-width="8" fill="transparent" class="text-abu-400" />
-                <circle cx="32.5" cy="32.5" r="23" stroke="currentColor" stroke-width="8" fill="transparent" :stroke-dasharray="circumference" :stroke-dashoffset="circumference - 75 / 100 * circumference" class="text-hijau" />
+                <circle cx="32.5" cy="32.5" r="23" stroke="currentColor" stroke-width="8" fill="transparent" :stroke-dasharray="circumference" :stroke-dashoffset="circumference - {{ $answerPercentage }} / 100 * circumference" class="text-hijau" />
             </svg>
-            <span class="absolute text-xs">75%</span>
+            <span class="absolute text-xs">{{ $answerPercentage }}%</span>
         </div>
     </div>
 </div>

@@ -1,6 +1,55 @@
 @extends('layouts.siswaLayout')
 
 @section('content')
+
+    @php
+        $materiPercentage = 0;
+        $answerPercentage = 0;
+    @endphp
+
+    @if ($userMateris)
+        @php
+            // $userFilter = 
+        @endphp
+    @endif
+
+    @if ($userMateris)        
+        @php
+            $submateriFilter = $submateris->where('id', $userMateris->submateri_id)->first();
+            $materiFilter = $materis->where('id', $submateriFilter->materi_id)->first();
+
+            $submateriLength = $materiFilter->submateri->count();
+
+            $isSeen = $materiFilter->submateri
+                ->flatMap(fn ($submateri) => $submateri->status_murid)
+                ->where('user_id', auth()->user()->id)
+                ->where('is_seen', 'Y');
+
+            $isSeenLength = $isSeen->count();
+
+            $materiPercentage = $isSeenLength / $submateriLength * 100;
+        @endphp
+    @endif
+
+    @if ($answers)
+        @php
+            $tugasFilter = $tugases->where('id', $answers->subtugas->tugas->id)->first();
+
+            $subtugasLength = $tugasFilter->subtugas->count();
+
+            $tugasId = $tugasFilter->id;
+            $userId = auth()->user()->id;
+
+            $answerFilter = $answerAlls->filter(function ($answer) use ($tugasId, $userId) {
+                return $answer->subtugas->tugas->id == $tugasId && $answer->user_id == $userId;
+            });
+
+            $answerLength = $answerFilter->count();
+
+            $answerPercentage = $answerLength / $subtugasLength * 100;
+        @endphp
+    @endif
+
     <script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>
 
     <div class="grid grid-cols-4">
@@ -20,10 +69,10 @@
                                                 stroke-width="8" fill="transparent" class="text-abu-400" />
                                             <circle cx="32.5" cy="32.5" r="23" stroke="currentColor"
                                                 stroke-width="8" fill="transparent" :stroke-dasharray="circumference"
-                                                :stroke-dashoffset="circumference - 75 / 100 * circumference"
+                                                :stroke-dashoffset="circumference - {{ $materiPercentage }} / 100 * circumference"
                                                 class="text-hijau" />
                                         </svg>
-                                        <span class="absolute text-xs">75%</span>
+                                        <span class="absolute text-xs">{{ $materiPercentage }}%</span>
                                     </div>
                                     <a href="{{ route('materi.show', $userMateris->submateri->materi->id) }}"
                                         class="bg-hijau rounded-xl py-1.5 text-white text-base flex items-center justify-center gap-2 w-full">
@@ -60,10 +109,10 @@
                                                 stroke-width="8" fill="transparent" class="text-abu-400" />
                                             <circle cx="32.5" cy="32.5" r="23" stroke="currentColor"
                                                 stroke-width="8" fill="transparent" :stroke-dasharray="circumference"
-                                                :stroke-dashoffset="circumference - 75 / 100 * circumference"
+                                                :stroke-dashoffset="circumference - {{ $answerPercentage }} / 100 * circumference"
                                                 class="text-hijau" />
                                         </svg>
-                                        <span class="absolute text-xs">75%</span>
+                                        <span class="absolute text-xs">{{ $answerPercentage }}%</span>
                                     </div>
                                     <a href=""
                                         class="bg-hijau rounded-xl py-1.5 text-white text-base flex items-center justify-center gap-2 w-full">
@@ -112,8 +161,11 @@
                 </a>
             </div>
             <div class="flex flex-col items-center justify-center gap-4">
-                <img src="{{ asset('storage/profile/foto/' . auth()->user()->foto) }}" alt="Profil Icon"
-                    class="size-36 rounded-full">
+                @if (auth()->user()->foto == null)
+                    <img src="{{ asset('assets/profil-icon.jpg') }}" alt="Profil Icon" class="size-36 rounded-full">
+                @else
+                    <img src="{{ asset('storage/profile/foto/' . auth()->user()->foto) }}" alt="Profil Icon" class="size-36 rounded-full">
+                @endif
                 <p class="text-xl font-semibold">{{ auth()->user()->name }}</p>
                 <p class="text-lg font-semibold">{{ auth()->user()->kelas }}</p>
                 <p class="text-lg font-semibold">{{ auth()->user()->absen }}</p>
@@ -143,10 +195,7 @@
     </div>
 
     <script>
-        // console.log(@json($materis))
-        // console.log(@json($tugases))
         console.log(@json($userMateris))
-        // console.log(@json($answers))
 
         document.addEventListener('DOMContentLoaded', function() {
             var currentDate = new Date().toLocaleDateString('en-US');

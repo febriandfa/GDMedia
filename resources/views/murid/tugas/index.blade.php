@@ -50,14 +50,26 @@
     <div class="grid grid-cols-2 gap-10">
         @foreach ($tugases as $tugas)
             @php
+                $subtugasFilter = $subtugases->where('tugas_id', $tugas->id);
+                $subtugasLength = $subtugasFilter->count();
+
+                $tugasId = $tugas->id;
+                $userId = auth()->user()->id;
+
+                $answerFilter = $answers->filter(function ($answer) use ($tugasId, $userId) {
+                    return $answer->subtugas->tugas->id == $tugasId && $answer->user_id == $userId;
+                });
+
+                $answerLength = $answerFilter->count();
+
+                $answerPercentage = $answerLength / $subtugasLength * 100;
+            @endphp
+
+            @php
                 $nilaiUser = $tugas->tugas_nilai->where('murid_id', auth()->user()->id)->first();
             @endphp
 
-            <x-siswa.tugas.list-tugas-card :id="$tugas->id" :nama="$tugas->nama" :deadline="$tugas->deadline" :nilai="$nilaiUser ? $nilaiUser->nilai : 'Belum Dinilai'" />
+            <x-siswa.tugas.list-tugas-card :id="$tugas->id" :nama="$tugas->nama" :deadline="$tugas->deadline" :nilai="$nilaiUser ? $nilaiUser->nilai : 'Belum Dinilai'" :percentage="$answerPercentage ? $answerPercentage : 0" />
         @endforeach
     </div>
-
-    <script>
-        console.log(@json($anggotas))
-    </script>
 @endsection
