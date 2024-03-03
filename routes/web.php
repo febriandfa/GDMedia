@@ -42,7 +42,8 @@ use App\Models\Subtugas;
 // Route::view('/', 'welcome')->name('landing-pages');
 Route::view('/', 'auth.login')->name('landing-pages');
 
-
+Route::view('/profil/edit', 'murid.profile.edit')->name('profil.edit');
+Route::view('/profil-guru/edit', 'guru.profile.edit')->name('profil-guru.edit');
 
 // Login,Resgiter,Logout (Authentication)
 Auth::routes();
