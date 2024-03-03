@@ -46,7 +46,7 @@ class LoginController extends Controller
 
         if ($guru) {
             return redirect()->route('dashboard.guru');
-        } else {
+        } else if ($user->hasRole('murid')) {
             $user->session_login_at = Carbon::now();
             $user->save();
 
