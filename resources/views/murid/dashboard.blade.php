@@ -112,7 +112,7 @@
                                                 :stroke-dashoffset="circumference - {{ $answerPercentage }} / 100 * circumference"
                                                 class="text-hijau" />
                                         </svg>
-                                        <span class="absolute text-xs">{{ $answerPercentage }}%</span>
+                                        <span class="absolute text-xs">{{ round($answerPercentage, 1) }}%</span>
                                     </div>
                                     <a href=""
                                         class="bg-hijau rounded-xl py-1.5 text-white text-base flex items-center justify-center gap-2 w-full">
