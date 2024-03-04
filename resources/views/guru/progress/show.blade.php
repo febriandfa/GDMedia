@@ -13,7 +13,17 @@
 </div>
 
 <div class="space-y-6">
-    @foreach ($answers as $answer)   
+    @php
+        $tugasId = $tugas->id;
+
+        $answerFilter = $answers->filter(function ($answer) use ($tugasId) {
+            return $answer->subtugas->tugas->id == $tugasId;
+        });
+
+        // $answerFilter = $answers->where('')
+    @endphp
+
+    @foreach ($answerFilter as $answer)   
         <div class="w-full p-8 rounded-xl border-b border-b-hijau bg-white flex items-center justify-between">
             <p class="text-xl font-semibold">{{ $answer->subtugas->tahap }}</p>
             <a href="{{ route('progress-guru.edit', $answer->id) }}" class="py-2 px-8 rounded-xl bg-hijau text-white text-lg font-semibold">Lihat Hasil Siswa</a>
