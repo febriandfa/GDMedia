@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Tugas;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tugas>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\SubTugas>
  */
-class TugasFactory extends Factory
+class SubTugasFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +18,11 @@ class TugasFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama' => $this->faker->title(),
+            'tugas_id' => function () {
+                return Tugas::inRandomOrder()->first();
+            },
+            'tahap' => $this->faker->numberBetween(0, 4),
             'deskripsi' => $this->faker->paragraph(),
-            'deadline' => $this->faker->date(),
         ];
     }
 }

@@ -62,14 +62,15 @@
 
                 $answerLength = $answerFilter->count();
 
-                $answerPercentage = $answerLength / $subtugasLength * 100;
+                $answerPercentage = ($answerLength / $subtugasLength) * 100;
             @endphp
 
             @php
                 $nilaiUser = $tugas->tugas_nilai->where('murid_id', auth()->user()->id)->first();
             @endphp
 
-            <x-siswa.tugas.list-tugas-card :id="$tugas->id" :nama="$tugas->nama" :deadline="$tugas->deadline" :nilai="$nilaiUser ? $nilaiUser->nilai : 'Belum Dinilai'" :percentage="$answerPercentage ? $answerPercentage : 0" />
+            <x-siswa.tugas.list-tugas-card :id="$tugas->id" :nama="$tugas->nama" :deadline="$tugas->deadline" :nilai="$nilaiUser ? $nilaiUser->nilai : 'Belum Dinilai'"
+                :percentage="round($answerPercentage, 2) ? round($answerPercentage, 1) : 0" />
         @endforeach
     </div>
 @endsection

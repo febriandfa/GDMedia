@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Materi;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Materi>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\SubMateri>
  */
-class MateriFactory extends Factory
+class SubMateriFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,10 +18,12 @@ class MateriFactory extends Factory
     public function definition(): array
     {
         return [
+            'materi_id' => function () {
+                return Materi::inRandomOrder()->first();
+            },
             'nama' => $this->faker->lastName(),
-            'mata_pelajaran' => $this->faker->slug(),
             'deskripsi' => $this->faker->paragraph(),
-            'capaian' => $this->faker->paragraph(),
+            'file' => $this->faker->imageUrl(),
         ];
     }
 }

@@ -1,7 +1,6 @@
 @extends('layouts.siswaLayout')
 
 @section('content')
-
     @php
         $materiPercentage = 0;
         $answerPercentage = 0;
@@ -9,11 +8,11 @@
 
     @if ($userMateris)
         @php
-            // $userFilter = 
+            // $userFilter =
         @endphp
     @endif
 
-    @if ($userMateris)        
+    @if ($userMateris)
         @php
             $submateriFilter = $submateris->where('id', $userMateris->submateri_id)->first();
             $materiFilter = $materis->where('id', $submateriFilter->materi_id)->first();
@@ -21,13 +20,14 @@
             $submateriLength = $materiFilter->submateri->count();
 
             $isSeen = $materiFilter->submateri
-                ->flatMap(fn ($submateri) => $submateri->status_murid)
+                ->flatMap(fn($submateri) => $submateri->status_murid)
                 ->where('user_id', auth()->user()->id)
                 ->where('is_seen', 'Y');
 
             $isSeenLength = $isSeen->count();
 
-            $materiPercentage = $isSeenLength / $submateriLength * 100;
+            $materiPercentage = ($isSeenLength / $submateriLength) * 100;
+
         @endphp
     @endif
 
@@ -46,7 +46,7 @@
 
             $answerLength = $answerFilter->count();
 
-            $answerPercentage = $answerLength / $subtugasLength * 100;
+            $answerPercentage = ($answerLength / $subtugasLength) * 100;
         @endphp
     @endif
 
@@ -72,7 +72,7 @@
                                                 :stroke-dashoffset="circumference - {{ $materiPercentage }} / 100 * circumference"
                                                 class="text-hijau" />
                                         </svg>
-                                        <span class="absolute text-xs">{{ $materiPercentage }}%</span>
+                                        <span class="absolute text-xs">{{ round($materiPercentage, 1) }}%</span>
                                     </div>
                                     <a href="{{ route('materi.show', $userMateris->submateri->materi->id) }}"
                                         class="bg-hijau rounded-xl py-1.5 text-white text-base flex items-center justify-center gap-2 w-full">
@@ -164,7 +164,8 @@
                 @if (auth()->user()->foto == null)
                     <img src="{{ asset('assets/profil-icon.jpg') }}" alt="Profil Icon" class="size-36 rounded-full">
                 @else
-                    <img src="{{ asset('storage/profile/foto/' . auth()->user()->foto) }}" alt="Profil Icon" class="size-36 rounded-full">
+                    <img src="{{ asset('storage/profile/foto/' . auth()->user()->foto) }}" alt="Profil Icon"
+                        class="size-36 rounded-full">
                 @endif
                 <p class="text-xl font-semibold">{{ auth()->user()->name }}</p>
                 <p class="text-lg font-semibold">{{ auth()->user()->kelas }}</p>
