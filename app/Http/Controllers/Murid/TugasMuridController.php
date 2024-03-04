@@ -8,6 +8,8 @@ use App\Models\TugasResult;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Kelompok;
+use App\Models\Subtugas;
+use App\Models\TugasAnswer;
 use App\Models\User;
 
 class TugasMuridController extends Controller
@@ -17,15 +19,21 @@ class TugasMuridController extends Controller
      */
     public function index()
     {
-        $tugases = Tugas::with(['subtugas', 'tugas_nilai'])->get();
+        $tugases = Tugas::with(['subtugas.tugas_answer', 'tugas_nilai'])->get();
+        $subtugases = Subtugas::with(['tugas.tugas_nilai', 'tugas_answer'])->get();
+        $answers = TugasAnswer::with(['subtugas.tugas'])->get();
+
         $kelompoks = User::where([
-            'id' => Auth::user()->id,
+            // 'id' => Auth::user()->id,
             'kelompok_id' => Auth::user()->kelompok_id,
         ])->get();
-        // dd($kelompoks);
 
 
-        return view('murid.tugas.index', compact('tugases', 'kelompoks'));
+        $anggotas = $kelompoks->map(function ($kelompok) {
+            return $kelompok->name;
+        });
+
+        return view('murid.tugas.index', compact('tugases', 'kelompoks', 'anggotas', 'answers', 'subtugases'));
     }
 
     /**

@@ -17,7 +17,9 @@ class ReferensiFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nama' => $this->faker->lastName(),
+            'sumber' => $this->faker->url(),
+            'gambar' => $this->faker->imageUrl()
         ];
     }
 }

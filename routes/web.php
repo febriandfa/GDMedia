@@ -3,6 +3,7 @@
 use App\Http\Controllers\Guru\DataSiswaGuruController;
 use App\Http\Controllers\Guru\MateriGuruController;
 use App\Http\Controllers\Guru\NotifikasiGuruController;
+use App\Http\Controllers\Guru\ProfileGuruController;
 use App\Http\Controllers\Guru\ProgressTugasGuruController;
 use App\Http\Controllers\Guru\ReferensiGuruController;
 use App\Http\Controllers\Guru\SubmateriGuruController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Murid\KelompokMuridController;
 use App\Http\Controllers\Murid\MateriMuridController;
 use App\Http\Controllers\Murid\NotifikasiMuridController;
+use App\Http\Controllers\Murid\ProfileMuridController;
 use App\Http\Controllers\Murid\ReferensiMuridController;
 use App\Http\Controllers\Murid\SubmateriMuridController;
 use App\Http\Controllers\Murid\SubtugasMuridController;
@@ -51,6 +53,8 @@ Auth::routes();
 Route::group(['middleware' => 'role:guru'], function () {
     Route::prefix('guru')->group(function () {
         Route::get('/dashboard', [HomeController::class, 'guru'])->name('dashboard.guru');
+        Route::get('/profil-guru/edit', [ProfileGuruController::class, 'index'])->name('profil-guru.edit');
+        Route::post('/profil-guru/edit', [ProfileGuruController::class, 'store'])->name('profil-guru.store');
         Route::resources([
             'data-master' => DataSiswaGuruController::class,
             'materi-guru' => MateriGuruController::class,
@@ -84,6 +88,9 @@ Route::group(['middleware' => 'role:murid'], function () {
             'notifikasi' => NotifikasiMuridController::class,
             'kelompok' => KelompokMuridController::class
         ]);
+        Route::get('/profil/edit', [ProfileMuridController::class, 'index'])->name('profil.edit');
+        Route::post('/profil/edit', [ProfileMuridController::class, 'store'])->name('profil.store');
+
         Route::get('/gabung-kelompok', [TugasMuridController::class, 'joinKelompok'])->name('gabung-kelompok');
         Route::post('/gabung-kelompok-store', [TugasMuridController::class, 'joinKelompokStore'])->name('gabung-kelompok.store');
     });

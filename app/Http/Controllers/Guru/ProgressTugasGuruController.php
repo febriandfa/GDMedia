@@ -67,9 +67,11 @@ class ProgressTugasGuruController extends Controller
     {
         $answers = TugasAnswer::where('id', $id)->with(['user', 'subtugas'])->first();
 
+        $answerAlls = TugasAnswer::with(['subtugas.tugas'])->get();
+
         $tugases = Tugas::with(['subtugas.tugas_answer'])->get();
 
-        return view('guru.progress.edit', compact('answers', 'tugases'));
+        return view('guru.progress.edit', compact('answers', 'tugases', 'answerAlls'));
     }
 
     /**
@@ -98,8 +100,12 @@ class ProgressTugasGuruController extends Controller
     {
         $tugases = Tugas::where('id', $id)->with(['subtugas.tugas_answer'])->first();
 
+        $subtugases = Subtugas::where('tugas_id', $id)->with(['tugas', 'tugas_answer'])->get();
+
+        $answers = TugasAnswer::with(['subtugas.tugas'])->get();
+
         $users = User::where('role', 'murid')->with(['tugas_answer.subtugas'])->get();
         
-        return view('guru.progress.indexMurid', compact('tugases', 'users'));
+        return view('guru.progress.indexMurid', compact('tugases', 'users', 'subtugases', 'answers'));
     }
 }

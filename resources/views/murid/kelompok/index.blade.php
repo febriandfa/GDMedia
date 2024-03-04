@@ -7,8 +7,19 @@
     </div>
 
     <div class="space-y-6">
+        @foreach ($kelompoks as $kelompok)
         <div class="w-full p-8 rounded-xl border-b border-b-hijau bg-white flex items-center justify-between">
-            @forelse ($kelompoks as $kelompok)
+            <p class="text-xl font-semibold">{{ $kelompok->name }}</p>
+            <form method="POST" action="{{ route('gabung-kelompok.store') }}">
+            @csrf
+                <input type="text" id="id" name="id" value="{{ auth()->user()->id }}" class="hidden">
+                <input type="text" id="kelompok_id" name="kelompok_id" value="{{ $kelompok->id }}" class="hidden">
+                <button type="submit" class="py-2 px-8 rounded-xl bg-hijau text-white text-lg font-semibold">Gabung</button>
+            </form>
+        </div>
+        @endforeach
+    </div>
+            {{-- @forelse ($kelompoks as $kelompok)
                 <form method="POST" action="{{ route('gabung-kelompok.store') }}">
                     @csrf
                     <select name="id" id="" hidden>
@@ -26,8 +37,13 @@
                 </form>
             @empty
                 <h4>Belum ada kelompok</h4>
-            @endforelse
+            @endforelse --}}
 
-        </div>
-    </div>
+        {{-- </div>
+    </div> --}}
+
+<script>
+    console.log(@json($kelompoks))
+</script>
+
 @endsection

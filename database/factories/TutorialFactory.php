@@ -17,7 +17,9 @@ class TutorialFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nama' => $this->faker->lastName(),
+            'cover' => $this->faker->imageUrl(),
+            'sumber' => $this->faker->url(),
         ];
     }
 }
