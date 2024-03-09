@@ -141,7 +141,7 @@
                     <x-siswa.dashboard.calendar />
                 </div>
                 <div class="col-span-2 bg-white rounded-xl p-6 h-fit">
-                    <x-siswa.dashboard.absensi />
+                    <x-siswa.dashboard.absensi :absensi="$absens ? $absens->link : 'Belum'" />
                 </div>
             </div>
         </div>

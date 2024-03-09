@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absen;
 use App\Models\Materi;
 use App\Models\Notifikasi;
 use App\Models\Submateri;
@@ -38,9 +39,11 @@ class HomeController extends Controller
     {
         $users = User::where('role', 'murid')->get();
 
+        $absens = Absen::latest()->take(1)->first();
+
         $notifikasis = Notifikasi::where('oleh', 'Murid')->latest()->take(3)->get();
 
-        return view('guru.dashboard', compact('users', 'notifikasis'));
+        return view('guru.dashboard', compact('users', 'notifikasis', 'absens'));
     }
 
     public function murid()
@@ -61,6 +64,8 @@ class HomeController extends Controller
 
         $notifikasis = Notifikasi::where('oleh', 'Guru')->latest()->take(3)->get();
 
-        return view('murid.dashboard', compact('materis', 'submateris', 'tugases', 'userMateris', 'answers', 'notifikasis', 'subtugases', 'answerAlls'));
+        $absens = Absen::latest()->take(1)->first();
+
+        return view('murid.dashboard', compact('materis', 'submateris', 'tugases', 'userMateris', 'answers', 'notifikasis', 'subtugases', 'answerAlls', 'absens'));
     }
 }

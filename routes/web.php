@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Guru\AbsenGuruController;
 use App\Http\Controllers\Guru\DataSiswaGuruController;
 use App\Http\Controllers\Guru\MateriGuruController;
 use App\Http\Controllers\Guru\NotifikasiGuruController;
@@ -64,7 +65,8 @@ Route::group(['middleware' => 'role:guru'], function () {
             'progress-guru' => ProgressTugasGuruController::class,
             'tutorial-guru' => TutorialGuruController::class,
             'referensi-guru' => ReferensiGuruController::class,
-            'notifikasi-guru' => NotifikasiGuruController::class
+            'notifikasi-guru' => NotifikasiGuruController::class,
+            'absen-guru' => AbsenGuruController::class,
         ]);
         Route::post('/notifikasi-guru/seen', [NotifikasiGuruController::class, 'markSeen'])->name('notifikasi-guru.markSeen');
         Route::get('/progress-guru/{id}/murid', [ProgressTugasGuruController::class, 'indexMurid'])->name('progress-guru.indexMurid');
