@@ -66,6 +66,7 @@ Route::group(['middleware' => 'role:guru'], function () {
             'referensi-guru' => ReferensiGuruController::class,
             'notifikasi-guru' => NotifikasiGuruController::class
         ]);
+        Route::post('/notifikasi-guru/seen', [NotifikasiGuruController::class, 'markSeen'])->name('notifikasi-guru.markSeen');
         Route::get('/progress-guru/{id}/murid', [ProgressTugasGuruController::class, 'indexMurid'])->name('progress-guru.indexMurid');
     });
 });
@@ -88,6 +89,8 @@ Route::group(['middleware' => 'role:murid'], function () {
             'notifikasi' => NotifikasiMuridController::class,
             'kelompok' => KelompokMuridController::class
         ]);
+        Route::post('/notifikasi/seen', [NotifikasiMuridController::class, 'markSeen'])->name('notifikasi.markSeen');
+
         Route::get('/profil/edit', [ProfileMuridController::class, 'index'])->name('profil.edit');
         Route::post('/profil/edit', [ProfileMuridController::class, 'store'])->name('profil.store');
 

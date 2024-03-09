@@ -13,7 +13,9 @@ class Itemtitle extends Component
      */
     public function __construct(
         public string $main,
+        public string $mainLink,
         public string $sub,
+        public string $subLink,
         public string $item
     )
     {

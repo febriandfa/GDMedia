@@ -7,7 +7,7 @@
 @endphp
 
 <div class="mb-6 flex flex-col gap-6">
-    <x-subtitle main="Tugas" sub="{{ $tugas->nama }}" />
+    <x-subtitle main="Tugas" :mainLink="route('progress-guru.indexMurid', $tugas->id)" sub="{{ $tugas->nama }}" />
     <p class="text-lg font-semibold">{{ $tugas->deskripsi }}</p>
     <p class="text-lg font-semibold text-red-500">Deadline : {{ $tugas->deadline }}</p>
 </div>

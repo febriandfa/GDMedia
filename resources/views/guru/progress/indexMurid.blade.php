@@ -4,7 +4,7 @@
     <script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>
 
     <div class="mb-6 flex flex-col gap-6">
-        <x-subtitle main="Tugas" :sub="$tugases->nama" />
+        <x-subtitle main="Tugas" :mainLink="route('progress-guru.index')" :sub="$tugases->nama" />
         <p class="text-lg font-semibold">{{ $tugases->deskripsi }}</p>
         <p class="text-lg font-semibold text-red-500">Deadline : {{ $tugases->deadline }}</p>
     </div>
@@ -60,9 +60,4 @@
             @endforeach
         @endforeach
     </div>
-
-    <script>
-        console.log(@json($answerFilter))
-        console.log(@json($tugases))
-    </script>
 @endsection
