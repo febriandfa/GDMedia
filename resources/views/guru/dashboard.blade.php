@@ -74,9 +74,26 @@
             </div>
             <div class="space-y-6">
                 @foreach ($notifikasis as $notifikasi)
-                    <div class="p-3 rounded-xl bg-hijau-200">
-                        {{ $notifikasi->pesan }}
-                    </div>
+
+                @php
+                    $notifikasiId = $notifikasi->id;
+                    $userId = auth()->user()->id;
+        
+                    $notifikasiFilter = $notifikasi->notifikasi_seens->filter(function ($notifikasi) use ($notifikasiId, $userId) {
+                        return $notifikasi->notifikasi_id == $notifikasiId && $notifikasi->user_id == $userId;
+                    });
+                @endphp
+
+                    <form method="POST" action="{{ route('notifikasi-guru.markSeen') }}">
+                        @csrf
+                        <input type="text" id="notifikasi_id" name="notifikasi_id" value="{{ $notifikasi->id }}" class="hidden">
+                        <button type="submit" {{ count($notifikasiFilter) != 0 ? 'disabled' : '' }} class="p-3 rounded-xl {{ count($notifikasiFilter) == 0 ? 'bg-hijau-200' : 'bg-hijau-100' }} block w-full relative text-left">
+                            @if (count($notifikasiFilter) == 0)
+                            <div class="rounded-full size-4 bg-hijau absolute -top-1 -right-1"></div>
+                            @endif
+                            {{ $notifikasi->pesan }}
+                        </button>
+                    </form>
                 @endforeach
             </div>
             <a href="{{ route('notifikasi-guru.index') }}" class="text-hijau text-center block mt-6">Tampilkan Semua</a>
