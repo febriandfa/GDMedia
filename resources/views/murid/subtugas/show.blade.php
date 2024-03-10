@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="mb-6 flex flex-col gap-6">
-    <x-itemtitle main="Tugas" :sub="$subtugases->tugas->nama" :item="$subtugases->tahap" />
+    <x-itemtitle main="Tugas" :mainLink="route('tugas.index')" :sub="$subtugases->tugas->nama" :subLink="route('tugas.show', $subtugases->tugas_id)" :item="$subtugases->tahap" />
     <x-title :title="$subtugases->tahap" />
     <p class="text-lg font-semibold text-red-500">Deadline : {{ $subtugases->tugas->deadline }}</p>
 </div>

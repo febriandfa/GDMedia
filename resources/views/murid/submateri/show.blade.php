@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="mb-6">
-    <x-itemtitle main="Materi" :sub="$submateris->materi->nama" :item="$submateris->nama" />
+    <x-itemtitle main="Materi" :mainLink="route('materi.index')" :sub="$submateris->materi->nama" :subLink="route('materi.show', $submateris->materi_id)" :item="$submateris->nama" />
 </div>
 
 @php

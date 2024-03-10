@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="mb-6 flex flex-col gap-6">
-    <x-subtitle main="Tugas" :sub="$tugases->nama" />
+    <x-subtitle main="Tugas" :mainLink="route('tugas-guru.index')" :sub="$tugases->nama" />
     <p class="text-lg font-semibold">{{ $tugases->deskripsi }}</p>
     <p class="text-lg font-semibold text-red-500">Deadline : {{ $tugases->deadline }}</p>
 </div>

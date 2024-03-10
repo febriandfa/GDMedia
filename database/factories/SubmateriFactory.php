@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\SubMateri>
  */
-class SubMateriFactory extends Factory
+class SubmateriFactory extends Factory
 {
     /**
      * Define the model's default state.

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card mb-6 flex flex-col gap-6">
-        <x-subtitle main="Tugas" sub="subtugas" />
+        <x-subtitle main="Tugas" :mainLink="route('tugas.index')" sub="subtugas" />
 
         <div class="grid grid-cols-4 gap-10">
             <h4>Selamat datang di kelompok {{ Auth::user()->kelompok->name }}</h4>

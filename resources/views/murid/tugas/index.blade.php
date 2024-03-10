@@ -70,7 +70,7 @@
             @endphp
 
             <x-siswa.tugas.list-tugas-card :id="$tugas->id" :nama="$tugas->nama" :deadline="$tugas->deadline" :nilai="$nilaiUser ? $nilaiUser->nilai : 'Belum Dinilai'"
-                :percentage="round($answerPercentage, 2) ? round($answerPercentage, 1) : 0" />
+                :percentage="round($answerPercentage, 2) ? round($answerPercentage, 1) : 0" :kelompok="auth()->user()->kelompok_id ? auth()->user()->kelompok_id : 'N'" />
         @endforeach
     </div>
 @endsection

@@ -15,4 +15,8 @@ class Notifikasi extends Model
         'pesan',
         'oleh'
     ];
+
+    public function notifikasi_seens() {
+        return $this->hasMany(NotifikasiSeen::class, 'notifikasi_id', 'id');
+    }
 }

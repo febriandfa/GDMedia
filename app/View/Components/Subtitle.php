@@ -13,6 +13,7 @@ class Subtitle extends Component
      */
     public function __construct(
         public string $main,
+        public string $mainLink,
         public string $sub,
     )
     {

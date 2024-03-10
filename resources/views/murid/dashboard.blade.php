@@ -114,7 +114,7 @@
                                         </svg>
                                         <span class="absolute text-xs">{{ round($answerPercentage, 1) }}%</span>
                                     </div>
-                                    <a href=""
+                                    <a href="{{ route('tugas.show', $answers->subtugas->tugas_id) }}"
                                         class="bg-hijau rounded-xl py-1.5 text-white text-base flex items-center justify-center gap-2 w-full">
                                         Lanjutkan
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24"
@@ -141,7 +141,7 @@
                     <x-siswa.dashboard.calendar />
                 </div>
                 <div class="col-span-2 bg-white rounded-xl p-6 h-fit">
-                    <x-siswa.dashboard.absensi />
+                    <x-siswa.dashboard.absensi :absensi="$absens ? $absens->link : 'Belum'" />
                 </div>
             </div>
         </div>

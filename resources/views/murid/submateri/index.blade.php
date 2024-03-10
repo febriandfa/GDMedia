@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="mb-6">
-    <x-subtitle main="Materi" :sub="$submateris[0]->materi->nama" />
+    <x-subtitle main="Materi" :mainLink="route('materi.index')" :sub="$submateris[0]->materi->nama" />
 </div>
 
 @foreach ($submateris as $index => $submateri)

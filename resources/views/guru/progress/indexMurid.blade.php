@@ -4,7 +4,7 @@
     <script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>
 
     <div class="mb-6 flex flex-col gap-6">
-        <x-subtitle main="Tugas" :sub="$tugases->nama" />
+        <x-subtitle main="Tugas" :mainLink="route('progress-guru.index')" :sub="$tugases->nama" />
         <p class="text-lg font-semibold">{{ $tugases->deskripsi }}</p>
         <p class="text-lg font-semibold text-red-500">Deadline : {{ $tugases->deadline }}</p>
     </div>
@@ -18,13 +18,20 @@
 
             @foreach ($userFilter as $user)
                 @php
-                    $answerFilter = $answers->where('user_id', $user->id);
+                    // $answerFilter = $answers->where('user_id', $user->id);
+
+                    $userId = $user->id;
+                    $tugasId = $tugases->id;
+
+                    $answerFilter = $answers->filter(function ($answer) use ($tugasId, $userId) {
+                        return $answer->subtugas->tugas->id == $tugasId && $answer->user_id == $userId;
+                    });
 
                     $subtugasLength = $subtugases->count();
 
                     $answerLength = $answerFilter->count();
 
-                    $answerPercentage = ($answerLength / $subtugasLength) * 50;
+                    $answerPercentage = ($answerLength / $subtugasLength) * 100;
                 @endphp
 
                 <div class="bg-white rounded-xl border-b border-b-hijau p-6 flex items-center justify-between">
@@ -42,7 +49,7 @@
                                     :stroke-dashoffset="circumference - {{ $answerPercentage }} / 100 * circumference"
                                     class="text-hijau" />
                             </svg>
-                            <span class="absolute text-xs">{{ $answerPercentage }}%</span>
+                            <span class="absolute text-xs">{{ round($answerPercentage, 2) ? round($answerPercentage, 1) : 0 }}%</span>
                         </div>
                         <a href="{{ route('progress-guru.show', $user->id) }}"
                             class="py-2 px-8 rounded-xl bg-hijau text-white text-lg font-semibold">
