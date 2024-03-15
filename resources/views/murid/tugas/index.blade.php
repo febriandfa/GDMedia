@@ -38,8 +38,13 @@
 
             <div class="flex -space-x-4 rtl:space-x-reverse">
                 @foreach ($kelompoks as $kelompok)
-                    <img class="size-16 border-2 border-white rounded-full dark:border-gray-800"
-                        src="{{ asset('storage/profile/foto/' . $kelompok->foto) }}" alt="Icon User">
+                    @if ($loop->index < 4)
+                        <img class="size-16 border-2 border-white rounded-full dark:border-gray-800"
+                            src="{{ auth()->user()->foto ? asset('storage/profile/foto/' . auth()->user()->foto) : asset('assets/profil-icon.jpg') }}"
+                            alt="Icon User">
+                    @else
+                        @break
+                    @endif
                 @endforeach
             </div>
 
@@ -62,7 +67,11 @@
 
                 $answerLength = $answerFilter->count();
 
-                $answerPercentage = ($answerLength / $subtugasLength) * 100;
+                if ($subtugasLength == 0) {
+                    $answerPercentage = 0;
+                } else {
+                    $answerPercentage = ($answerLength / $subtugasLength) * 100;
+                }
             @endphp
 
             @php

@@ -55,6 +55,22 @@
     <div class="grid grid-cols-4">
         <div class="col-span-3 border-r-2 border-abu-400 pr-6">
             <x-title title="Dashboard" />
+
+            {{-- Dibawah --}}
+            @if ($pengumumans)    
+            <div class="w-full bg-abu-300 p-6 rounded-xl space-y-4">
+                <div class="flex items-center gap-3">
+                    <img src="{{ auth()->user()->foto ? asset('storage/profile/foto/' . auth()->user()->foto) : asset('assets/profil-icon.jpg') }}" alt="Profil Icon" class="size-20 rounded-full">
+                    <div>
+                        <p class="text-lg font-semibold">{{ $pengumumans->users->name }}</p>
+                        <p>{{ \Carbon\Carbon::parse($pengumumans->created_at)->format('d F Y') }}</p>
+                    </div>
+                </div>
+                <p>{{ $pengumumans->pesan }}</p>
+            </div>
+            @endif
+            {{-- Diatas --}}
+
             <div class="grid grid-cols-2 gap-6 my-6">
                 <div class="bg-hijau-100 p-6 rounded-xl h-fit">
                     <h3 class="text-xl font-semibold mb-6">Progress Materi</h3>
@@ -184,6 +200,9 @@
                     <p class="text-xl font-semibold">Notifikasi</p>
                 </div>
                 <div class="space-y-6">
+                    @if (count($notifikasis) == 0)
+                        <p class="text-center">Belum Ada Notifikasi</p>
+                    @endif
                     @foreach ($notifikasis as $notifikasi)
                         @php
                             $notifikasiId = $notifikasi->id;
@@ -212,7 +231,7 @@
     </div>
 
     <script>
-        console.log(@json($userMateris))
+        console.log(@json($pengumumans))
 
         document.addEventListener('DOMContentLoaded', function() {
             var currentDate = new Date().toLocaleDateString('en-US');

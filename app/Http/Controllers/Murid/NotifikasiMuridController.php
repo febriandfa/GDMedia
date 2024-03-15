@@ -12,7 +12,7 @@ class NotifikasiMuridController extends Controller
 {
     public function index()
     {
-        $notifikasis = Notifikasi::where('oleh', 'Guru')->with(['notifikasi_seens'])->get();
+        $notifikasis = Notifikasi::where('oleh', 'guru')->where('type', 'notifikasi')->with(['notifikasi_seens'])->get();
 
         return view('murid.notifikasi.index', compact('notifikasis'));
     }

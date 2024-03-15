@@ -13,10 +13,16 @@ class Notifikasi extends Model
 
     protected $fillable = [
         'pesan',
-        'oleh'
+        'oleh',
+        'type',
+        'user_id'
     ];
 
     public function notifikasi_seens() {
         return $this->hasMany(NotifikasiSeen::class, 'notifikasi_id', 'id');
+    }
+
+    public function users() {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

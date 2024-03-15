@@ -39,9 +39,4 @@
     </form>
     @endforeach
 </div>
-
-<script>
-    console.log(@json($notifikasiFilter))
-    console.log(@json($notifikasis))
-</script>
 @endsection

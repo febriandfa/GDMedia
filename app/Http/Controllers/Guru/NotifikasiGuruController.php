@@ -12,9 +12,21 @@ class NotifikasiGuruController extends Controller
 {
     public function index()
     {
-        $notifikasis = Notifikasi::where('oleh', 'Murid')->with(['notifikasi_seens'])->get();
+        $notifikasis = Notifikasi::where('oleh', 'murid')->with(['notifikasi_seens'])->get();
 
         return view('guru.notifikasi.index', compact('notifikasis'));
+    }
+
+    public function postPengumuman(Request $request)
+    {
+        $notifikasis = Notifikasi::create([
+            'pesan' => $request->input('pesan'),
+            'oleh' => auth()->user()->role,
+            'type' => 'pengumuman',
+            'user_id' => auth()->user()->id
+        ]);
+
+        return redirect()->route('dashboard.guru');
     }
 
     public function markSeen(Request $request)

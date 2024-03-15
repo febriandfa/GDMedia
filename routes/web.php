@@ -68,6 +68,7 @@ Route::group(['middleware' => 'role:guru'], function () {
             'notifikasi-guru' => NotifikasiGuruController::class,
             'absen-guru' => AbsenGuruController::class,
         ]);
+        Route::post('/notifikasi-guru/post-pengumuman', [NotifikasiGuruController::class, 'postPengumuman'])->name('notifikasi-guru.postPengumuman');
         Route::post('/notifikasi-guru/seen', [NotifikasiGuruController::class, 'markSeen'])->name('notifikasi-guru.markSeen');
         Route::get('/progress-guru/{id}/murid', [ProgressTugasGuruController::class, 'indexMurid'])->name('progress-guru.indexMurid');
     });

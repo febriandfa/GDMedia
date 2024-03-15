@@ -35,6 +35,8 @@ class TugasAnswerMuridController extends Controller
             $extension = $file->getClientOriginalName();
             $fileName = date('YmdHis') . "." . $extension;
             $file->move(storage_path('app/public/TugasAnswer/file/'), $fileName);
+        } else {
+            $fileName = null;
         }
 
         $tugasAnswers = TugasAnswer::create([
@@ -47,7 +49,7 @@ class TugasAnswerMuridController extends Controller
 
         $notifikasis = Notifikasi::create([
             'pesan' => auth()->user()->name . ' Telah Mengumpulkan Tugas!',
-            'oleh' => 'Murid'
+            'oleh' => auth()->user()->role
         ]);
 
         return redirect()->route('subtugas.edit', $request->input('subtugas_id'));
