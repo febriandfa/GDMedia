@@ -41,7 +41,7 @@ class MateriGuruController extends Controller
 
         $notifikasis = Notifikasi::create([
             'pesan' => auth()->user()->name . ' Telah Memposting Materi Baru!',
-            'oleh' => 'Guru'
+            'oleh' => auth()->user()->role
         ]);
 
         return redirect()->route('materi-guru.index');

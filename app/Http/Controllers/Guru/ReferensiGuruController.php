@@ -53,7 +53,7 @@ class ReferensiGuruController extends Controller
 
         $notifikasis = Notifikasi::create([
             'pesan' => auth()->user()->name . ' Telah Memposting Referensi Baru!',
-            'oleh' => 'Guru'
+            'oleh' => auth()->user()->role
         ]);
 
         return redirect()->route('referensi-guru.index')->with('success', 'Data Referensi Berhasil Ditambahkan');

@@ -40,7 +40,7 @@ class TugasGuruController extends Controller
 
         $notifikasis = Notifikasi::create([
             'pesan' => auth()->user()->name . ' Telah Memposting Tugas Baru!',
-            'oleh' => 'Guru'
+            'oleh' => auth()->user()->role
         ]);
 
         return redirect()->route('tugas-guru.index')->with('success', 'Data tugas berhasil ditambahkan');

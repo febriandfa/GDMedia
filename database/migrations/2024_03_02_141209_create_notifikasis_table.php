@@ -15,7 +15,11 @@ return new class extends Migration
             $table->id();
             $table->longText('pesan');
             $table->string('oleh');
+            $table->string('type')->default('notifikasi'); //notifikasi atau pengumuman
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
