@@ -23,29 +23,32 @@
                 });
             @endphp
 
+            @php
+                $notifikasiFilter = $notifikasi->notifikasi_seens->filter(function ($notifikasi) use (
+                    $notifikasiId,
+                    $userId,
+                ) {
+                    return $notifikasi->notifikasi_id == $notifikasiId && $notifikasi->user_id == $userId;
+                });
+            @endphp
 
-            $notifikasiFilter = $notifikasi->notifikasi_seens->filter(function ($notifikasi) use ($notifikasiId, $userId) {
-                return $notifikasi->notifikasi_id == $notifikasiId && $notifikasi->user_id == $userId;
-            });
-        @endphp
-
-    <form method="POST" action="{{ route('notifikasi.markSeen') }}">
-    @csrf
-        <input type="text" id="notifikasi_id" name="notifikasi_id" value="{{ $notifikasi->id }}" class="hidden">
-        <button type="submit" {{ count($notifikasiFilter) != 0 ? 'disabled' : '' }} class="p-4 rounded-xl {{ count($notifikasiFilter) == 0 ? 'bg-hijau-200' : 'bg-hijau-100' }} w-full text-left flex justify-between items-center">
-            <div>
-                <p>
-                    {{ $notifikasi->pesan }}
-                </p>
-                <p class="text-xs mt-4">{{ \Carbon\Carbon::parse($notifikasi->created_at)->format('d M, H.i') }} WIB
-                </p>
-            </div>
-            @if(count($notifikasiFilter) == 0) 
-            <div class="rounded-full size-4 bg-hijau"></div>
-            @endif
-        </button>
-    </form>
-    @endforeach
-</div>
+            <form method="POST" action="{{ route('notifikasi.markSeen') }}">
+                @csrf
+                <input type="text" id="notifikasi_id" name="notifikasi_id" value="{{ $notifikasi->id }}" class="hidden">
+                <button type="submit" {{ count($notifikasiFilter) != 0 ? 'disabled' : '' }}
+                    class="p-4 rounded-xl {{ count($notifikasiFilter) == 0 ? 'bg-hijau-200' : 'bg-hijau-100' }} w-full text-left flex justify-between items-center">
+                    <div>
+                        <p>
+                            {{ $notifikasi->pesan }}
+                        </p>
+                        <p class="text-xs mt-4">{{ \Carbon\Carbon::parse($notifikasi->created_at)->format('d M, H.i') }} WIB
+                        </p>
+                    </div>
+                    @if (count($notifikasiFilter) == 0)
+                        <div class="rounded-full size-4 bg-hijau"></div>
+                    @endif
+                </button>
+            </form>
+        @endforeach
+    </div>
 @endsection
-
