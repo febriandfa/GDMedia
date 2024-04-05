@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absen;
 use App\Models\Materi;
 use App\Models\Notifikasi;
 use App\Models\Submateri;
@@ -38,9 +39,13 @@ class HomeController extends Controller
     {
         $users = User::where('role', 'murid')->get();
 
-        $notifikasis = Notifikasi::where('oleh', 'Murid')->latest()->take(3)->get();
+        $absens = Absen::latest()->take(1)->first();
 
-        return view('guru.dashboard', compact('users', 'notifikasis'));
+        $notifikasis = Notifikasi::where('oleh', 'murid')->latest()->take(3)->get();
+
+        $pengumumans = Notifikasi::where('type', 'pengumuman')->with(['users'])->latest()->take(1)->first();
+
+        return view('guru.dashboard', compact('users', 'notifikasis', 'absens', 'pengumumans'));
     }
 
     public function murid()
@@ -59,8 +64,12 @@ class HomeController extends Controller
 
         $answers = TugasAnswer::where('user_id', auth()->user()->id)->with(['subtugas.tugas'])->latest('updated_at')->first();
 
-        $notifikasis = Notifikasi::where('oleh', 'Guru')->latest()->take(3)->get();
+        $notifikasis = Notifikasi::where('oleh', 'guru')->where('type', 'notifikasi')->latest()->take(3)->get();
 
-        return view('murid.dashboard', compact('materis', 'submateris', 'tugases', 'userMateris', 'answers', 'notifikasis', 'subtugases', 'answerAlls'));
+        $pengumumans = Notifikasi::where('type', 'pengumuman')->with(['users'])->latest()->take(1)->first();
+
+        $absens = Absen::latest()->take(1)->first();
+
+        return view('murid.dashboard', compact('materis', 'submateris', 'tugases', 'userMateris', 'answers', 'notifikasis', 'pengumumans', 'subtugases', 'answerAlls', 'absens'));
     }
 }

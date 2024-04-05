@@ -15,7 +15,7 @@
             </div>
 
             @if ($nilai == "Belum Dinilai")
-                <a href="{{ route('tugas.show', $id) }}" class="py-2 px-8 rounded-xl bg-hijau text-white flex items-center gap-1 w-full justify-center">
+                <a id="linkButton" href="{{ route('tugas.show', $id) }}" class="py-2 px-8 rounded-xl text-white flex items-center gap-1 w-full justify-center {{ $kelompok == 'N' ? 'cursor-default bg-abu-400' : 'bg-hijau' }}">
                     Lanjutkan
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
                         <path d="M10.5 17L15.5 12L10.5 7" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -30,3 +30,11 @@
         </div>
     </div>
 </div>
+
+@if ($kelompok == 'N')
+<script>
+    document.getElementById('linkButton').addEventListener('click', function(event) {
+      event.preventDefault();
+    });
+</script>
+@endif

@@ -18,7 +18,7 @@
             enctype="multipart/form-data">
             @csrf
             <div class="relative w-fit">
-                <img id="previewImage" src="{{ asset('storage/profile/foto/' . auth()->user()->foto) }}" alt=""
+                <img id="previewImage" src="{{ auth()->user()->foto ? asset('storage/profile/foto/' . auth()->user()->foto) : asset('assets/profil-icon.jpg') }}" alt=""
                     class="size-60 rounded-full object-cover">
                 <label for="foto"
                     class="bg-white rounded-full w-fit p-1.5 block cursor-pointer absolute right-4 top-48 border-2">

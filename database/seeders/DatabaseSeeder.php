@@ -24,11 +24,11 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
 
 
-        Tutorial::factory(5)->create();
-        Referensi::factory(5)->create();
-        Materi::factory(5)->create();
-        Submateri::factory(20)->create();
-        Tugas::factory(5)->create();
-        Subtugas::factory(20)->create();
+        // Tutorial::factory(5)->create();
+        // Referensi::factory(5)->create();
+        // Materi::factory(5)->create();
+        // Submateri::factory(20)->create();
+        // Tugas::factory(5)->create();
+        // Subtugas::factory(20)->create();
     }
 }

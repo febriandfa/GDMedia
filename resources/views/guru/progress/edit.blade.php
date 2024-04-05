@@ -21,7 +21,7 @@
     @endphp
 
     <div class="mb-6 flex flex-col gap-6">
-        <x-itemtitle main="Progress" :sub="$tugas->nama" :item="$answers->subtugas->tahap" />
+        <x-itemtitle main="Progress" :mainLink="route('progress-guru.index')" :sub="$tugas->nama" :subLink="route('progress-guru.indexMurid', $tugas->id)" :item="$answers->subtugas->tahap" />
         <x-title :title="$answers->subtugas->tahap" />
         <p class="text-lg font-semibold text-red-500">Deadline : {{ $tugas->deadline }}</p>
     </div>

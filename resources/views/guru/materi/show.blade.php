@@ -3,7 +3,7 @@
 @section('content')
 {{-- Title --}}
 <div class="mb-6">
-    <x-subtitle main="Materi" sub="Elemen & Kegiatan Pembelajaran" />
+    <x-subtitle main="Materi" :mainLink="route('materi-guru.index')" sub="Elemen & Kegiatan Pembelajaran" />
 </div>
 
 {{-- Content Materi --}}

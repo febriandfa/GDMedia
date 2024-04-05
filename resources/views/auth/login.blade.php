@@ -40,7 +40,7 @@
                             <input type="password" id="password" name="password" value="{{ old('password') }}" placeholder="Masukkan kata sandi" required class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">
                         </div>
                     </div>
-                    <a href="" class="block mb-10 text-red-500">Lupa Kata Sandi?</a>
+                    {{-- <a href="" class="block mb-10 text-red-500">Lupa Kata Sandi?</a> --}}
                     <div class="flex justify-center mb-4">
                         <button type="submit" class="px-24 py-4 text-lg font-semibold text-white bg-hijau rounded-xl">Masuk</button>
                     </div>

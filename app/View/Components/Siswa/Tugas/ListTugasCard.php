@@ -16,7 +16,8 @@ class ListTugasCard extends Component
         public string $nama,
         public string $deadline,
         public string $nilai,
-        public string $percentage
+        public string $percentage,
+        public string $kelompok
     )
     {
         //

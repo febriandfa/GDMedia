@@ -11,13 +11,32 @@
 
 <div class="space-y-6">
     @foreach ($notifikasis as $notifikasi)
-        <div class="p-4 rounded-xl bg-hijau-200">
-            <p>
-                {{ $notifikasi->pesan }}
-            </p>
-            <p class="text-xs mt-4">{{ \Carbon\Carbon::parse($notifikasi->created_at)->format('d M, H.i') }} WIB
-            </p>
-        </div>
+
+        @php
+            $notifikasiId = $notifikasi->id;
+            $userId = auth()->user()->id;
+
+            $notifikasiFilter = $notifikasi->notifikasi_seens->filter(function ($notifikasi) use ($notifikasiId, $userId) {
+                return $notifikasi->notifikasi_id == $notifikasiId && $notifikasi->user_id == $userId;
+            });
+        @endphp
+
+        <form method="POST" action="{{ route('notifikasi-guru.markSeen') }}">
+        @csrf
+            <input type="text" id="notifikasi_id" name="notifikasi_id" value="{{ $notifikasi->id }}" class="hidden">
+            <button type="submit" {{ count($notifikasiFilter) != 0 ? 'disabled' : '' }} class="p-4 rounded-xl {{ count($notifikasiFilter) == 0 ? 'bg-hijau-200' : 'bg-hijau-100' }} w-full text-left flex justify-between items-center">
+                <div>
+                    <p>
+                        {{ $notifikasi->pesan }}
+                    </p>
+                    <p class="text-xs mt-4">{{ \Carbon\Carbon::parse($notifikasi->created_at)->format('d M, H.i') }} WIB
+                    </p>
+                </div>
+                @if(count($notifikasiFilter) == 0) 
+                <div class="rounded-full size-4 bg-hijau"></div>
+                @endif
+            </button>
+        </form>
     @endforeach
 </div>
 @endsection

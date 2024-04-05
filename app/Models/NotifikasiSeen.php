@@ -5,21 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Notifikasi extends Model
+class NotifikasiSeen extends Model
 {
     use HasFactory;
 
-    protected $table = 'notifikasis';
+    protected $table = 'notifikasi_seens';
 
     protected $fillable = [
-        'pesan',
-        'oleh',
-        'type',
-        'user_id'
+        'notifikasi_id',
+        'user_id',
+        'is_seen'
     ];
 
-    public function notifikasi_seens() {
-        return $this->hasMany(NotifikasiSeen::class, 'notifikasi_id', 'id');
+    public function notifikasis() {
+        return $this->belongsTo(Notifikasi::class, 'notifikasi_id', 'id');
     }
 
     public function users() {

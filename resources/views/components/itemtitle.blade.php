@@ -1,5 +1,5 @@
 <h1 class="text-lg font-semibold">
-    <span class="text-abu-400">{{ $main }} > </span> 
-    <span class="text-abu-400">{{ $sub }} > </span>
+    <a href="{{ $mainLink }}" class="text-abu-400">{{ $main }} > </a> 
+    <a href="{{ $subLink }}" class="text-abu-400">{{ $sub }} > </a>
     <span class="text-hijau">{{ $item }}</span>
 </h1>

@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notifikasis', function (Blueprint $table) {
+        Schema::create('notifikasi_seens', function (Blueprint $table) {
             $table->id();
-            $table->longText('pesan');
-            $table->string('oleh');
-            $table->string('type')->default('notifikasi'); //notifikasi atau pengumuman
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('notifikasi_id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('is_seen');
             $table->timestamps();
 
+            $table->foreign('notifikasi_id')->references('id')->on('notifikasis');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notifikasis');
+        Schema::dropIfExists('notifikasi_seens');
     }
 };
