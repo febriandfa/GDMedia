@@ -13,6 +13,7 @@ class TugasAnswer extends Model
 
     protected $fillable = [
         'user_id',
+        'kelompok_id',
         'subtugas_id',
         'catatan',
         'file',

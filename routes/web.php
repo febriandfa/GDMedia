@@ -71,6 +71,7 @@ Route::group(['middleware' => 'role:guru'], function () {
         Route::post('/notifikasi-guru/post-pengumuman', [NotifikasiGuruController::class, 'postPengumuman'])->name('notifikasi-guru.postPengumuman');
         Route::post('/notifikasi-guru/seen', [NotifikasiGuruController::class, 'markSeen'])->name('notifikasi-guru.markSeen');
         Route::get('/progress-guru/{id}/murid', [ProgressTugasGuruController::class, 'indexMurid'])->name('progress-guru.indexMurid');
+        Route::get('/export/pdf/{id}', [ProgressTugasGuruController::class, 'exportPdf'])->name('progress-guru.exportPdf');
     });
 });
 

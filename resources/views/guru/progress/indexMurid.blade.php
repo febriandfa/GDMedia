@@ -9,6 +9,11 @@
         <p class="text-lg font-semibold text-red-500">Deadline : {{ $tugases->deadline }}</p>
     </div>
 
+    <a href="{{ route('progress-guru.exportPdf', $tugases->id) }}"
+        class="py-2 mb-6 block w-fit ml-auto px-8 rounded-xl bg-hijau text-white text-lg font-semibold">
+        Download PDF
+    </a>
+
     <div class="space-y-6">
 
         @foreach ($tugases->subtugas[0]->tugas_answer as $tugas_answer)
@@ -60,4 +65,8 @@
             @endforeach
         @endforeach
     </div>
+
+    <script>
+        console.log(@json($tugases))
+    </script>
 @endsection

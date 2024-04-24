@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('murid_id');
             $table->foreign('murid_id')->references('id')->on('users');
+            $table->unsignedBigInteger('kelompok_id')->nullable();
+            $table->foreign('kelompok_id')->references('id')->on('kelompoks');
             $table->unsignedBigInteger('tugas_id');
             $table->foreign('tugas_id')->references('id')->on('tugas');
             $table->string('nilai');

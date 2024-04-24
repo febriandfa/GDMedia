@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Guru;
 
+use App\Exports\TugasNilaiExport;
 use App\Http\Controllers\Controller;
 use App\Models\Subtugas;
 use App\Models\Tugas;
@@ -9,6 +10,8 @@ use App\Models\TugasAnswer;
 use App\Models\TugasNilai;
 use App\Models\User;
 use Illuminate\Http\Request;
+// use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProgressTugasGuruController extends Controller
 {
@@ -41,6 +44,7 @@ class ProgressTugasGuruController extends Controller
     {
         $nilais = TugasNilai::create([
             'murid_id' => $request->input('murid_id'),
+            'kelompok_id' => $request->input('kelompok_id'),
             'tugas_id' => $request->input('tugas_id'),
             'nilai' => $request->input('nilai')
         ]);
@@ -53,10 +57,10 @@ class ProgressTugasGuruController extends Controller
      */
     public function show($user_id)
     {
-        $tugases = Tugas::with(['subtugas.tugas_answer', 'tugas_nilai'])->get();
+        $tugases = Tugas::with(['subtugas.tugas_answer', 'tugas_nilai.kelompok.user', 'tugas_nilai.user'])->get();
 
         $answers = TugasAnswer::where('user_id', $user_id)->with(['user', 'subtugas'])->get();
-        
+
         return view('guru.progress.show', compact('tugases', 'answers'));
     }
 
@@ -98,14 +102,20 @@ class ProgressTugasGuruController extends Controller
 
     public function indexMurid($id)
     {
-        $tugases = Tugas::where('id', $id)->with(['subtugas.tugas_answer'])->first();
+        $tugases = Tugas::where('id', $id)->with(['subtugas.tugas_answer', 'tugas_nilai.kelompok.user', 'tugas_nilai.user', 'tugas_nilai.tugas'])
+                    ->first();
 
         $subtugases = Subtugas::where('tugas_id', $id)->with(['tugas', 'tugas_answer'])->get();
 
         $answers = TugasAnswer::with(['subtugas.tugas'])->get();
 
         $users = User::where('role', 'murid')->with(['tugas_answer.subtugas'])->get();
-        
+
         return view('guru.progress.indexMurid', compact('tugases', 'users', 'subtugases', 'answers'));
+    }
+
+    public function exportPdf($id)
+    {
+        return Excel::download(new TugasNilaiExport($id), 'data_tugas.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 }

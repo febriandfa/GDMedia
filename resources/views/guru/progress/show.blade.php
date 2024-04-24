@@ -23,7 +23,7 @@
         // $answerFilter = $answers->where('')
     @endphp
 
-    @foreach ($answerFilter as $answer)   
+    @foreach ($answerFilter as $answer)
         <div class="w-full p-8 rounded-xl border-b border-b-hijau bg-white flex items-center justify-between">
             <p class="text-xl font-semibold">{{ $answer->subtugas->tahap }}</p>
             <a href="{{ route('progress-guru.edit', $answer->id) }}" class="py-2 px-8 rounded-xl bg-hijau text-white text-lg font-semibold">Lihat Hasil Siswa</a>
@@ -39,7 +39,7 @@
     <div class="w-full rounded-xl border-b border-b-hijau py-4 px-8 bg-hijau-200 mt-16">
         <p class="text-xl font-semibold text-center">Nilai : {{ $tugasNilai->nilai }}</p>
     </div>
-@else    
+@else
     <div class="w-full">
         <button data-modal-target="default-modal" data-modal-toggle="default-modal" type="button" class="p-4 rounded-xl bg-hijau text-lg text-white font-semibold mt-16 block w-fit mx-auto">Tambahkan Nilai</button>
     </div>
@@ -68,6 +68,7 @@
                 <div class="p-4 md:p-5 space-y-9">
                     <div class="flex flex-col gap-8">
                         <input type="text" id="murid_id" name="murid_id" value="{{ $answers[0]->user_id }}" class="hidden">
+                        <input type="text" id="kelompok_id" name="kelompok_id" value="{{ $answers[0]->kelompok_id }}" class="hidden">
                         <input type="text" id="tugas_id" name="tugas_id" value="{{ $tugas->id }}" class="hidden">
                         <input type="number" id="nilai" name="nilai" value="{{ old('nilai') }}" placeholder="Masukkan Nilai" required autofocus class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">
                     </div>
@@ -84,7 +85,7 @@
 
 
 
-{{-- <script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>  
+{{-- <script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>
 
 <div class="mb-6 flex flex-col gap-6">
     <x-subtitle main="Tugas" :sub="$tugases->nama" />

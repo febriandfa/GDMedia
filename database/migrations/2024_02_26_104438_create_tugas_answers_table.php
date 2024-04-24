@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('kelompok_id')->nullable();
+            $table->foreign('kelompok_id')->references('id')->on('kelompoks');
             $table->unsignedBigInteger('subtugas_id');
             $table->foreign('subtugas_id')->references('id')->on('subtugas')->cascadeOnDelete();
             $table->longText('catatan')->nullable();
