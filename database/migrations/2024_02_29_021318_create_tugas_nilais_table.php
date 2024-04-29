@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('tugas_id');
             $table->foreign('tugas_id')->references('id')->on('tugas');
             $table->string('nilai');
+            $table->longText('feedback');
             $table->timestamps();
         });
     }

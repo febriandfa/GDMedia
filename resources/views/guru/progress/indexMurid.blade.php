@@ -10,8 +10,8 @@
     </div>
 
     <a href="{{ route('progress-guru.exportPdf', $tugases->id) }}"
-        class="py-2 mb-6 block w-fit ml-auto px-8 rounded-xl bg-hijau text-white text-lg font-semibold">
-        Download PDF
+        class="block w-fit ml-auto text-hijau underline mb-6">
+        Unduh Rekapan Nilai Siswa
     </a>
 
     <div class="space-y-6">
@@ -37,6 +37,8 @@
                     $answerLength = $answerFilter->count();
 
                     $answerPercentage = ($answerLength / $subtugasLength) * 100;
+
+                    $userGrade = $tugases->tugas_nilai->where('murid_id', $userId)->first();
                 @endphp
 
                 <div class="bg-white rounded-xl border-b border-b-hijau p-6 flex items-center justify-between">
@@ -56,6 +58,9 @@
                             </svg>
                             <span class="absolute text-xs">{{ round($answerPercentage, 2) ? round($answerPercentage, 1) : 0 }}%</span>
                         </div>
+                        @if ($userGrade)
+                            <div class="py-1.5 px-8 rounded-xl bg-white border-2 border-hijau text-lg text-hijau font-semibold block w-fit">Nilai : {{ $userGrade->nilai}}</div>
+                        @endif
                         <a href="{{ route('progress-guru.show', $user->id) }}"
                             class="py-2 px-8 rounded-xl bg-hijau text-white text-lg font-semibold">
                             Lihat
@@ -68,5 +73,6 @@
 
     <script>
         console.log(@json($tugases))
+        console.log(@json($answerFilter))
     </script>
 @endsection

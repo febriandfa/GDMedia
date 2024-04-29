@@ -67,10 +67,19 @@
         </div>
     </div>
 
-    <div class="w-full">
-        <button data-modal-target="default-modal" data-modal-toggle="default-modal" type="button"
-            class="p-4 rounded-xl bg-hijau text-lg text-white font-semibold mt-16 block w-fit mx-auto">Feedback</button>
-    </div>
+    @if ($answers->feedback)
+        <div class="my-6">
+            <p class="font-semibold text-lg">Nilai Dan Masukan Dari Fasilitator</p>
+            <div class="bg-white rounded-xl border-b border-b-hijau p-6">
+                {{ $answers->feedback }}
+            </div>
+        </div>
+    @else
+        <div class="w-full">
+            <button data-modal-target="default-modal" data-modal-toggle="default-modal" type="button"
+                class="p-4 rounded-xl bg-hijau text-lg text-white font-semibold mt-16 block w-fit mx-auto">Feedback</button>
+        </div>
+    @endif
 
     <!-- Main modal -->
     <div id="default-modal" tabindex="-1" aria-hidden="true"

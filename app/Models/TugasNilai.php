@@ -15,7 +15,8 @@ class TugasNilai extends Model
         'murid_id',
         'kelompok_id',
         'tugas_id',
-        'nilai'
+        'nilai',
+        'feedback',
     ];
 
     public function user() {

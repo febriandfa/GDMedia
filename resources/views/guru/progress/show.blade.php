@@ -39,6 +39,9 @@
     <div class="w-full rounded-xl border-b border-b-hijau py-4 px-8 bg-hijau-200 mt-16">
         <p class="text-xl font-semibold text-center">Nilai : {{ $tugasNilai->nilai }}</p>
     </div>
+    <div class="w-full rounded-xl border-b border-b-hijau py-4 px-8 bg-hijau-200 mt-6">
+        <p class="text-xl font-semibold text-center">Feedback : {{ $tugasNilai->feedback }}</p>
+    </div>
 {{-- @else --}}
     {{-- <div class="w-full">
         <button class="block py-2.5 px-5 ms-3 text-sm font-medium focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100">Lihat Instrumen Penilaian</button>
@@ -78,6 +81,8 @@
                         <input type="text" id="kelompok_id" name="kelompok_id" value="{{ $answers[0]->kelompok_id }}" class="hidden">
                         <input type="text" id="tugas_id" name="tugas_id" value="{{ $tugas->id }}" class="hidden">
                         <input type="number" id="nilai" name="nilai" value="{{ old('nilai') }}" placeholder="Masukkan Nilai" required autofocus class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2">
+                        <textarea name="feedback" id="feedback" rows="6" value=     "{{ old('feedback') }}" placeholder="Masukkan Feedback"
+                            class="w-full px-4 py-2 border-2 outline-none border-hijau-400 rounded-xl focus:border-hijau focus:border-2"></textarea>
                     </div>
                 </div>
                 <!-- Modal footer -->

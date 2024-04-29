@@ -46,7 +46,8 @@ class ProgressTugasGuruController extends Controller
             'murid_id' => $request->input('murid_id'),
             'kelompok_id' => $request->input('kelompok_id'),
             'tugas_id' => $request->input('tugas_id'),
-            'nilai' => $request->input('nilai')
+            'nilai' => $request->input('nilai'),
+            'feedback' => $request->input('feedback')
         ]);
 
         return redirect()->route('progress-guru.show', $request->input('murid_id'));

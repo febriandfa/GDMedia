@@ -12,6 +12,7 @@
 
         @php
             $userFinish = $subtugas->tugas_answer->where('user_id', auth()->user()->id)->first();
+            $tugasNilai = $tugases->tugas_nilai->where('murid_id', auth()->user()->id)->first();
         @endphp
     
         <div class="w-full p-8 rounded-xl border-b border-b-hijau bg-white flex items-center justify-between">
@@ -19,6 +20,12 @@
             <a href="{{ $userFinish ? route('subtugas.edit', $subtugas->id) : route('subtugas.show', $subtugas->id) }}" class="py-2 px-8 rounded-xl bg-hijau text-white text-lg font-semibold">{{ $userFinish ? "Lihat" : "Kerjakan" }}</a>
         </div>
     @endforeach
+
+    @if ($tugasNilai)
+    <div class="w-full rounded-xl border-b border-b-hijau py-4 px-8 bg-hijau-200 mt-6">
+        <p class="text-xl font-semibold text-center">Feedback : {{ $tugasNilai->feedback }}</p>
+    </div>
+    @endif
 
     {{-- <div class="w-full p-8 rounded-xl border-b border-b-hijau bg-white flex items-center justify-between">
         <p class="text-xl font-semibold">Tugas 2 : Penentuan Tema</p>

@@ -63,7 +63,7 @@ class TugasMuridController extends Controller
      */
     public function show(string $id)
     {
-        $tugases = Tugas::where('id', $id)->with(['subtugas', 'subtugas.tugas_answer'])->first();
+        $tugases = Tugas::where('id', $id)->with(['subtugas', 'subtugas.tugas_answer', 'tugas_nilai'])->first();
 
         return view('murid.tugas.show', compact('tugases'));
     }
