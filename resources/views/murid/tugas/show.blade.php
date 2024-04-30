@@ -48,9 +48,4 @@
         <a href="{{ route('tahap4') }}" class="py-2 px-8 rounded-xl bg-hijau text-white text-lg font-semibold">Kerjakan</a>
     </div> --}}
     </div>
-
-    <script>
-        console.log(@json($tugases))
-        console.log(@json($userFinish))
-    </script>
 @endsection
