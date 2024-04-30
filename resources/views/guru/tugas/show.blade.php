@@ -16,7 +16,11 @@
                 <p class="text-xl font-semibold">Belum ada isi rincian tahapan tugas</p>
             </div>
             <button type="button" onclick="showSectionSubmateri()" class="text-hijau underline">+ Tambahkan</button>
-            <button type="button" onclick="showSectionSubmateri()" class="text-hijau underline">+ Hapus tugas</button>
+            <form action="{{ route('tugas-guru.destroy') }}" method="POST">
+                @method('DELETE')
+                <button type="submit" class="text-red underline">- Hapus</button>
+            </form>
+
         </div>
     @else
         <div class="w-full h-0.5 bg-hijau"></div>
