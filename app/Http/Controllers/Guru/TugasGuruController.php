@@ -96,6 +96,6 @@ class TugasGuruController extends Controller
         // Hapus tugas itu sendiri
         $tugas->delete();
 
-        return redirect()->route('tugas.index')->with('success', 'Tugas berhasil dihapus');
+        return redirect()->route('tugas-guru.index')->with('success', 'Tugas berhasil dihapus');
     }
 }
