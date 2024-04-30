@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use App\Models\Notifikasi;
+use App\Models\Subtugas;
 use App\Models\Tugas;
+use App\Models\TugasNilai;
 use Illuminate\Http\Request;
 
 class TugasGuruController extends Controller
@@ -81,15 +83,19 @@ class TugasGuruController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $ids = $request->input('id', []);
+        // Temukan tugas yang ingin dihapus
+        $tugas = Tugas::findOrFail($id);
 
-        Tugas::whereIn('id', $ids)->delete();
+        // Hapus entri terkait di tabel tugas_nilai
+        TugasNilai::where('tugas_id', $tugas->id)->delete();
+        Subtugas::where('tugas_id', $tugas->id)->delete();
 
-        $tugases = Tugas::where('id', $ids)->first();
-        $tugases->delete();
 
-        return redirect()->route('tugas-guru.index')->with('success', 'Data tugas berhasil dihapus');
+        // Hapus tugas itu sendiri
+        $tugas->delete();
+
+        return redirect()->route('tugas.index')->with('success', 'Tugas berhasil dihapus');
     }
 }
