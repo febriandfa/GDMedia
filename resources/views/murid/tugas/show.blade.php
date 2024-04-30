@@ -21,6 +21,10 @@
             </div>
         @endforeach
 
+        @php
+            $tugasNilai = $tugases->tugas_nilai->where('murid_id', auth()->user()->id)->first();
+        @endphp
+
         @if (!$tugasNilai)
             <div class="w-full rounded-xl border-b border-b-hijau py-4 px-8 bg-hijau-200 mt-6">
                 <p class="text-xl font-semibold text-center">Feedback : Belum ada Feedback</p>
