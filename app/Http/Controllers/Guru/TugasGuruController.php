@@ -81,13 +81,13 @@ class TugasGuruController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request)
     {
-        $ids = $request->input('ids', []);
+        $ids = $request->input('id', []);
 
         Tugas::whereIn('id', $ids)->delete();
 
-        $tugases = Tugas::where('id', $id)->first();
+        $tugases = Tugas::where('id', $ids)->first();
         $tugases->delete();
 
         return redirect()->route('tugas-guru.index')->with('success', 'Data tugas berhasil dihapus');
