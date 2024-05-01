@@ -8,7 +8,7 @@
             <p class="text-lg font-semibold">{{ auth()->user()->name }}</p>
         </div>
     </div>
-    <form action="{{ route('notifikasi.lihatSemua') }}" method="POST">
+    <form action="{{ route('notifikasi.lihatSemua') }}" method="POST" class="mb-4">
         @csrf
         <button type="submit" {{ $notifikasis->contains('is_seen', 'Y') ? 'disabled' : '' }}
             class="text-lg font-semibold m-4 px-4 py-2 rounded-xl bg-white border border-hijau text-hijau">Tandai
