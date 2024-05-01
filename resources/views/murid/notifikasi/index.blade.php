@@ -23,7 +23,7 @@
                 });
             @endphp
 
-
+        @php
             $notifikasiFilter = $notifikasi->notifikasi_seens->filter(function ($notifikasi) use ($notifikasiId, $userId) {
                 return $notifikasi->notifikasi_id == $notifikasiId && $notifikasi->user_id == $userId;
             });
