@@ -8,14 +8,9 @@
             <p class="text-lg font-semibold">{{ auth()->user()->name }}</p>
         </div>
     </div>
-    @php
-        $notifikasiFilter = $notifikasis->notifikasi_seens->filter(function ($notifikasi) use ($notifikasiId, $userId) {
-            return $notifikasi->notifikasi_id == $notifikasiId && $notifikasi->user_id == $userId;
-        });
-    @endphp
     <form action="{{ route('notifikasi.lihatSemua') }}" method="POST">
         @csrf
-        <button type="submit" {{ count($notifikasiFilter) != 0 ? 'disabled' : '' }}
+        <button type="submit" {{ $notifikasis->contains('is_seen', 'Y') ? 'disabled' : '' }}
             class="text-lg font-semibold m-4 px-4 py-2 rounded-xl bg-white border border-hijau text-hijau">Tandai
             Dibaca Semua</button>
     </form>
@@ -34,7 +29,14 @@
                 });
             @endphp
 
-
+            @php
+                $notifikasiFilter = $notifikasi->notifikasi_seens->filter(function ($notifikasi) use (
+                    $notifikasiId,
+                    $userId,
+                ) {
+                    return $notifikasi->notifikasi_id == $notifikasiId && $notifikasi->user_id == $userId;
+                });
+            @endphp
 
 
 
