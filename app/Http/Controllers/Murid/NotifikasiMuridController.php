@@ -27,4 +27,29 @@ class NotifikasiMuridController extends Controller
 
         return redirect()->route('notifikasi.index');
     }
+
+    public function show($id)
+    {
+        return ' hallo';
+    }
+
+    public function telahDibacaSemua()
+    {
+        $notifikasis = Notifikasi::with('notifikasi_seens')->get();
+
+        $notifikasis->each(function ($notifikasi) {
+            // Periksa apakah notifikasi sudah dilihat oleh pengguna
+            $alreadySeen = $notifikasi->notifikasi_seens()->where('user_id', auth()->id())->exists();
+
+            // Jika belum dilihat, tandai sebagai dilihat
+            if (!$alreadySeen) {
+                $notifikasi->notifikasi_seens()->create([
+                    'user_id' => auth()->id(),
+                    'is_seen' => 'Y',
+                ]);
+            }
+        });
+
+        return redirect()->route('notifikasi.index');
+    }
 }

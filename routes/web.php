@@ -94,6 +94,8 @@ Route::group(['middleware' => 'role:murid'], function () {
             'kelompok' => KelompokMuridController::class
         ]);
         Route::post('/notifikasi/seen', [NotifikasiMuridController::class, 'markSeen'])->name('notifikasi.markSeen');
+        Route::post('/notifikasi/tandai-lihat-semua', [NotifikasiMuridController::class, 'telahDibacaSemua'])->name('notifikasi.lihatSemua');
+
 
         Route::get('/profil/edit', [ProfileMuridController::class, 'index'])->name('profil.edit');
         Route::post('/profil/edit', [ProfileMuridController::class, 'store'])->name('profil.store');
