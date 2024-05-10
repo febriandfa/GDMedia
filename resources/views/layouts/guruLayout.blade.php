@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'GDMedia') }}</title>
-    <link rel="icon" href="{!! asset('assets/logo.png') !!}" />
+    <link rel="icon" href="{!! asset('assets/icon.png') !!}" />
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
