@@ -183,7 +183,7 @@
                     <img src="{{ asset('storage/profile/foto/' . auth()->user()->foto) }}" alt="Profil Icon"
                         class="size-36 rounded-full object-cover">
                 @endif
-                <p class="text-xl font-semibold">{{ auth()->user()->name }}</p>
+                <p class="text-xl font-semibold text-center">{{ auth()->user()->name }}</p>
                 <p class="text-lg font-semibold">{{ auth()->user()->kelas }}</p>
                 <p class="text-lg font-semibold">{{ auth()->user()->absen }}</p>
             </div>
