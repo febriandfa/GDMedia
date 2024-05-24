@@ -3,7 +3,7 @@
     @if (auth()->user()->foto == null)
         <img src="{{ asset('assets/profil-icon.jpg') }}" alt="Profil Icon" class="w-full h-full">
     @else
-        <img src="{{ asset('storage/profile/foto/' . auth()->user()->foto) }}" alt="Profil Icon" class="w-full h-full">
+        <img src="{{ asset('storage/profile/foto/' . auth()->user()->foto) }}" alt="Profil Icon" class="w-full h-full object-cover">
     @endif
 
 </a>

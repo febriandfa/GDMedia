@@ -11,11 +11,11 @@
 
 <div class="grid grid-cols-7 gap-6">
 
-    @if ($pengumumans)    
+    @if ($pengumumans)
     <div class="col-span-7 bg-abu-300 p-6 rounded-xl space-y-4">
         <div class="flex justify-between items-start">
             <div class="flex items-center gap-3">
-                <img src="{{ auth()->user()->foto ? asset('storage/profile/foto/' . auth()->user()->foto) : asset('assets/profil-icon.jpg') }}" alt="Profil Icon" class="size-20 rounded-full">
+                <img src="{{ $pengumumans->users->foto ? asset('storage/profile/foto/' . $pengumumans->users->foto) : asset('assets/profil-icon.jpg') }}" alt="Profil Icon" class="size-20 rounded-full object-cover">
                 <div>
                     <p class="text-lg font-semibold">{{ $pengumumans->users->name }}</p>
                     <p>{{ \Carbon\Carbon::parse($pengumumans->created_at)->format('d F Y') }}</p>
@@ -116,7 +116,7 @@
                 @php
                     $notifikasiId = $notifikasi->id;
                     $userId = auth()->user()->id;
-        
+
                     $notifikasiFilter = $notifikasi->notifikasi_seens->filter(function ($notifikasi) use ($notifikasiId, $userId) {
                         return $notifikasi->notifikasi_id == $notifikasiId && $notifikasi->user_id == $userId;
                     });

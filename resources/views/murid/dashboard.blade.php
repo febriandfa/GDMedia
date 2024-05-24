@@ -57,10 +57,10 @@
             <x-title title="Dashboard" />
 
             {{-- Dibawah --}}
-            @if ($pengumumans)    
+            @if ($pengumumans)
             <div class="w-full bg-abu-300 p-6 rounded-xl space-y-4">
                 <div class="flex items-center gap-3">
-                    <img src="{{ auth()->user()->foto ? asset('storage/profile/foto/' . auth()->user()->foto) : asset('assets/profil-icon.jpg') }}" alt="Profil Icon" class="size-20 rounded-full">
+                    <img src="{{ $pengumumans->users->foto ? asset('storage/profile/foto/' . $pengumumans->users->foto) : asset('assets/profil-icon.jpg') }}" alt="Profil Icon" class="size-20 rounded-full object-cover">
                     <div>
                         <p class="text-lg font-semibold">{{ $pengumumans->users->name }}</p>
                         <p>{{ \Carbon\Carbon::parse($pengumumans->created_at)->format('d F Y') }}</p>
@@ -181,7 +181,7 @@
                     <img src="{{ asset('assets/profil-icon.jpg') }}" alt="Profil Icon" class="size-36 rounded-full">
                 @else
                     <img src="{{ asset('storage/profile/foto/' . auth()->user()->foto) }}" alt="Profil Icon"
-                        class="size-36 rounded-full">
+                        class="size-36 rounded-full object-cover">
                 @endif
                 <p class="text-xl font-semibold">{{ auth()->user()->name }}</p>
                 <p class="text-lg font-semibold">{{ auth()->user()->kelas }}</p>
@@ -207,7 +207,7 @@
                         @php
                             $notifikasiId = $notifikasi->id;
                             $userId = auth()->user()->id;
-                
+
                             $notifikasiFilter = $notifikasi->notifikasi_seens->filter(function ($notifikasi) use ($notifikasiId, $userId) {
                                 return $notifikasi->notifikasi_id == $notifikasiId && $notifikasi->user_id == $userId;
                             });
