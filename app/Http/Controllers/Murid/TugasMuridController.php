@@ -23,17 +23,18 @@ class TugasMuridController extends Controller
         $subtugases = Subtugas::with(['tugas.tugas_nilai', 'tugas_answer'])->get();
         $answers = TugasAnswer::with(['subtugas.tugas'])->get();
 
-        $kelompoks = User::where([
+        $kelompokAnggotas = User::where([
             // 'id' => Auth::user()->id,
             'kelompok_id' => Auth::user()->kelompok_id,
         ])->get();
 
+        $kelompok = Kelompok::where('id', Auth::user()->kelompok_id)->first();
 
-        $anggotas = $kelompoks->map(function ($kelompok) {
+        $anggotas = $kelompokAnggotas->map(function ($kelompok) {
             return $kelompok->name;
         });
 
-        return view('murid.tugas.index', compact('tugases', 'kelompoks', 'anggotas', 'answers', 'subtugases'));
+        return view('murid.tugas.index', compact('tugases', 'kelompokAnggotas', 'kelompok', 'anggotas', 'answers', 'subtugases'));
     }
 
     /**

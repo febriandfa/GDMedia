@@ -27,7 +27,7 @@
         {{-- Jika Sudah Join Kelompok --}}
         <div class="flex items-center justify-between">
             <div>
-                <h3 class="text-xl font-semibold mb-2">Kelompok 1</h3>
+                <h3 class="text-xl font-semibold mb-2">{{ $kelompok->name }}</h3>
                 <p class="text-lg font-semibold mb-2">Anggota Kelompok :</p>
                 <ol class="pl-8 list-decimal *:font-semibold">
                     @foreach ($anggotas as $anggota)
@@ -37,7 +37,7 @@
             </div>
 
             <div class="flex -space-x-4 rtl:space-x-reverse">
-                @foreach ($kelompoks as $kelompok)
+                @foreach ($kelompokAnggotas as $kelompokAnggota)
                     @if ($loop->index < 4)
                         <img class="size-16 border-2 border-white rounded-full dark:border-gray-800"
                             src="{{ auth()->user()->foto ? asset('storage/profile/foto/' . auth()->user()->foto) : asset('assets/profil-icon.jpg') }}"
