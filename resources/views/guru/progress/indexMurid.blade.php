@@ -42,7 +42,8 @@
 
                 <div class="bg-white rounded-xl border-b border-b-hijau p-6 flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <img class="size-16 rounded-full" src="{{ asset('storage/profile/foto/' . $user->foto) }}"
+                        <img class="size-16 rounded-full"
+                            src="{{ asset('storage/profile/foto/' . $user->foto) }} ? {{ asset('assets/icon.png') }}"
                             alt="Icon User">
                         <p class="text-lg font-semibold">{{ $user->name }}</p>
                     </div>
