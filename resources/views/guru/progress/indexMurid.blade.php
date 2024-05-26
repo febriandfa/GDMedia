@@ -45,6 +45,7 @@
                         <img class="size-16 rounded-full"
                             src="{{ $user->foto ? asset('storage/profile/foto/' . $user->foto) : asset('assets/profile-icon.png') }}"
                             alt="Icon User">
+
                         <p class="text-lg font-semibold">{{ $user->name }}</p>
                     </div>
                     <div class="flex items-center gap-4">
