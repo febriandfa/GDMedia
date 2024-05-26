@@ -40,7 +40,7 @@
                 @foreach ($kelompokAnggotas as $kelompokAnggota)
                     @if ($loop->index < 4)
                         <img class="size-16 border-2 border-white rounded-full dark:border-gray-800"
-                            src="{{ auth()->user()->foto ? asset('storage/profile/foto/' . auth()->user()->foto) : asset('assets/profil-icon.jpg') }}"
+                            src="{{ $kelompokAnggota->foto ? asset('storage/profile/foto/' . $kelompokAnggota->foto) : asset('assets/profil-icon.jpg') }}"
                             alt="Icon User">
                     @else
                         @break
@@ -82,4 +82,9 @@
                 :percentage="round($answerPercentage, 2) ? round($answerPercentage, 1) : 0" :kelompok="auth()->user()->kelompok_id ? auth()->user()->kelompok_id : 'N'" />
         @endforeach
     </div>
+
+    <script>
+        console.log('kelompokanggota', @json($kelompokAnggotas))
+        console.log('anggota', @json($anggotas))
+    </script>
 @endsection
