@@ -9,8 +9,7 @@
         <p class="text-lg font-semibold text-red-500">Deadline : {{ $tugases->deadline }}</p>
     </div>
 
-    <a href="{{ route('progress-guru.exportPdf', $tugases->id) }}"
-        class="block w-fit ml-auto text-hijau underline mb-6">
+    <a href="{{ route('progress-guru.exportPdf', $tugases->id) }}" class="block w-fit ml-auto text-hijau underline mb-6">
         Unduh Rekapan Nilai Siswa
     </a>
 
@@ -43,7 +42,8 @@
 
                 <div class="bg-white rounded-xl border-b border-b-hijau p-6 flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <img class="size-16 rounded-full" src="{{ asset('assets/profil-icon.jpg') }}" alt="Icon User">
+                        <img class="size-16 rounded-full" src="{{ asset('storage/profile/foto/' . $user->foto) }}"
+                            alt="Icon User">
                         <p class="text-lg font-semibold">{{ $user->name }}</p>
                     </div>
                     <div class="flex items-center gap-4">
@@ -56,10 +56,13 @@
                                     :stroke-dashoffset="circumference - {{ $answerPercentage }} / 100 * circumference"
                                     class="text-hijau" />
                             </svg>
-                            <span class="absolute text-xs">{{ round($answerPercentage, 2) ? round($answerPercentage, 1) : 0 }}%</span>
+                            <span
+                                class="absolute text-xs">{{ round($answerPercentage, 2) ? round($answerPercentage, 1) : 0 }}%</span>
                         </div>
                         @if ($userGrade)
-                            <div class="py-1.5 px-8 rounded-xl bg-white border-2 border-hijau text-lg text-hijau font-semibold block w-fit">Nilai : {{ $userGrade->nilai}}</div>
+                            <div
+                                class="py-1.5 px-8 rounded-xl bg-white border-2 border-hijau text-lg text-hijau font-semibold block w-fit">
+                                Nilai : {{ $userGrade->nilai }}</div>
                         @endif
                         <a href="{{ route('progress-guru.show', $user->id) }}"
                             class="py-2 px-8 rounded-xl bg-hijau text-white text-lg font-semibold">
