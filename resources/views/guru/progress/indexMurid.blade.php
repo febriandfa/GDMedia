@@ -18,9 +18,12 @@
         @foreach ($tugases->subtugas[0]->tugas_answer as $tugas_answer)
             @php
                 $userFilter = $users->where('id', $tugas_answer->user_id);
+                $sortedUsers = $userFilter->sortBy(function ($user) {
+                    return $user->name;
+                });
             @endphp
 
-            @foreach ($userFilter as $user)
+            @foreach ($sortedUsers as $user)
                 @php
                     // $answerFilter = $answers->where('user_id', $user->id);
 
