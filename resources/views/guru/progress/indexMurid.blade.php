@@ -24,7 +24,9 @@
             @foreach ($userFilter as $user)
                 @php
                     // $answerFilter = $answers->where('user_id', $user->id);
-
+                    $user->sortBy(function ($user) {
+                        return $user->name;
+                    });
                     $userId = $user->id;
                     $tugasId = $tugases->id;
 
