@@ -104,13 +104,17 @@ class ProgressTugasGuruController extends Controller
     public function indexMurid($id)
     {
         $tugases = Tugas::where('id', $id)->with(['subtugas.tugas_answer', 'tugas_nilai.kelompok.user', 'tugas_nilai.user', 'tugas_nilai.tugas'])
-                    ->first();
+            ->first();
 
         $subtugases = Subtugas::where('tugas_id', $id)->with(['tugas', 'tugas_answer'])->get();
 
         $answers = TugasAnswer::with(['subtugas.tugas'])->get();
 
-        $users = User::where('role', 'murid')->with(['tugas_answer.subtugas'])->get();
+        $users = User::where('role', 'murid')
+            ->sortBy(function ($user) {
+                return $user->name;
+            })
+            ->with(['tugas_answer.subtugas'])->get();
 
         return view('guru.progress.indexMurid', compact('tugases', 'users', 'subtugases', 'answers'));
     }
