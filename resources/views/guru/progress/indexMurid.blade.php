@@ -19,9 +19,11 @@
             @php
                 $userFilter = $users->where('id', $tugas_answer->user_id);
 
+                $sortedFilter = $users->orderBy('name', 'ASC');
+
             @endphp
 
-            @foreach ($userFilter as $user)
+            @foreach ($sortedFilter as $user)
                 @php
                     // $answerFilter = $answers->where('user_id', $user->id);
 
