@@ -111,9 +111,7 @@ class ProgressTugasGuruController extends Controller
         $answers = TugasAnswer::with(['subtugas.tugas'])->get();
 
         $users = User::where('role', 'murid')
-            ->sortBy(function ($user) {
-                return $user->name;
-            })
+            ->orderBy('name', 'asc')
             ->with(['tugas_answer.subtugas'])->get();
 
         return view('guru.progress.indexMurid', compact('tugases', 'users', 'subtugases', 'answers'));
