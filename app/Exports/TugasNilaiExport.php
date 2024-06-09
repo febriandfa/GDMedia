@@ -33,8 +33,8 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'No' => $index + 1,
                 'Nama Tugas' => $tugas->tugas->nama,
                 'Siswa' => $tugas->user->name,
-                // 'Absen Siswa' => $tugas->user->absen,
-                // 'Kelompok' => $tugas->kelompok->name,
+                'Absen Siswa' => $tugas->user->absen,
+                'Kelompok' => $tugas->kelompok->name,
                 'Nilai' => $tugas->nilai,
             ];
         });
@@ -48,8 +48,8 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'No',
             'Nama Tugas',
             'Siswa',
-            // 'Absen Siswa',
-            // 'Kelompok',
+            'Absen Siswa',
+            'Kelompok',
             'Nilai'
         ];
     }
