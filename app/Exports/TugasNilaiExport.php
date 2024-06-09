@@ -31,7 +31,12 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             ->first();
 
         // Sort the collection by 'Kelompok' name in ascending order
-        $sortedTugases = $tugases->sortBy(function ($tugas) {
+        $sortedTugases = $tugases->tugas_nilai->sortBy(function ($tugas) {
+            return $tugas->kelompok->name;
+        });
+
+        // Sort the sorted collection by 'Absen Siswa' in ascending order
+        $sortedTugases = $sortedTugases->sortBy(function ($tugas) {
             return $tugas->user->absen;
         });
 
@@ -48,6 +53,7 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
 
         return $mappedData;
     }
+
 
 
     public function headings(): array
