@@ -3,22 +3,20 @@
 namespace App\Exports;
 
 use App\Models\Tugas;
-
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
-use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup as WorksheetPageSetup;
 
-class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles, WithEvents
 {
-    /**
-     * @return \Illuminate\Support\Collection
-     */
     protected $id;
 
     public function __construct($id)
@@ -85,6 +83,10 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
 
         // Apply styling to the data rows
         $sheet->getStyle('A2:F' . $sheet->getHighestRow())->applyFromArray([
+            'alignment' => [
+                'vertical' => Alignment::VERTICAL_CENTER,
+                'wrapText' => true,
+            ],
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => Border::BORDER_THIN,
@@ -101,7 +103,7 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 // Set the paper size to A4
-                $event->sheet->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+                $event->sheet->getPageSetup()->setPaperSize(WorksheetPageSetup::PAPERSIZE_A4);
 
                 // Set the print area
                 $highestRow = $event->sheet->getHighestRow();
@@ -111,11 +113,18 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 $event->sheet->getPageSetup()->setFitToWidth(1);
                 $event->sheet->getPageSetup()->setFitToHeight(0);
 
-                // Set margins if needed (optional)
+                // Center the sheet horizontally and vertically
+                $event->sheet->getPageSetup()->setHorizontalCentered(true);
+                $event->sheet->getPageSetup()->setVerticalCentered(false);
+
+                // Set margins
                 $event->sheet->getPageMargins()->setTop(0.75);
                 $event->sheet->getPageMargins()->setBottom(0.75);
                 $event->sheet->getPageMargins()->setLeft(0.7);
                 $event->sheet->getPageMargins()->setRight(0.7);
+
+                // Set orientation to portrait
+                $event->sheet->getPageSetup()->setOrientation(WorksheetPageSetup::ORIENTATION_PORTRAIT);
             },
         ];
     }
