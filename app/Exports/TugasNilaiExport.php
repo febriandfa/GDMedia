@@ -57,10 +57,10 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     public function styles(Worksheet $sheet)
     {
         // Set the font size to 12 for the entire worksheet
-        $sheet->getParent()->getDefaultStyle()->getFont()->setSize(7);
+        $sheet->getParent()->getDefaultStyle()->getFont()->setSize(8);
 
         // Apply styling to the header row (row 1)
-        $sheet->getStyle('A1:F1')->applyFromArray([
+        $sheet->getStyle('A3:F3')->applyFromArray([
             'font' => [
                 'color' => ['argb' => 'FFFFFF'],
             ],
@@ -81,7 +81,7 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         ]);
 
         // Apply styling to the data rows
-        $sheet->getStyle('A2:F' . $sheet->getHighestRow())->applyFromArray([
+        $sheet->getStyle('A4:F' . $sheet->getHighestRow())->applyFromArray([
             'alignment' => [
                 'vertical' => Alignment::VERTICAL_CENTER,
                 'wrapText' => true,
@@ -101,6 +101,32 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
+                $sheet = $event->sheet->getDelegate();
+
+                $title = Tugas::where('id', $this->id)->with(['tugas_nilai.kelompok.user', 'tugas_nilai.user', 'tugas_nilai.tugas'])->first()->value('nama');
+
+                $sheet->setCellValue('A1', $title);
+
+                // Merge cells for the title
+                $sheet->mergeCells('A1:F1');
+
+                // Style the title
+                $sheet->getStyle('A1')->applyFromArray([
+                    'font' => [
+                        'bold' => true,
+                        'size' => 14,
+                    ],
+                    'alignment' => [
+                        'horizontal' => Alignment::HORIZONTAL_CENTER,
+                        'vertical' => Alignment::VERTICAL_CENTER,
+                    ],
+                ]);
+
+                // Adjust row heights
+                $sheet->getRowDimension('1')->setRowHeight(30);
+
+                // Shift everything down to accommodate the title
+                $sheet->insertNewRowBefore(2, 1);
                 // Set the paper size to A4
                 $event->sheet->getPageSetup()->setPaperSize(WorksheetPageSetup::PAPERSIZE_A4);
 
