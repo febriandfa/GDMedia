@@ -41,7 +41,7 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         });
 
         // Map the sorted data
-        $mappedData = $sortedTugases->map(function ($tugas, $index) {
+        $mappedData = $sortedTugases->map(function ($tugas) {
             return [
                 'Absen Siswa' => $tugas->user->absen,
                 'Siswa' => $tugas->user->name,
@@ -71,7 +71,7 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         $sheet->getParent()->getDefaultStyle()->getFont()->setSize(11);
 
         // Apply styling to the header row (row 3)
-        $sheet->getStyle('A1:E1')->applyFromArray([
+        $sheet->getStyle('A1:D1')->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => ['argb' => 'FFFFFF'],
@@ -93,7 +93,7 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         ]);
 
         // Apply styling to the data rows
-        $sheet->getStyle('A4:E' . $sheet->getHighestRow())->applyFromArray([
+        $sheet->getStyle('A4:D' . $sheet->getHighestRow())->applyFromArray([
             'alignment' => [
                 'vertical' => Alignment::VERTICAL_CENTER,
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
@@ -126,7 +126,7 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 $sheet->setCellValue('A1', $title);
 
                 // Merge cells for the title
-                $sheet->mergeCells('A1:E1');
+                $sheet->mergeCells('A1:D1');
 
                 // Style the title
                 $sheet->getStyle('A1')->applyFromArray([
@@ -148,7 +148,7 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
 
                 // Set the print area
                 $highestRow = $sheet->getHighestRow();
-                $sheet->getPageSetup()->setPrintArea('A1:E' . $highestRow);
+                $sheet->getPageSetup()->setPrintArea('A1:D' . $highestRow);
 
                 // Fit to page width
                 $sheet->getPageSetup()->setFitToWidth(1);
