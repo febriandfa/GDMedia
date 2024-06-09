@@ -93,7 +93,7 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         ]);
 
         // Apply styling to the data rows
-        $sheet->getStyle('A4:D' . $sheet->getHighestRow())->applyFromArray([
+        $sheet->getStyle('A1:D' . $sheet->getHighestRow())->applyFromArray([
             'alignment' => [
                 'vertical' => Alignment::VERTICAL_CENTER,
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
