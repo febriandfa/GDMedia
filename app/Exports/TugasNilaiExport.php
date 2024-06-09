@@ -31,7 +31,6 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         $mappedData = $tugases->tugas_nilai->map(function ($tugas, $index) {
             return [
                 'No' => $index + 1,
-                'Nama Tugas' => $tugas->tugas->nama,
                 'Siswa' => $tugas->user->name,
                 'Absen Siswa' => $tugas->user->absen,
                 'Kelompok' => $tugas->kelompok->name,
@@ -46,7 +45,6 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return [
             'No',
-            'Nama Tugas',
             'Siswa',
             'Absen Siswa',
             'Kelompok',
@@ -57,7 +55,7 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     public function styles(Worksheet $sheet)
     {
         // Set the font size to 12 for the entire worksheet
-        $sheet->getParent()->getDefaultStyle()->getFont()->setSize(8);
+        $sheet->getParent()->getDefaultStyle()->getFont()->setSize(9);
 
         // Apply styling to the header row (row 1)
         $sheet->getStyle('A3:F3')->applyFromArray([
