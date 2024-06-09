@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use Maatwebsite\Excel\Events\AfterSheet;
 
 class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
@@ -57,6 +58,9 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
 
     public function styles(Worksheet $sheet)
     {
+        // Set the font size to 12 for the entire worksheet
+        $sheet->getParent()->getDefaultStyle()->getFont()->setSize(12);
+
         // Apply styling to the header row (row 1)
         $sheet->getStyle('A1:F1')->applyFromArray([
             'font' => [
@@ -89,20 +93,30 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             ],
         ]);
 
-        // Apply specific column widths if ShouldAutoSize is not used
-        // $sheet->getColumnDimension('A')->setWidth(5);
-        // $sheet->getColumnDimension('B')->setWidth(20);
-        // $sheet->getColumnDimension('C')->setWidth(20);
-        // $sheet->getColumnDimension('D')->setWidth(15);
-        // $sheet->getColumnDimension('E')->setWidth(20);
-        // $sheet->getColumnDimension('F')->setWidth(10);
+        return [];
+    }
 
-        // Optional: Apply number formatting to the 'Nilai' column
-        // $sheet->getStyle('F2:F' . $sheet->getHighestRow())->getNumberFormat()->setFormatCode('#,##0.00');
-
+    public function registerEvents(): array
+    {
         return [
-            // Optional: set row height if needed
-            '1' => ['height' => 30],
+            AfterSheet::class => function (AfterSheet $event) {
+                // Set the paper size to A4
+                $event->sheet->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+
+                // Set the print area
+                $highestRow = $event->sheet->getHighestRow();
+                $event->sheet->getPageSetup()->setPrintArea('A1:F' . $highestRow);
+
+                // Fit to page width
+                $event->sheet->getPageSetup()->setFitToWidth(1);
+                $event->sheet->getPageSetup()->setFitToHeight(0);
+
+                // Set margins if needed (optional)
+                $event->sheet->getPageMargins()->setTop(0.75);
+                $event->sheet->getPageMargins()->setBottom(0.75);
+                $event->sheet->getPageMargins()->setLeft(0.7);
+                $event->sheet->getPageMargins()->setRight(0.7);
+            },
         ];
     }
 }
