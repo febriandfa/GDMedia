@@ -26,9 +26,17 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
 
     public function collection()
     {
-        $tugases = Tugas::where('id', $this->id)->with(['tugas_nilai.kelompok.user', 'tugas_nilai.user', 'tugas_nilai.tugas'])->first();
+        $tugases = Tugas::where('id', $this->id)
+            ->with(['tugas_nilai.kelompok.user', 'tugas_nilai.user', 'tugas_nilai.tugas'])
+            ->first();
 
-        $mappedData = $tugases->tugas_nilai->map(function ($tugas, $index) {
+        // Sort the collection by 'Kelompok' name in ascending order
+        $sortedTugases = $tugases->tugas_nilai->sortBy(function ($tugas) {
+            return $tugas->kelompok->name;
+        });
+
+        // Map the sorted data
+        $mappedData = $sortedTugases->map(function ($tugas, $index) {
             return [
                 'No' => $index + 1,
                 'Siswa' => $tugas->user->name,
@@ -40,6 +48,7 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
 
         return $mappedData;
     }
+
 
     public function headings(): array
     {
@@ -81,9 +90,6 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
 
         // Apply styling to the data rows
         $sheet->getStyle('A4:E' . $sheet->getHighestRow())->applyFromArray([
-            'font' => [
-                'color' => ['argb' => 'FFFFFF'],
-            ],
             'alignment' => [
                 'vertical' => Alignment::VERTICAL_CENTER,
                 'wrapText' => true,
