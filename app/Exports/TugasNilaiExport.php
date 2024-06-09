@@ -146,26 +146,22 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 // Set the paper size to A4
                 $sheet->getPageSetup()->setPaperSize(WorksheetPageSetup::PAPERSIZE_A4);
 
-                // Set the print area
                 // $highestRow = $sheet->getHighestRow();
                 // $sheet->getPageSetup()->setPrintArea('A1:D' . $highestRow);
 
-                // Fit to page width
-                $sheet->getPageSetup()->setFitToWidth(1);
-                $sheet->getPageSetup()->setFitToHeight(0);
+                // $sheet->getPageSetup()->setFitToWidth(1);
+                // $sheet->getPageSetup()->setFitToHeight(0);
 
-                // Center the sheet horizontally and vertically
-                $sheet->getPageSetup()->setHorizontalCentered(true);
-                $sheet->getPageSetup()->setVerticalCentered(false);
 
-                // Set margins
-                $sheet->getPageMargins()->setTop(0.75);
-                $sheet->getPageMargins()->setBottom(0.75);
-                $sheet->getPageMargins()->setLeft(0.7);
-                $sheet->getPageMargins()->setRight(0.7);
+                // $sheet->getPageSetup()->setHorizontalCentered(true);
+                // $sheet->getPageSetup()->setVerticalCentered(false);
 
-                // Set orientation to portrait
-                $sheet->getPageSetup()->setOrientation(WorksheetPageSetup::ORIENTATION_PORTRAIT);
+                // $sheet->getPageMargins()->setTop(0.75);
+                // $sheet->getPageMargins()->setBottom(0.75);
+                // $sheet->getPageMargins()->setLeft(0.7);
+                // $sheet->getPageMargins()->setRight(0.7);
+
+                // $sheet->getPageSetup()->setOrientation(WorksheetPageSetup::ORIENTATION_PORTRAIT);
             },
         ];
     }
