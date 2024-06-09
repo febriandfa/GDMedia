@@ -55,10 +55,10 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     public function styles(Worksheet $sheet)
     {
         // Set the font size to 12 for the entire worksheet
-        $sheet->getParent()->getDefaultStyle()->getFont()->setSize(9);
+        $sheet->getParent()->getDefaultStyle()->getFont()->setSize(12);
 
         // Apply styling to the header row (row 3)
-        $sheet->getStyle('A3:E3')->applyFromArray([
+        $sheet->getStyle('A1:E1')->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => ['argb' => 'FFFFFF'],
