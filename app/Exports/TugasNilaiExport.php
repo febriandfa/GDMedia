@@ -68,7 +68,7 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     public function styles(Worksheet $sheet)
     {
         // Set the font size to 12 for the entire worksheet
-        $sheet->getParent()->getDefaultStyle()->getFont()->setSize(11);
+        $sheet->getParent()->getDefaultStyle()->getFont()->setSize(12);
 
         // Apply styling to the header row (row 3)
         $sheet->getStyle('A1:D1')->applyFromArray([
@@ -147,8 +147,8 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 $sheet->getPageSetup()->setPaperSize(WorksheetPageSetup::PAPERSIZE_A4);
 
                 // Set the print area
-                $highestRow = $sheet->getHighestRow();
-                $sheet->getPageSetup()->setPrintArea('A1:D' . $highestRow);
+                // $highestRow = $sheet->getHighestRow();
+                // $sheet->getPageSetup()->setPrintArea('A1:D' . $highestRow);
 
                 // Fit to page width
                 $sheet->getPageSetup()->setFitToWidth(1);
