@@ -43,9 +43,8 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         // Map the sorted data
         $mappedData = $sortedTugases->map(function ($tugas, $index) {
             return [
-                'No' => $index + 1,
-                'Siswa' => $tugas->user->name,
                 'Absen Siswa' => $tugas->user->absen,
+                'Siswa' => $tugas->user->name,
                 'Kelompok' => $tugas->kelompok->name,
                 'Nilai' => $tugas->nilai,
             ];
@@ -59,9 +58,8 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     public function headings(): array
     {
         return [
-            'No',
-            'Siswa',
             'Absen Siswa',
+            'Siswa',
             'Kelompok',
             'Nilai'
         ];
