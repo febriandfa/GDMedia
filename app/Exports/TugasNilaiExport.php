@@ -92,6 +92,7 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         $sheet->getStyle('A4:E' . $sheet->getHighestRow())->applyFromArray([
             'alignment' => [
                 'vertical' => Alignment::VERTICAL_CENTER,
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
                 'wrapText' => true,
             ],
             'borders' => [
