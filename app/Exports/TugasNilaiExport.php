@@ -57,9 +57,10 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         // Set the font size to 12 for the entire worksheet
         $sheet->getParent()->getDefaultStyle()->getFont()->setSize(9);
 
-        // Apply styling to the header row (row 1)
-        $sheet->getStyle('A3:F3')->applyFromArray([
+        // Apply styling to the header row (row 3)
+        $sheet->getStyle('A3:E3')->applyFromArray([
             'font' => [
+                'bold' => true,
                 'color' => ['argb' => 'FFFFFF'],
             ],
             'fill' => [
@@ -79,7 +80,7 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         ]);
 
         // Apply styling to the data rows
-        $sheet->getStyle('A4:F' . $sheet->getHighestRow())->applyFromArray([
+        $sheet->getStyle('A4:E' . $sheet->getHighestRow())->applyFromArray([
             'alignment' => [
                 'vertical' => Alignment::VERTICAL_CENTER,
                 'wrapText' => true,
@@ -101,12 +102,17 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             AfterSheet::class => function (AfterSheet $event) {
                 $sheet = $event->sheet->getDelegate();
 
-                $title = Tugas::where('id', $this->id)->with(['tugas_nilai.kelompok.user', 'tugas_nilai.user', 'tugas_nilai.tugas'])->first()->value('nama');
+                // Set the title
+                $title = Tugas::where('id', $this->id)->value('nama');
 
+                // Insert a row before the headings
+                $sheet->insertNewRowBefore(1, 1);
+
+                // Set the title in the first row
                 $sheet->setCellValue('A1', $title);
 
                 // Merge cells for the title
-                $sheet->mergeCells('A1:F1');
+                $sheet->mergeCells('A1:E1');
 
                 // Style the title
                 $sheet->getStyle('A1')->applyFromArray([
@@ -120,34 +126,32 @@ class TugasNilaiExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                     ],
                 ]);
 
-                // Adjust row heights
+                // Adjust row height for the title
                 $sheet->getRowDimension('1')->setRowHeight(30);
 
-                // Shift everything down to accommodate the title
-                $sheet->insertNewRowBefore(2, 1);
                 // Set the paper size to A4
-                $event->sheet->getPageSetup()->setPaperSize(WorksheetPageSetup::PAPERSIZE_A4);
+                $sheet->getPageSetup()->setPaperSize(WorksheetPageSetup::PAPERSIZE_A4);
 
                 // Set the print area
-                $highestRow = $event->sheet->getHighestRow();
-                $event->sheet->getPageSetup()->setPrintArea('A1:F' . $highestRow);
+                $highestRow = $sheet->getHighestRow();
+                $sheet->getPageSetup()->setPrintArea('A1:E' . $highestRow);
 
                 // Fit to page width
-                $event->sheet->getPageSetup()->setFitToWidth(1);
-                $event->sheet->getPageSetup()->setFitToHeight(0);
+                $sheet->getPageSetup()->setFitToWidth(1);
+                $sheet->getPageSetup()->setFitToHeight(0);
 
                 // Center the sheet horizontally and vertically
-                $event->sheet->getPageSetup()->setHorizontalCentered(true);
-                $event->sheet->getPageSetup()->setVerticalCentered(false);
+                $sheet->getPageSetup()->setHorizontalCentered(true);
+                $sheet->getPageSetup()->setVerticalCentered(false);
 
                 // Set margins
-                $event->sheet->getPageMargins()->setTop(0.75);
-                $event->sheet->getPageMargins()->setBottom(0.75);
-                $event->sheet->getPageMargins()->setLeft(0.7);
-                $event->sheet->getPageMargins()->setRight(0.7);
+                $sheet->getPageMargins()->setTop(0.75);
+                $sheet->getPageMargins()->setBottom(0.75);
+                $sheet->getPageMargins()->setLeft(0.7);
+                $sheet->getPageMargins()->setRight(0.7);
 
                 // Set orientation to portrait
-                $event->sheet->getPageSetup()->setOrientation(WorksheetPageSetup::ORIENTATION_PORTRAIT);
+                $sheet->getPageSetup()->setOrientation(WorksheetPageSetup::ORIENTATION_PORTRAIT);
             },
         ];
     }
